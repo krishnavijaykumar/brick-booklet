@@ -93,10 +93,12 @@ Then regenerate the `CATALOG` line with only the variants that pass the checks, 
 ## Privacy
 Designs and brick counts are stored only in your own browser (`localStorage`). Nothing is uploaded, and there are no accounts and no tracking.
 
-## Contributing
-Ideas, bug reports and new design families are welcome.
-- **Found a bug?** Open an issue with what you did, what you expected, and your browser and device.
-- **Made a family of designs?** Open a pull request. Please keep the app one file with no build step.
+## Use it, change it, share it
+Brick Booklet is open source under the MIT License. You're free to use it at home or in a classroom, change it, host your own copy or build something new on top of it.
+
+- **Your own copy:** click **Fork**, then turn on GitHub Pages in your fork (Settings → Pages → main → / root).
+- **Send improvements back:** open a pull request. Every pull request is checked automatically by `tools/verify.js`, so the library can't be broken by accident. See [CONTRIBUTING.md](CONTRIBUTING.md).
+- **Ideas and bugs:** open an [issue](../../issues/new/choose). There are templates for bugs, model ideas and support for other brick sets.
 
 ## Credits and license
 Created by **Gangisetty Krishna Vijay Kumar**.
