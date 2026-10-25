@@ -1,0 +1,2150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Design LEGO-compatible models from the bricks you own and turn them into big, clear, step-by-step building instructions for kids. 1,454 ready-made designs.">
+<meta property="og:title" content="Brick Booklet">
+<meta property="og:description" content="1,454 brick models you can build from LEGO Classic 10698 + 10696, with step-by-step instructions made for kids.">
+<style>
+:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;font:14px/1.4 system-ui,sans-serif}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<title>Brick Booklet</title>
+<style>
+/* Layout: one calm app shell. Ideas = picture gallery home; Studio = tray | stage | inspector; Build = full-bleed stage with big kid controls. */
+:root{
+  --bg:#ffffff; --bg2:#f5f5f7; --bg3:#e8e8ed; --ink:#1d1d1f; --ink2:#6e6e73; --ink3:#86868b; --line:#d2d2d7;
+  --blue:#0071e3; --blue-h:#0077ed; --on-blue:#ffffff; --good:#248a3d;
+  --warn:#b25000; --warn-bg:#fff4e5; --bad:#d70015; --bad-bg:#fff0f1;
+  --nav:rgba(255,255,255,.78); --card-shadow:0 2px 12px rgba(0,0,0,.05);
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Helvetica Neue","Segoe UI",Roboto,system-ui,sans-serif;
+  --r-card:22px; --r-ctl:12px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#000000;--bg2:#1c1c1e;--bg3:#2c2c2e;--ink:#f5f5f7;--ink2:#a1a1a6;--ink3:#8e8e93;--line:#38383a;
+  --blue:#2997ff;--blue-h:#47a6ff;--on-blue:#ffffff;--good:#30d158;--warn:#ffb340;--warn-bg:#2b2112;--bad:#ff6961;--bad-bg:#2c1416;
+  --nav:rgba(22,22,23,.8);--card-shadow:none;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#000000;--bg2:#1c1c1e;--bg3:#2c2c2e;--ink:#f5f5f7;--ink2:#a1a1a6;--ink3:#8e8e93;--line:#38383a;
+  --blue:#2997ff;--blue-h:#47a6ff;--on-blue:#ffffff;--good:#30d158;--warn:#ffb340;--warn-bg:#2b2112;--bad:#ff6961;--bad-bg:#2c1416;
+  --nav:rgba(22,22,23,.8);--card-shadow:none;color-scheme:dark}
+
+html,body{height:100%}
+.app{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:17px;line-height:1.47;letter-spacing:-.01em;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+button,input,select{font:inherit;color:inherit;letter-spacing:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.025em;text-wrap:balance}
+svg{display:block}
+
+/* nav */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--nav)}
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--nav);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--line)}
+.nav-in{max-width:1400px;margin:0 auto;height:56px;display:flex;align-items:center;gap:16px;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.logo{display:flex;align-items:center;gap:9px;font-weight:700;font-size:17px;white-space:nowrap}
+.logo svg{width:24px;height:20px}
+.seg{display:flex;background:var(--bg3);border-radius:10px;padding:2px;margin-left:auto}
+.seg button{border:0;background:none;padding:5px 16px;border-radius:8px;font-size:14px;font-weight:600;color:var(--ink2)}
+.seg button[aria-selected="true"]{background:var(--bg);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.seg button:disabled{opacity:.4;cursor:default}
+.status{font-size:13px;color:var(--ink3);white-space:nowrap;min-width:0;overflow:hidden;text-overflow:ellipsis}
+@media (max-width:560px){.status{display:none}.logo span{display:none}}
+
+/* shared controls */
+.pill{border:0;border-radius:980px;padding:10px 20px;font-size:15px;font-weight:600;background:var(--bg3);color:var(--ink);white-space:nowrap}
+.pill:hover{filter:brightness(.97)}
+.pill.primary{background:var(--blue);color:var(--on-blue)}
+.pill.primary:hover{background:var(--blue-h);filter:none}
+.pill.small{padding:7px 14px;font-size:14px}
+.pill:disabled{opacity:.4;cursor:not-allowed}
+.link{border:0;background:none;color:var(--blue);font-size:15px;font-weight:500;padding:6px 4px}
+.link:hover{text-decoration:underline}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);margin:0}
+
+/* views */
+.app[data-view="ideas"] .work{display:none}
+.app:not([data-view="ideas"]) .ideas{display:none}
+.app[data-view="build"] .studio-only{display:none!important}
+.app:not([data-view="build"]) .build-only{display:none!important}
+
+/* ---------- Ideas (home) ---------- */
+.ideas{max-width:1200px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px));padding-block:48px 72px}
+.hero{text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px;margin-bottom:56px}
+.hero h1{font-size:clamp(34px,5.4vw,56px);line-height:1.07}
+.hero .sub{font-size:clamp(17px,2vw,21px);color:var(--ink2);margin:0}
+.ask{display:flex;gap:10px;width:min(640px,100%);margin-top:14px;background:var(--bg2);border-radius:980px;padding:6px 6px 6px 22px;align-items:center}
+.ask input{flex:1;min-width:0;border:0;background:none;font-size:19px;outline:none;padding:8px 0}
+.ask input::placeholder{color:var(--ink3)}
+.ask .pill{padding:12px 24px;font-size:16px}
+.result{width:min(760px,100%);background:var(--bg2);border-radius:var(--r-card);padding:18px;display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:center;text-align:left;margin-top:6px}
+.result img{width:100%;aspect-ratio:4/3;object-fit:contain;border-radius:14px;background:var(--bg)}
+.result h3{font-size:26px}
+.result p{margin:4px 0 14px;color:var(--ink2);font-size:15px}
+.result .acts{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.result .wait{display:flex;align-items:center;gap:10px;color:var(--ink2);font-size:15px;margin-bottom:12px}
+.result.err p{color:var(--bad)}
+.result.noimg{grid-template-columns:1fr}
+@media (max-width:600px){.result{grid-template-columns:1fr}}
+.spin{width:18px;height:18px;border-radius:50%;border:2.5px solid var(--bg3);border-top-color:var(--blue);animation:sp .8s linear infinite;flex:none}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+.sec{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 0 18px}
+.sec h2{font-size:clamp(24px,3vw,32px)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px;margin-bottom:56px}
+.card{position:relative;border:0;text-align:left;background:var(--bg2);border-radius:var(--r-card);padding:0;overflow:hidden;display:flex;flex-direction:column;transition:transform .25s ease,box-shadow .25s ease}
+.card:hover{transform:scale(1.015);box-shadow:var(--card-shadow)}
+.cardbtn{all:unset;display:flex;flex-direction:column;cursor:pointer;border-radius:var(--r-card)}
+.cardbtn:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.card .pic{aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;padding:10px}
+.card .pic img{width:100%;height:100%;object-fit:contain}
+.card .pic .ph{width:42%;aspect-ratio:1;border-radius:50%;background:var(--bg3)}
+.card .meta{padding:2px 20px 18px;display:flex;flex-direction:column;gap:2px}
+.card h3{font-size:21px}
+.card .meta span{font-size:14px;color:var(--ink2)}
+.card .edit{position:absolute;top:12px;right:12px;border:0;border-radius:980px;background:var(--bg);color:var(--ink);font-size:13px;font-weight:600;padding:6px 12px;opacity:0;transition:opacity .2s}
+.card:hover .edit,.card:focus-within .edit{opacity:1}
+@media (hover:none){.card .edit{opacity:1}}
+.card.new{align-items:center;justify-content:center;min-height:200px;color:var(--blue);font-weight:600;gap:10px;border:2px dashed var(--line);background:none}
+.card.new svg{width:44px;height:44px}
+.card.surprise .pic{background:linear-gradient(135deg,#ffcc00 0 25%,#ff3b30 25% 50%,#007aff 50% 75%,#34c759 75%);}
+.card.surprise .pic b{font-size:72px;color:#fff;font-weight:800;text-shadow:0 2px 0 rgba(0,0,0,.15)}
+
+.filters{display:flex;flex-direction:column;gap:12px;margin-bottom:14px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chips button{flex:none;border:0;border-radius:980px;padding:8px 16px;font-size:15px;font-weight:600;background:var(--bg2);color:var(--ink)}
+.chips button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.sizes{display:flex;gap:6px;flex-wrap:wrap}
+.sizes button{border:0;background:none;border-radius:980px;padding:5px 12px;font-size:14px;color:var(--ink2);box-shadow:inset 0 0 0 1px var(--line)}
+.sizes button[aria-pressed="true"]{color:var(--blue);box-shadow:inset 0 0 0 1.5px var(--blue)}
+.libcount{color:var(--ink2);font-size:15px;margin:0 0 16px}
+.morebox{display:flex;justify-content:center;margin:-24px 0 56px}
+.grid .empty{padding:40px 16px}
+
+/* ---------- Work area (Studio + Build) ---------- */
+.work{display:grid;grid-template-columns:280px minmax(0,1fr) 300px;gap:16px;height:calc(100% - 57px);padding:16px max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.app[data-view="build"] .work{grid-template-columns:minmax(0,1fr);padding:0}
+.panel{background:var(--bg2);border-radius:var(--r-card);padding:18px;overflow:auto;min-height:0;display:flex;flex-direction:column;gap:18px}
+.panel h3{font-size:19px}
+.stage{position:relative;border-radius:var(--r-card);overflow:hidden;background:var(--bg2);min-height:0;touch-action:none}
+.app[data-view="build"] .stage{border-radius:0;background:var(--bg)}
+.stage canvas{display:block;width:100%;height:100%}
+
+.segs{display:flex;background:var(--bg3);border-radius:10px;padding:2px}
+.segs button{flex:1;border:0;background:none;padding:6px 4px;border-radius:8px;font-size:13px;font-weight:600;color:var(--ink2)}
+.segs button[aria-pressed="true"]{background:var(--bg);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.shapes{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.shape{border:0;background:var(--bg);border-radius:14px;padding:6px 4px 8px;display:flex;flex-direction:column;align-items:center;font-size:13px;font-weight:600;box-shadow:inset 0 0 0 1px var(--line)}
+.shape img{width:100%;aspect-ratio:4/3;object-fit:contain}
+.shape small{font-weight:500;color:var(--ink3);font-size:11px;font-variant-numeric:tabular-nums}
+.shape[aria-pressed="true"]{box-shadow:inset 0 0 0 2.5px var(--blue)}
+.colors{display:grid;grid-template-columns:repeat(8,1fr);gap:8px}
+.sw{position:relative;border:0;border-radius:50%;aspect-ratio:1;box-shadow:inset 0 0 0 1px rgba(0,0,0,.15)}
+.sw[aria-pressed="true"]{box-shadow:0 0 0 2px var(--bg2),0 0 0 4px var(--blue)}
+.sw.zero{opacity:.25}
+.sw .n{position:absolute;right:-5px;bottom:-5px;min-width:18px;height:18px;border-radius:9px;background:var(--bg);color:var(--ink);font-size:10px;font-weight:700;line-height:18px;text-align:center;padding:0 4px;box-shadow:0 0 0 1px var(--line);font-variant-numeric:tabular-nums}
+.cname{font-size:14px;color:var(--ink2);margin:8px 0 0}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.row .pill{flex:1}
+.check{display:flex;gap:8px;align-items:center;font-size:14px;color:var(--ink2);margin-top:10px}
+.hint{font-size:13px;color:var(--ink3);margin:0;line-height:1.45}
+kbd{font-family:var(--font);background:var(--bg);border-radius:5px;padding:0 5px;font-size:12px;box-shadow:inset 0 0 0 1px var(--line)}
+
+.namefield{border:0;background:var(--bg);border-radius:var(--r-ctl);padding:10px 12px;font-size:19px;font-weight:700;width:100%;letter-spacing:-.02em}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stats div{background:var(--bg);border-radius:14px;padding:10px 12px}
+.stats b{display:block;font-size:24px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.stats small{font-size:12px;color:var(--ink2)}
+.notice{border-radius:14px;padding:10px 12px;font-size:14px;display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.notice.warn{background:var(--warn-bg);color:var(--warn)}
+.notice.bad{background:var(--bad-bg);color:var(--bad)}
+.notice.ok{background:var(--bg);color:var(--good)}
+.notice .link{padding:0;font-size:14px}
+.parts{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.parts li{display:grid;grid-template-columns:48px 1fr auto;gap:10px;align-items:center;padding:4px 8px 4px 2px;border-radius:12px}
+.parts li.short{background:var(--bad-bg)}
+.parts img{width:48px;height:36px;object-fit:contain}
+.parts .nm{font-size:14px;font-weight:600;min-width:0;line-height:1.25}
+.parts .nm small{display:block;font-weight:400;color:var(--ink2);font-size:12px}
+.parts li.short .nm small{color:var(--bad)}
+.parts .q{font-size:17px;font-weight:700;font-variant-numeric:tabular-nums}
+.empty{color:var(--ink2);font-size:14px;text-align:center;padding:22px 8px;border-radius:14px;background:var(--bg)}
+
+.toast{position:absolute;top:16px;left:50%;transform:translate(-50%,-8px);background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:980px;font-size:14px;font-weight:600;opacity:0;transition:opacity .2s,transform .2s;pointer-events:none;max-width:90%;text-align:center;z-index:5}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.hud{position:absolute;left:14px;right:14px;bottom:14px;display:flex;justify-content:space-between;gap:8px;pointer-events:none;font-size:13px;color:var(--ink2)}
+.hud span{background:var(--bg);border-radius:980px;padding:5px 12px;box-shadow:var(--card-shadow)}
+
+/* ---------- Build (kid) ---------- */
+.bar{position:absolute;top:0;left:0;right:0;height:5px;background:var(--bg3)}
+.bar i{display:block;height:100%;width:0;background:var(--blue);transition:width .4s ease}
+.stepbox{position:absolute;top:calc(28px + env(safe-area-inset-top,0px));left:max(28px,env(safe-area-inset-left,0px));display:flex;flex-direction:column;gap:2px}
+.stepbox .eyebrow{font-size:13px}
+.stepnum{font-size:88px;font-weight:700;line-height:.95;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.stepnum small{font-size:22px;font-weight:600;color:var(--ink3);letter-spacing:-.01em;margin-left:6px}
+.layerchip{align-self:flex-start;margin-top:8px;font-size:13px;font-weight:600;background:var(--bg2);border-radius:980px;padding:4px 12px;color:var(--ink2)}
+.find{position:absolute;left:max(28px,env(safe-area-inset-left,0px));bottom:calc(28px + env(safe-area-inset-bottom,0px));background:var(--bg2);border-radius:28px;padding:16px 22px 18px;display:flex;flex-direction:column;gap:6px;max-width:calc(100% - 200px)}
+.find .eyebrow{font-size:13px}
+.find .items{display:flex;flex-wrap:wrap;gap:18px}
+.find figure{margin:0;display:flex;align-items:center;gap:8px}
+.find img{width:120px;height:90px;object-fit:contain}
+.find .x{font-size:44px;font-weight:700;letter-spacing:-.03em}
+.find figcaption{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.navbtns{position:absolute;right:max(28px,env(safe-area-inset-right,0px));bottom:calc(28px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:14px}
+.round{border:0;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform .12s}
+.round:active{transform:scale(.94)}
+.round.next{width:104px;height:104px;background:var(--blue);color:var(--on-blue);box-shadow:0 8px 24px rgba(0,113,227,.35)}
+.round.next svg{width:44px;height:44px}
+.round.back{width:64px;height:64px;background:var(--bg2);color:var(--ink)}
+.round.back svg{width:28px;height:28px}
+.round:disabled{opacity:.3}
+.tools-top{position:absolute;top:calc(22px + env(safe-area-inset-top,0px));right:max(22px,env(safe-area-inset-right,0px));display:flex;gap:8px;align-items:center}
+.iconbtn{border:0;width:44px;height:44px;border-radius:50%;background:var(--bg2);display:flex;align-items:center;justify-content:center;color:var(--ink)}
+.iconbtn[aria-pressed="true"]{background:var(--blue);color:var(--on-blue)}
+.iconbtn svg{width:22px;height:22px}
+.perstep{display:flex;background:var(--bg2);border-radius:980px;padding:3px}
+.perstep button{border:0;background:none;border-radius:980px;padding:6px 12px;font-size:13px;font-weight:600;color:var(--ink2)}
+.perstep button[aria-pressed="true"]{background:var(--bg);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.done{position:absolute;inset:0;display:flex;align-items:flex-start;justify-content:center;padding-top:9vh;pointer-events:none}
+.done div{text-align:center;pointer-events:auto;display:flex;flex-direction:column;gap:12px;align-items:center}
+.done h2{font-size:clamp(44px,7vw,80px);line-height:1}
+.done p{margin:0;color:var(--ink2);font-size:19px}
+#confetti{position:absolute;inset:0;pointer-events:none}
+
+@media (max-width:1000px){
+  html,body{height:auto}
+  .work{grid-template-columns:1fr;height:auto}
+  .stage{height:60vh;min-height:340px;order:-1}
+  .app[data-view="build"] .work{height:calc(100vh - 57px)}
+  .app[data-view="build"] .stage{height:100%}
+  .colors{grid-template-columns:repeat(8,1fr)}
+  .shapes{grid-template-columns:repeat(4,1fr)}
+}
+@media (max-width:640px){
+  .stepnum{font-size:60px}
+  .find{left:12px;right:12px;bottom:calc(132px + env(safe-area-inset-bottom,0px));max-width:none;padding:12px 16px}
+  .find img{width:84px;height:63px}.find .x{font-size:32px}
+  .navbtns{left:12px;right:12px;bottom:calc(16px + env(safe-area-inset-bottom,0px));justify-content:space-between}
+  .stepbox{left:16px;top:20px}
+  .tools-top{right:12px;top:16px}
+  .shapes{grid-template-columns:repeat(3,1fr)}
+}
+
+/* dialogs */
+dialog{border:0;border-radius:var(--r-card);background:var(--bg);color:var(--ink);padding:0;width:min(600px,94vw);max-height:86vh;box-shadow:0 24px 80px rgba(0,0,0,.25)}
+dialog::backdrop{background:rgba(0,0,0,.35);backdrop-filter:blur(4px)}
+.dlg{display:flex;flex-direction:column;max-height:86vh}
+.dlg header,.dlg footer{padding:18px 22px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.dlg footer{justify-content:flex-end;border-top:1px solid var(--line)}
+.dlg h2{font-size:24px;flex:1}
+.dlg .body{overflow:auto;padding:0 22px 18px;display:flex;flex-direction:column;gap:14px}
+.inv-colors{display:grid;grid-template-columns:repeat(8,1fr);gap:8px}
+.inv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px}
+.inv-item{display:grid;grid-template-columns:52px 1fr;gap:8px;align-items:center;background:var(--bg2);border-radius:14px;padding:6px 10px 6px 4px}
+.inv-item img{width:52px;height:39px;object-fit:contain}
+.inv-item label{font-size:13px;font-weight:600;display:block}
+.inv-item input{width:72px;border:0;border-radius:8px;padding:4px 8px;background:var(--bg);font-variant-numeric:tabular-nums;margin-top:2px}
+.est{color:var(--warn);font-weight:700}
+.note{background:var(--bg2);border-radius:14px;padding:12px 14px;font-size:14px;color:var(--ink2);margin:0}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<style>
+.legal{max-width:1200px;margin:0 auto;padding:0 max(20px,env(safe-area-inset-left,0px)) 40px max(20px,env(safe-area-inset-right,0px));font-size:12px;color:var(--ink3);text-align:center}
+.legal a{color:var(--ink2)}
+.app:not([data-view="ideas"])~.legal{display:none}
+.app[data-view="ideas"]{height:auto}
+</style>
+</head>
+<body>
+<div class="app" id="app" data-view="ideas">
+  <nav class="nav"><div class="nav-in">
+    <div class="logo"><svg viewBox="0 0 24 20" aria-hidden="true"><rect x="1" y="6" width="22" height="13" rx="2.5" fill="#e3000b"/><rect x="4" y="2" width="6" height="5" rx="1.5" fill="#e3000b"/><rect x="14" y="2" width="6" height="5" rx="1.5" fill="#e3000b"/></svg><span>Brick Booklet</span></div>
+    <div class="seg" role="tablist" aria-label="Sections">
+      <button role="tab" data-view="ideas" aria-selected="true">Ideas</button>
+      <button role="tab" data-view="studio" aria-selected="false">Studio</button>
+      <button role="tab" data-view="build" aria-selected="false">Build</button>
+    </div>
+    <span class="status" id="status">Connecting…</span>
+  </div></nav>
+
+  <!-- Ideas -->
+  <main class="ideas" id="ideasView">
+    <section class="hero">
+      <h1>What shall we build today?</h1>
+      <p class="sub" id="heroCount">Every model uses only the bricks in your box.</p>
+      <form class="ask" id="askForm" autocomplete="off">
+        <input id="askInput" placeholder="Try “aeroplane”, “dinosaur”, “fire truck”" maxlength="80" aria-label="What to build">
+        <button class="pill primary" type="submit">Make it</button>
+      </form>
+      <div class="result" id="result" hidden>
+        <img id="resImg" alt="">
+        <div>
+          <div class="wait" id="resWait" hidden><span class="spin"></span><span id="resWaitText"></span></div>
+          <h3 id="resName"></h3>
+          <p id="resMeta"></p>
+          <div class="acts">
+            <button class="pill primary" id="resBuild">Start building</button>
+            <button class="pill" id="resAnother">Show me another</button>
+            <button class="pill" id="resColours">Other colours</button>
+            <button class="pill" id="resClaude">Ask Claude for another</button>
+            <button class="pill" id="resStop" hidden>Stop</button>
+            <button class="link" id="resEdit">Edit in Studio</button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="sec" id="mineHead"><h2>Your designs</h2></div>
+    <div class="grid" id="mineGrid"></div>
+    <div class="sec"><h2>Design library</h2><button class="link" id="boxBtn">My brick box</button></div>
+    <div class="filters">
+      <div class="chips" id="catChips" role="group" aria-label="Category"></div>
+      <div class="sizes" id="sizeSeg" role="group" aria-label="Size"></div>
+    </div>
+    <p class="libcount" id="libCount"></p>
+    <div class="grid" id="ideaGrid"></div>
+    <div class="morebox"><button class="pill" id="showMore" hidden>Show more</button></div>
+  </main>
+
+  <!-- Studio + Build -->
+  <section class="work" id="work">
+    <aside class="panel studio-only" aria-label="Pieces">
+      <div class="segs" role="group" aria-label="Tool">
+        <button data-tool="place" aria-pressed="true">Add</button>
+        <button data-tool="paint" aria-pressed="false">Paint</button>
+        <button data-tool="erase" aria-pressed="false">Remove</button>
+      </div>
+      <div>
+        <div class="segs" role="group" aria-label="Piece type" style="margin-bottom:10px">
+          <button data-kind="brick" aria-pressed="true">Bricks</button>
+          <button data-kind="plate" aria-pressed="false">Plates</button>
+          <button data-kind="slope" aria-pressed="false">Slopes</button>
+        </div>
+        <div class="shapes" id="shapes"></div>
+      </div>
+      <div>
+        <p class="eyebrow" style="margin-bottom:10px">Colour</p>
+        <div class="colors" id="colors"></div>
+        <p class="cname" id="colorName"></p>
+        <label class="check"><input type="checkbox" id="ownedOnly"> Only colours I have</label>
+      </div>
+      <div class="row">
+        <button class="pill small" id="rotBtn">Turn <kbd>R</kbd></button>
+        <button class="pill small" id="undoBtn">Undo</button>
+        <button class="pill small" id="redoBtn">Redo</button>
+      </div>
+      <div>
+        <p class="eyebrow" style="margin-bottom:8px">Base plate</p>
+        <div class="segs" role="group" aria-label="Base plate" id="baseSeg">
+          <button data-base="16x16" aria-pressed="true">16×16</button>
+          <button data-base="8x16" aria-pressed="false">8×16</button>
+          <button data-base="6x12" aria-pressed="false">6×12</button>
+          <button data-base="24x16" aria-pressed="false" title="16×16 and 8×16 side by side">Two plates</button>
+        </div>
+      </div>
+      <p class="hint">Click the plate to add. Drag to look around. Scroll or pinch to zoom.</p>
+    </aside>
+
+    <div class="stage" id="stage">
+      <canvas id="cv" aria-label="3D model"></canvas>
+      <div class="toast" id="toast" role="status"></div>
+      <div class="hud studio-only"><span id="hoverInfo">Pick a piece, then click the plate</span><span id="layerInfo" hidden></span></div>
+
+      <div class="bar build-only"><i id="prog"></i></div>
+      <div class="stepbox build-only" aria-live="polite">
+        <p class="eyebrow">Step</p>
+        <div class="stepnum"><span id="stepNo">1</span><small id="stepOf">/ 10</small></div>
+        <span class="layerchip" id="layerChip">Layer 1</span>
+      </div>
+      <div class="tools-top build-only">
+        <div class="perstep" role="group" aria-label="Pieces per step" id="perSeg">
+          <button data-per="1" aria-pressed="false">1</button><button data-per="2" aria-pressed="false">2</button><button data-per="3" aria-pressed="true">3</button><button data-per="4" aria-pressed="false">4</button>
+        </div>
+        <button class="iconbtn" id="sayBtn" aria-pressed="false" aria-label="Read steps aloud" title="Read steps aloud">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+        </button>
+        <button class="iconbtn" id="viewBtn" aria-label="Show the whole model" title="Show the whole model">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9V4h5M21 9V4h-5M3 15v5h5M21 15v5h-5"/></svg>
+        </button>
+      </div>
+      <div class="find build-only" id="findBox">
+        <p class="eyebrow" id="findLabel">Find</p>
+        <div class="items" id="find"></div>
+      </div>
+      <div class="navbtns build-only">
+        <button class="round back" id="backBtn" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+        <button class="round next" id="nextBtn" aria-label="Next step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+      </div>
+      <canvas id="confetti" class="build-only" hidden></canvas>
+      <div class="done build-only" id="done" hidden><div><h2>You built it!</h2><p id="doneSub"></p><div class="row"><button class="pill" id="againBtn">Build again</button><button class="pill primary" id="moreBtn">Build something else</button></div></div></div>
+    </div>
+
+    <aside class="panel studio-only" aria-label="Model">
+      <input class="namefield" id="modelName" aria-label="Model name" maxlength="40">
+      <div class="stats">
+        <div><b id="sumPieces">0</b><small>pieces</small></div>
+        <div><b id="sumSteps">0</b><small>steps</small></div>
+        <div><b id="sumLayers">0</b><small>layers</small></div>
+      </div>
+      <div id="checks"></div>
+      <div>
+        <p class="eyebrow" style="margin-bottom:8px">Parts</p>
+        <ul class="parts" id="parts"></ul>
+      </div>
+      <button class="pill primary" id="toBuild">Build this</button>
+      <div class="row">
+        <button class="pill small" id="newBtn">New</button>
+        <button class="pill small" id="dupBtn">Copy</button>
+        <button class="pill small" id="delBtn">Delete</button>
+      </div>
+      <button class="link" id="invBtn" style="align-self:flex-start">My brick box</button>
+    </aside>
+  </section>
+</div>
+
+<footer class="legal">Brick Booklet is an independent, open-source project. It is not affiliated with, endorsed or sponsored by the LEGO Group. LEGO® is a trademark of the LEGO Group. · <a href="https://github.com/krishnavijaykumar/brick-booklet" target="_blank" rel="noopener">Source code</a></footer>
+<dialog id="invDlg">
+  <form class="dlg" method="dialog">
+    <header><h2>My brick box</h2></header>
+    <div class="body">
+      <p class="note">Counts start from LEGO’s parts lists for 10698 and 10696. Numbers marked <span class="est">≈</span> are estimates. Count those once so every idea fits your box exactly.</p>
+      <div class="inv-colors" id="invColors"></div>
+      <div class="inv-grid" id="invGrid"></div>
+    </div>
+    <footer>
+      <button type="button" class="pill" id="invReset">Reset to set lists</button>
+      <button type="submit" class="pill primary" value="close">Done</button>
+    </footer>
+  </form>
+</dialog>
+
+<dialog id="confirmDlg">
+  <form class="dlg" method="dialog">
+    <header><h2>Delete this design?</h2></header>
+    <div class="body"><p id="confirmText" style="margin:0;color:var(--ink2)"></p></div>
+    <footer>
+      <button type="submit" class="pill" value="no">Keep it</button>
+      <button type="submit" class="pill primary" value="yes" style="background:var(--bad)">Delete</button>
+    </footer>
+  </form>
+</dialog>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/utils/BufferGeometryUtils.js"></script>
+<script>
+/*ENGINE*/
+const SHAPES = {
+  b1x1:{w:1,d:1,h:3,kind:'brick'}, b1x2:{w:1,d:2,h:3,kind:'brick'}, b1x3:{w:1,d:3,h:3,kind:'brick'},
+  b1x4:{w:1,d:4,h:3,kind:'brick'}, b1x6:{w:1,d:6,h:3,kind:'brick'}, b2x2:{w:2,d:2,h:3,kind:'brick'},
+  b2x3:{w:2,d:3,h:3,kind:'brick'}, b2x4:{w:2,d:4,h:3,kind:'brick'}, b2x6:{w:2,d:6,h:3,kind:'brick'},
+  b2x8:{w:2,d:8,h:3,kind:'brick'},
+  p1x2:{w:1,d:2,h:1,kind:'plate'}, p1x3:{w:1,d:3,h:1,kind:'plate'}, p1x4:{w:1,d:4,h:1,kind:'plate'},
+  p2x2:{w:2,d:2,h:1,kind:'plate'}, p2x3:{w:2,d:3,h:1,kind:'plate'}, p2x4:{w:2,d:4,h:1,kind:'plate'},
+  p4x4:{w:4,d:4,h:1,kind:'plate'}, p4x8:{w:4,d:8,h:1,kind:'plate'},
+  s1x2:{w:1,d:2,h:3,kind:'slope'}, s2x2:{w:2,d:2,h:3,kind:'slope'}, s2x4:{w:4,d:2,h:3,kind:'slope'}
+};
+const KIND_WORD = {brick:'brick',plate:'plate',slope:'slope'};
+function shapeLabel(t){const s=SHAPES[t];const a=Math.min(s.w,s.d),b=Math.max(s.w,s.d);return a+'×'+b+' '+KIND_WORD[s.kind]}
+function shapeSpeech(t){const s=SHAPES[t];const a=Math.min(s.w,s.d),b=Math.max(s.w,s.d);return a+' by '+b+' '+KIND_WORD[s.kind]}
+
+const COLORS = {
+  red:{name:'Red',hex:'#C91A09'}, orange:{name:'Orange',hex:'#FE8A18'}, yellow:{name:'Yellow',hex:'#F2CD37'},
+  lime:{name:'Lime',hex:'#BBE90B'}, green:{name:'Green',hex:'#237841'}, aqua:{name:'Light aqua',hex:'#ADC3C0'},
+  sky:{name:'Sky blue',hex:'#36AEBF'}, blue:{name:'Blue',hex:'#0055BF'}, pink:{name:'Pink',hex:'#C870A0'},
+  magenta:{name:'Magenta',hex:'#923978'}, tan:{name:'Tan',hex:'#E4CD9E'}, brown:{name:'Brown',hex:'#6B3A1E'},
+  white:{name:'White',hex:'#F4F4F4'}, lgray:{name:'Light grey',hex:'#A0A5A9'}, dgray:{name:'Dark grey',hex:'#6C6E68'},
+  black:{name:'Black',hex:'#2A2E33'}
+};
+
+// From LEGO's replacement-parts inventories of 10698 + 10696 (as listed on Brickset), combined.
+const INV_LISTED = {
+  black:{b2x3:8,b1x2:4,s1x2:12,b2x6:2,b1x1:3,p2x4:2},
+  tan:{b1x2:4,p1x4:2,p1x2:4,p2x2:2,p2x4:2,b2x4:2,s1x2:8,b1x3:4,b1x4:4,p1x3:4},
+  blue:{b2x4:8,b2x3:4,b2x2:4,s2x2:6,p1x4:4,p4x4:5,b1x1:2,b1x4:6,s1x2:2},
+  green:{p4x4:3,b1x2:4,b2x6:2},
+  orange:{p1x4:2,b1x4:4,b1x2:19,b2x2:4,b2x4:2,p1x2:2,b1x3:2,s2x2:2,b2x3:2,p2x4:1,b1x1:3,s1x2:2},
+  pink:{b2x2:6},
+  red:{b2x4:10,b2x2:4,b1x2:8,b1x6:2,p2x2:2,p1x2:2,s1x2:2,b2x8:1},
+  magenta:{s2x4:4,s2x2:8,s1x2:4,b1x1:4,p1x4:2,b1x4:2},
+  yellow:{b2x4:4,b2x2:2,b1x6:2,p2x3:2,p4x8:1,p1x4:2},
+  aqua:{b1x2:4}
+};
+// The rest of both lists could not be read; these are estimates to be counted and corrected.
+const INV_ESTIMATED = {
+  yellow:{b1x2:6,b1x4:4,b1x1:4,b2x3:2},
+  white:{b2x4:6,b2x3:4,b2x2:4,b1x4:4,b1x2:10,b1x1:6,p2x4:2,p1x2:4},
+  lgray:{b2x4:4,b2x2:4,b1x2:6,b1x4:2,p2x2:2},
+  dgray:{b2x4:4,b2x3:2,b1x2:4,b1x1:4},
+  lime:{b2x4:2,b2x2:4,b1x2:6,b1x1:4},
+  green:{b2x4:2,b2x2:4},
+  sky:{b2x4:2,b2x2:2,b1x2:4},
+  brown:{b2x2:2,b1x2:4,b1x4:2}
+};
+function defaultInventory(){
+  const counts={},est={};
+  for(const [c,m] of Object.entries(INV_LISTED)) for(const [t,n] of Object.entries(m)) counts[t+'|'+c]=(counts[t+'|'+c]||0)+n;
+  for(const [c,m] of Object.entries(INV_ESTIMATED)) for(const [t,n] of Object.entries(m)){counts[t+'|'+c]=(counts[t+'|'+c]||0)+n;est[t+'|'+c]=true}
+  return {counts,est};
+}
+
+function footprint(t,r){const s=SHAPES[t];return (r%2===0)?{fw:s.w,fd:s.d}:{fw:s.d,fd:s.w}}
+// world cells covered, with whether that cell's top has studs
+function cellsOf(t,r,x,z){
+  const s=SHAPES[t],{fw,fd}=footprint(t,r),out=[];
+  const a=-r*Math.PI/2,ca=Math.round(Math.cos(a)),sa=Math.round(Math.sin(a));
+  for(let i=0;i<s.w;i++)for(let j=0;j<s.d;j++){
+    const lx=i-s.w/2+.5, lz=j-s.d/2+.5;
+    const wx=lx*ca+lz*sa, wz=-lx*sa+lz*ca;
+    const cx=Math.floor(x+fw/2+wx), cz=Math.floor(z+fd/2+wz);
+    out.push({x:cx,z:cz,stud: s.kind!=='slope' || j===s.d-1});
+  }
+  return out;
+}
+function buildOcc(bricks){
+  const occ=new Map();
+  for(const b of bricks){
+    const h=SHAPES[b.t].h;
+    for(const c of cellsOf(b.t,b.r,b.x,b.z)){
+      const k=c.x+','+c.z; if(!occ.has(k))occ.set(k,[]);
+      occ.get(k).push({y0:b.y,y1:b.y+h,id:b.id,stud:c.stud});
+    }
+  }
+  return occ;
+}
+function topAt(occ,x,z){const a=occ.get(x+','+z);if(!a)return null;let best=null;for(const s of a)if(!best||s.y1>best.y1)best=s;return best}
+const MAX_Y=72;
+function dropPlacement(occ,t,r,x,z,base){
+  const cells=cellsOf(t,r,x,z);
+  for(const c of cells) if(c.x<0||c.z<0||c.x>=base.w||c.z>=base.d) return {ok:false,why:'Off the edge of the plate',y:0};
+  let y=0;
+  for(const c of cells){const tp=topAt(occ,c.x,c.z);if(tp&&tp.y1>y)y=tp.y1}
+  for(const c of cells){const tp=topAt(occ,c.x,c.z);if(tp&&tp.y1===y&&!tp.stud)return {ok:false,why:'Pieces can’t stick to the sloped side',y}}
+  if(y+SHAPES[t].h>MAX_Y) return {ok:false,why:'That’s too tall',y};
+  return {ok:true,y};
+}
+function blockersAbove(occ,b){
+  const ids=new Set();const top=b.y+SHAPES[b.t].h;
+  for(const c of cellsOf(b.t,b.r,b.x,b.z)){const a=occ.get(c.x+','+c.z)||[];for(const s of a)if(s.y0>=top)ids.add(s.id)}
+  return ids;
+}
+function partsCount(bricks){const m={};for(const b of bricks){const k=b.t+'|'+b.c;m[k]=(m[k]||0)+1}return m}
+// Steps: bottom layer first; inside a layer, one kind of piece per step (easy to find), neighbours together.
+function buildSteps(bricks,per){
+  per=per||3;
+  const layers=new Map();
+  for(const b of bricks){const k=(b.p||0)*1000+b.y;if(!layers.has(k))layers.set(k,[]);layers.get(k).push(b)}
+  const steps=[];
+  for(const y of [...layers.keys()].sort((a,b)=>a-b)){
+    const groups=new Map();
+    for(const b of layers.get(y)){const k=b.t+'|'+b.c;if(!groups.has(k))groups.set(k,[]);groups.get(k).push(b)}
+    const gl=[...groups.values()].map(g=>g.sort((a,b)=>a.z-b.z||a.x-b.x));
+    gl.sort((a,b)=>(a[0].z-b[0].z)||(a[0].x-b[0].x));
+    const start=steps.length;
+    for(const g of gl){
+      for(let i=0;i<g.length;i+=per){
+        const chunk=g.slice(i,i+per);
+        const prev=steps.length>start?steps[steps.length-1]:null;
+        const kinds=prev?new Set(prev.map(b=>b.t+'|'+b.c)).size:0;
+        if(prev&&kinds===1&&prev.length+chunk.length<=per&&prev[0].t+'|'+prev[0].c!==chunk[0].t+'|'+chunk[0].c)prev.push(...chunk);
+        else steps.push(chunk);
+      }
+    }
+  }
+  return steps;
+}
+// How many studs hold each piece: below (what it sits on) and above (what sits on it).
+function connections(bricks){
+  const occ=buildOcc(bricks),out=new Map();
+  for(const b of bricks){
+    const h=SHAPES[b.t].h;let below=0,above=0;
+    for(const c of cellsOf(b.t,b.r,b.x,b.z)){
+      const segs=occ.get(c.x+','+c.z)||[];
+      if(b.y===0)below++;else if(segs.some(s=>s.y1===b.y&&s.stud&&s.id!==b.id))below++;
+      if(c.stud&&segs.some(s=>s.y0===b.y+h&&s.id!==b.id))above++;
+    }
+    out.set(b.id,{below,above});
+  }
+  return out;
+}
+// Pieces held by a single stud spin and fall off in small hands.
+function wobbly(bricks){
+  const con=connections(bricks);
+  return bricks.filter(b=>{const c=con.get(b.id);return areaOf(b.t)>1&&c.below+c.above<=1}).map(b=>b.id);
+}
+// Recolour pieces the box doesn't have enough of, to a colour that is still in the box.
+function fixMissing(bricks,counts){
+  const used=partsCount(bricks);let changed=0,left=0;
+  for(const [k,n] of Object.entries({...used})){
+    const [t,c]=k.split('|');let over=n-(counts[k]||0);if(over<=0)continue;
+    const victims=bricks.filter(b=>b.t===t&&b.c===c).sort((a,b)=>b.y-a.y).slice(0,over);
+    for(const b of victims){
+      const alt=Object.keys(COLORS).filter(c2=>c2!==c&&(counts[t+'|'+c2]||0)-(used[t+'|'+c2]||0)>0)
+        .sort((a,b2)=>((counts[t+'|'+b2]||0)-(used[t+'|'+b2]||0))-((counts[t+'|'+a]||0)-(used[t+'|'+a]||0)))[0];
+      if(!alt){left++;continue}
+      b.c=alt;used[k]--;used[t+'|'+alt]=(used[t+'|'+alt]||0)+1;changed++;
+    }
+  }
+  return {changed,left};
+}
+function validateDesign(bricks,base){
+  const placed=[];const sorted=[...bricks].sort((a,b)=>a.y-b.y);
+  for(const b of sorted){
+    const p=dropPlacement(buildOcc(placed),b.t,b.r,b.x,b.z,base);
+    if(!p.ok||p.y!==b.y) return {ok:false,brick:b,why:p.ok?('expected y '+p.y+' got '+b.y):p.why};
+    placed.push(b);
+  }
+  return {ok:true};
+}
+// Starter models: built with the drop rule so they always stack correctly.
+function makeStarter(name,base,list){
+  const bricks=[];let n=0;
+  for(const [t,c,x,z,r] of list){
+    const p=dropPlacement(buildOcc(bricks),t,r,x,z,base);
+    bricks.push({id:'s'+(n++),t,c,x,z,r,y:p.y});
+  }
+  return {name,base:base.w+'x'+base.d,bricks};
+}
+const BASE16={w:16,d:16};
+const STARTERS = {
+  'starter-tower': makeStarter('Rainbow Tower',BASE16,[
+    ['b2x4','red',7,6,0],['b2x4','orange',6,7,1],['b2x4','yellow',7,6,0],['b2x4','blue',6,7,1],
+    ['b2x4','tan',7,6,0],['b2x4','red',6,7,1],['b2x4','orange',7,6,0],['b2x4','blue',6,7,1],
+    ['s2x4','magenta',6,7,0]
+  ]),
+  'starter-robot': makeStarter('Robot Pal',BASE16,[
+    ['b2x3','black',6,6,0],['b2x3','black',8,6,0],
+    ['b2x2','blue',6,7,0],['b2x2','blue',8,7,0],['b2x2','blue',6,7,0],['b2x2','blue',8,7,0],
+    ['b2x4','red',6,7,1],['b2x4','red',6,7,1],
+    ['b1x6','red',5,7,1],['b1x6','red',5,8,1],
+    ['b1x2','orange',5,7,0],['b1x2','orange',10,7,0],
+    ['b2x2','yellow',7,7,0],['b2x2','yellow',7,7,0],
+    ['s2x2','magenta',7,7,0]
+  ])
+};
+
+// ---------- Idea generator: builds a model using only what is left in the box ----------
+function rng(seed){let a=seed>>>0||1;return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const areaOf=t=>SHAPES[t].w*SHAPES[t].d;
+const FILL_SHAPES={
+  brick:Object.keys(SHAPES).filter(t=>SHAPES[t].kind==='brick').sort((a,b)=>areaOf(b)-areaOf(a)),
+  plate:Object.keys(SHAPES).filter(t=>SHAPES[t].kind==='plate').sort((a,b)=>areaOf(b)-areaOf(a))
+};
+const ALL_COLORS=Object.keys(COLORS);
+function makeGen(counts,base,variant){
+  const left={...counts},bricks=[],occ=new Map(),rand=rng(1000+(variant||0)*7919);let n=0;
+  const g={bricks,left,base,variant:variant||0,rand,miss:0,dx:0,dz:0,pidx:0,parts:[],
+    has(t,c){return (left[t+'|'+c]||0)>0},
+    // build a sub-model at an offset as its own chapter of the instructions
+    at(name,dx,dz,fn){const s0=[g.dx,g.dz,g.pidx];g.parts.push(name);g.pidx=g.parts.length-1;g.dx=dx;g.dz=dz;try{fn()}finally{[g.dx,g.dz]=s0;g.pidx=g.parts.length-1}},
+    put(t,c,x,z,r,lockY){
+      x+=g.dx;z+=g.dz;
+      if(!g.has(t,c))return null;
+      const p=dropPlacement(occ,t,r,x,z,base);
+      if(!p.ok)return null;
+      if(lockY!=null&&p.y!==lockY)return null;
+      const b={id:'g'+(n++),t,c,x,z,r,y:p.y,p:g.pidx};bricks.push(b);left[t+'|'+c]--;
+      const h=SHAPES[t].h;
+      for(const cl of cellsOf(t,r,x,z)){const k=cl.x+','+cl.z;if(!occ.has(k))occ.set(k,[]);occ.get(k).push({y0:p.y,y1:p.y+h,id:b.id,stud:cl.stud})}
+      return b;
+    },
+    top(x,z,w,d){x+=g.dx;z+=g.dz;let y=0;for(let i=x;i<x+w;i++)for(let j=z;j<z+d;j++){const s=topAt(occ,i,j);if(s&&s.y1>y)y=s.y1}return y},
+    stock(c,kind){let a=0;for(const t in SHAPES)if(SHAPES[t].kind===kind)a+=(left[t+'|'+c]||0)*areaOf(t);return a},
+    // colour preference list: favourite colours that still have enough pieces, then everything else by stock
+    pick(prefs,kind,minArea){
+      minArea=minArea||8;
+      let ok=prefs.filter(c=>g.stock(c,kind)>=minArea);
+      if(g.variant&&ok.length>1){ok=ok.slice();for(let i=ok.length-1;i>0;i--){const j=Math.floor(rand()*(i+1));[ok[i],ok[j]]=[ok[j],ok[i]]}}
+      const rest=ALL_COLORS.filter(c=>!ok.includes(c)).sort((a,b)=>g.stock(b,kind)-g.stock(a,kind));
+      return ok.concat(rest);
+    },
+    // tile a rectangle on one level with the biggest pieces available; colours tried in order
+    fill(x0,z0,w,d,o){
+      o=o||{};const kind=o.kind||'brick';const colors=[...new Set((o.colors||[]).concat(ALL_COLORS))];const bigFirst=!!o.lock||!!o.big;
+      const lockY=o.y!=null?o.y:(o.lock?g.top(x0,z0,w,d):null);
+      const rots=o.orient==='x'?[1,0]:[0,1];
+      const cov=new Set();const placed=[];
+      const passes=[FILL_SHAPES[kind].filter(t=>areaOf(t)>1),FILL_SHAPES[kind].filter(t=>areaOf(t)===1)];
+      for(let z=z0;z<z0+d;z++)for(let x=x0;x<x0+w;x++){
+        if(cov.has(x+','+z))continue;
+        let done=false;
+        for(const shapes of passes){
+          const order=bigFirst?shapes.flatMap(t=>colors.map(c=>[t,c])):colors.flatMap(c=>shapes.map(t=>[t,c]));
+          for(const [t,c] of order){
+            {
+              for(const r of rots){
+                const {fw,fd}=footprint(t,r);
+                if(x+fw>x0+w||z+fd>z0+d)continue;
+                let free=true;for(let i=x;i<x+fw&&free;i++)for(let j=z;j<z+fd;j++)if(cov.has(i+','+j)){free=false;break}
+                if(!free)continue;
+                const b=g.put(t,c,x,z,r,lockY);
+                if(b){for(let i=x;i<x+fw;i++)for(let j=z;j<z+fd;j++)cov.add(i+','+j);placed.push(b);done=true;break}
+              }
+            }
+            if(done)break;
+          }
+          if(done)break;
+        }
+        if(!done){cov.add(x+','+z);g.miss++}
+      }
+      return placed;
+    },
+    // one specific piece; if it is all used up, the same footprint in another shape
+    piece(t,x,z,r,colors,fallbacks,lockY){
+      for(const tt of [t,...(fallbacks||[])])for(const c of colors.concat(ALL_COLORS)){const b=g.put(tt,c,x,z,r,lockY);if(b)return b}
+      g.miss++;return null;
+    },
+    // first candidate [shape,rot,x,z] that can be placed
+    bar(cands,colors){for(const [t,r,x,z] of cands)for(const c of colors.concat(ALL_COLORS)){const b=g.put(t,c,x,z,r);if(b)return b}g.miss++;return null},
+    // a row of slopes; rot 0/2 runs along x, rot 1/3 runs along z
+    slopeRow(x0,z0,len,r,colors){
+      const alongX=r%2===0;let i=0;const opts=[['s2x4',4],['s2x2',2],['s1x2',1]];const out=[];
+      while(i<len){
+        let done=false;
+        for(const c of colors){
+          for(const [t,sz] of opts){
+            if(i+sz>len)continue;
+            const x=alongX?x0+i:x0,z=alongX?z0:z0+i;
+            const b=g.put(t,c,x,z,r);if(b){out.push(b);i+=sz;done=true;break}
+          }
+          if(done)break;
+        }
+        if(!done){ // no slope left: plain bricks of the same footprint
+          const x=alongX?x0+i:x0,z=alongX?z0:z0+i;
+          const b=g.piece('b1x2',x,z,r,colors.concat(ALL_COLORS));if(b)out.push(b);i+=1;
+        }
+      }
+      return out;
+    }
+  };
+  return g;
+}
+
+const IDEAS={
+  plane:{name:'Aeroplane',words:['plane','aeroplane','airplane','aircraft','jet','airbus','boeing','flight','flying','fly','glider'],make(g){
+    const B=g.pick(['white','blue','red','lgray','yellow'],'brick',40),W=g.pick(['red','yellow','blue','orange','black'].filter(c=>c!==B[0]),'brick',6);
+    g.fill(7,2,2,12,{colors:B,orient:'z',y:0});
+    g.fill(7,2,2,12,{colors:B,orient:'x',y:3});
+    g.piece('s2x2',7,2,0,B,['b2x2'],6);
+    g.fill(7,4,2,2,{colors:g.pick(['sky','aqua','black','dgray','blue'],'brick',2),y:6});
+    g.bar([['p4x8',1,4,6],['b2x8',1,4,7],['b2x6',1,5,7],['b1x6',1,5,7],['b2x4',1,6,7]],W);
+    g.bar([['b2x6',1,5,8],['b1x6',1,5,9],['p2x4',1,6,8],['b2x4',1,6,8]],W);
+    g.fill(7,11,2,3,{colors:B,y:6});
+    g.bar([['b1x6',1,5,12],['p1x4',1,6,12],['b1x4',1,6,12]],W);
+    g.piece('b1x2',7,12,0,W.concat(B));
+    g.piece('s1x2',7,12,2,W.concat(B),['b1x2']);
+  }},
+  car:{name:'Race Car',words:['car','racecar','race','truck','jeep','bus','taxi','van','vehicle','auto'],make(g){
+    const B=g.pick(['red','blue','yellow','orange','white','lime'],'brick',30),K=['black','dgray','lgray'];
+    for(const [x,z] of [[5,5],[10,5],[5,9],[10,9]])g.piece('b1x2',x,z,0,K,['b1x1']);
+    g.fill(6,4,4,8,{colors:B,orient:'z',y:0});
+    g.fill(5,4,6,8,{colors:B,orient:'x',y:3});
+    g.slopeRow(5,4,6,0,g.pick([B[0],'black','blue','red'],'slope',2));
+    g.fill(6,6,4,4,{colors:g.pick(['sky','aqua','black','lgray','white'],'brick',4),y:6});
+    g.fill(5,10,6,2,{colors:B,y:6});
+    g.fill(6,6,4,4,{kind:'plate',colors:B,y:9});
+    g.fill(5,10,6,1,{colors:['black','dgray',...B],y:9});
+  }},
+  house:{name:'Cosy House',words:['house','home','hut','cottage','building','shop','school','villa'],make(g){
+    const W=g.pick(['white','tan','red','yellow','lgray','blue'],'brick',40),R=g.pick(['magenta','blue','black','red','orange','tan'],'slope',4);
+    const Win=g.pick(['sky','aqua','yellow','blue'],'brick',2);
+    for(let L=0;L<4;L++){
+      const y=L*3,door=L<2,even=L%2===0;
+      const fx0=even?4:5,fx1=even?11:10,sz0=even?5:4,sz1=even?10:11;
+      if(door){g.fill(fx0,4,7-fx0,1,{colors:W,orient:'x',y});g.fill(9,4,fx1-8,1,{colors:W,orient:'x',y})}
+      else g.fill(fx0,4,fx1-fx0+1,1,{colors:W,orient:'x',y});
+      g.fill(fx0,11,fx1-fx0+1,1,{colors:W,orient:'x',y});
+      for(const x of [4,11]){
+        if(L===1||L===2){g.fill(x,sz0,1,7-sz0,{colors:W,y});g.fill(x,7,1,2,{colors:Win,y});g.fill(x,9,1,sz1-8,{colors:W,y})}
+        else g.fill(x,sz0,1,sz1-sz0+1,{colors:W,y});
+      }
+    }
+    g.slopeRow(4,4,8,0,R);g.slopeRow(4,10,8,2,R);
+    g.fill(4,6,8,4,{kind:'plate',colors:R.concat(W),y:12});
+    g.fill(4,6,8,4,{colors:R.concat(W),y:12});
+    g.slopeRow(4,6,8,0,R);g.slopeRow(4,8,8,2,R);
+  }},
+  boat:{name:'Sail Boat',words:['boat','ship','yacht','sail','sailboat','ferry','submarine','pirate'],make(g){
+    const H=g.pick(['blue','red','black','white','orange'],'brick',30),C=g.pick(['white','yellow','tan','lgray'].filter(c=>c!==H[0]),'brick',8);
+    g.piece('s2x2',6,2,0,H,['b2x2'],0);g.piece('s2x2',8,2,0,H,['b2x2'],0);
+    g.fill(6,4,4,9,{colors:H,orient:'z',y:0});
+    g.fill(6,3,4,10,{colors:H,orient:'x',y:3});
+    g.fill(7,9,2,3,{colors:C,y:6});g.fill(7,9,2,3,{colors:C,y:9});
+    g.fill(7,9,2,3,{kind:'plate',colors:H,y:12});
+    const M=['brown','tan','black','white','lgray'];
+    for(let i=0;i<4;i++)g.fill(7,5,1,1,{colors:M,y:6+i*3});
+    g.piece('b1x2',7,5,1,['red','orange','yellow']);
+  }},
+  rocket:{name:'Space Rocket',words:['rocket','spaceship','space','shuttle','missile','moon'],make(g){
+    const B=g.pick(['white','lgray','yellow','blue'],'brick',16),S=g.pick(['red','blue','orange','black'].filter(c=>c!==B[0]),'brick',6);
+    const F=g.pick(['red','orange','black','blue'],'brick',4);
+    g.piece('b1x2',6,7,0,F);g.piece('b1x2',9,7,0,F);g.piece('b1x2',7,6,1,F);g.piece('b1x2',7,9,1,F);
+    const plan=[B,B,S,B,g.pick(['sky','aqua','black','blue'],'brick',2),B,S,B];
+    plan.forEach((cols,i)=>g.fill(7,7,2,2,{colors:cols.concat(B),orient:i%2?'x':'z',y:i*3}));
+    g.piece('s2x2',7,7,0,g.pick(['red','magenta','orange','blue'],'slope',2),['b2x2']);
+  }},
+  tree:{name:'Apple Tree',words:['tree','forest','garden','plant','apple','palm','jungle'],make(g){
+    const T=g.pick(['brown','tan','black','dgray'],'brick',4),L=g.pick(['green','lime'],'brick',8);
+    g.fill(7,7,2,2,{colors:T,y:0});g.fill(7,7,2,2,{colors:T,orient:'x',y:3});g.fill(7,7,2,2,{colors:T,y:6});
+    g.bar([['p4x4',0,6,6]],g.pick(['green','lime','blue'],'plate',16).concat(L));
+    g.fill(6,6,4,4,{colors:L,lock:true});g.fill(6,6,4,4,{colors:L,orient:'x',lock:true});
+    g.fill(7,7,2,2,{colors:L,lock:true});
+    const y=g.top(6,6,4,4);
+    for(const [x,z] of [[6,6],[9,9],[9,6]])g.fill(x,z,1,1,{colors:['red','orange','yellow'],y:y-3});
+  }},
+  dog:{name:'Puppy',words:['dog','puppy','animal','cat','kitten','pet','horse','cow','pig','lion','tiger'],make(g){
+    const C=g.pick(['tan','brown','white','orange','black','lgray','yellow'],'brick',24),E=['black','brown','dgray'];
+    for(const [x,z] of [[6,6],[8,6],[6,9],[8,9]]){g.piece('b1x2',x,z,0,C,[],0);g.piece('b1x2',x,z,0,C,[],3)}
+    g.fill(6,6,3,5,{colors:C,orient:'x',y:6});
+    g.fill(6,6,3,5,{colors:C,orient:'z',lock:true});
+    const hy=g.top(6,6,3,5);
+    g.fill(6,4,3,3,{colors:C,orient:'z',y:hy});g.fill(6,4,3,3,{colors:C,orient:'z',y:hy+3});
+    g.fill(6,6,1,1,{colors:E,y:hy+6});g.fill(8,6,1,1,{colors:E,y:hy+6});
+    g.piece('b1x2',7,9,0,C,['b1x1'],hy);
+  }},
+  castle:{name:'Castle',words:['castle','fort','palace','king','queen','knight','princess'],make(g){
+    const S=g.pick(['lgray','dgray','tan','white','blue','black'],'brick',40),T=S;
+    for(let L=0;L<3;L++){
+      const y=L*3,even=L%2===0;
+      const f0=even?3:4,f1=even?12:11,s0=even?4:3,s1=even?11:12;
+      if(L<2){g.fill(f0,3,7-f0,1,{colors:S,orient:'x',y});g.fill(9,3,f1-8,1,{colors:S,orient:'x',y})}
+      else g.fill(f0,3,f1-f0+1,1,{colors:S,orient:'x',y});
+      g.fill(f0,12,f1-f0+1,1,{colors:S,orient:'x',y});
+      g.fill(3,s0,1,s1-s0+1,{colors:S,y});g.fill(12,s0,1,s1-s0+1,{colors:S,y});
+    }
+    for(const [x,z] of [[3,3],[11,3],[3,11],[11,11]]){g.fill(x,z,2,2,{colors:T,y:9});g.fill(x,z,2,2,{colors:T,orient:'x',y:12})}
+    for(let x=6;x<=9;x+=2){g.fill(x,3,1,1,{colors:S,y:9});g.fill(x,12,1,1,{colors:S,y:9})}
+    for(let z=6;z<=9;z+=2){g.fill(3,z,1,1,{colors:S,y:9});g.fill(12,z,1,1,{colors:S,y:9})}
+    for(const [x,z] of [[3,3],[12,12]])g.fill(x,z,1,1,{colors:['red','yellow','blue'],y:15});
+  }},
+  bridge:{name:'River Bridge',words:['bridge','river','road','arch'],make(g){
+    const P=g.pick(['lgray','tan','dgray','red','white','black'],'brick',16),D=g.pick(['red','yellow','tan','black','blue'],'brick',8);
+    for(let L=0;L<3;L++){g.fill(4,6,2,4,{colors:P,orient:L%2?'x':'z',y:L*3});g.fill(10,6,2,4,{colors:P,orient:L%2?'x':'z',y:L*3})}
+    g.fill(4,6,8,4,{kind:'plate',colors:D.concat(ALL_COLORS),y:9});
+    g.fill(4,6,8,4,{colors:D,orient:'x',lock:true});
+    const y=g.top(4,6,8,4);
+    g.fill(4,6,8,1,{colors:D,orient:'x',y});g.fill(4,9,8,1,{colors:D,orient:'x',y});
+  }},
+  snowman:{name:'Snowman',words:['snowman','snow','winter','christmas','frosty'],make(g){
+    const Wt=g.pick(['white','lgray','tan'],'brick',24);
+    g.fill(6,6,4,4,{colors:Wt,y:0});g.fill(6,6,4,4,{colors:Wt,orient:'x',y:3});
+    g.fill(7,7,2,2,{colors:Wt,y:6});g.fill(7,7,2,2,{colors:Wt,orient:'x',y:9});
+    g.piece('b1x2',5,8,1,['brown','black','tan'],[],6);g.piece('b1x2',9,7,1,['brown','black','tan'],[],6);
+    g.fill(7,7,2,2,{colors:Wt,y:12});
+    g.fill(7,7,2,2,{colors:['black','dgray','blue','red'],y:15});
+  }},
+  tower:{name:'Sky Tower',words:['skyscraper','tall','building','lighthouse','burj','tower'],make(g){
+    const A=g.pick(['blue','white','lgray','red','yellow'],'brick',24),Bc=g.pick(['sky','aqua','black','yellow'].filter(c=>c!==A[0]),'brick',8);
+    for(let i=0;i<4;i++)g.fill(6,6,4,4,{colors:(i%2?Bc:A),orient:i%2?'x':'z',y:i*3});
+    for(let i=0;i<4;i++)g.fill(7,7,2,2,{colors:(i%2?A:Bc).concat(A),orient:i%2?'x':'z',y:12+i*3});
+    g.piece('s2x2',7,7,0,g.pick(['red','magenta','blue'],'slope',2),['b2x2']);
+  }}
+};
+function matchIdea(text){
+  const raw=String(text||'').toLowerCase().replace(/[^a-z ]/g,' ').split(/\s+/).filter(Boolean);
+  const words=[];for(const w of raw){words.push(w);if(w.endsWith('ies'))words.push(w.slice(0,-3)+'y');else if(w.endsWith('es'))words.push(w.slice(0,-2));if(w.endsWith('s'))words.push(w.slice(0,-1))}
+  for(const [k,v] of Object.entries(IDEAS))for(const w of words)if(v.words.includes(w)||w===k)return k;
+  for(const [k,v] of Object.entries(IDEAS))for(const w of words)if(w.length>3&&v.words.some(x=>x.startsWith(w)||w.startsWith(x)))return k;
+  return null;
+}
+function generateIdea(key,counts,variant){
+  const g=makeGen(counts,BASE16,variant);IDEAS[key].make(g);
+  return {name:IDEAS[key].name,base:'16x16',bricks:g.bricks};
+}
+// Apply a list of [shape,colour,x,z,rot] from anywhere (Claude, an import) to a real box:
+// drops each piece, swaps colour when one runs out, skips what cannot fit.
+function placeList(list,counts,base){
+  const g=makeGen(counts,base,0);const report=[];
+  list.forEach((p,i)=>{
+    if(!Array.isArray(p)){report.push({i,status:'skipped: not a [shape,colour,x,z,rot] array'});return}
+    const [t,c,x,z,r]=p;
+    if(!SHAPES[t]){report.push({i,status:'skipped: unknown shape '+t});return}
+    const rr=((Number(r)|0)%4+4)%4,xx=Number(x)|0,zz=Number(z)|0;
+    const cols=COLORS[c]?[c].concat(ALL_COLORS.filter(k=>k!==c).sort((a,b)=>(g.left[t+'|'+b]||0)-(g.left[t+'|'+a]||0))):ALL_COLORS;
+    const pr=dropPlacement(buildOccFrom(g.bricks),t,rr,xx,zz,base);
+    if(!pr.ok){report.push({i,status:'skipped: '+pr.why});return}
+    let placed=null;for(const cc of cols){placed=g.put(t,cc,xx,zz,rr);if(placed)break}
+    if(!placed){report.push({i,status:'skipped: none of this shape left in the box'});return}
+    report.push({i,y:placed.y/3,status:placed.c===c?'ok':'ok, colour swapped to '+placed.c});
+  });
+  return {bricks:g.bricks,report,left:g.left};
+}
+function buildOccFrom(b){return buildOcc(b)}
+function heightMap(bricks,base){
+  const occ=buildOcc(bricks);const rows=[];
+  for(let z=0;z<base.d;z++){let s='';for(let x=0;x<base.w;x++){const t=topAt(occ,x,z);const v=t?Math.round(t.y1/3):0;s+=v>9?'+':String(v)}rows.push(s)}
+  return rows.join('\n');
+}
+function silhouettes(bricks,base){
+  const H=Math.max(1,...bricks.map(b=>Math.ceil((b.y+SHAPES[b.t].h)/3)));
+  const occ=buildOcc(bricks);const front=[],side=[];
+  for(let h=H;h>=1;h--){
+    let f='',sd='';
+    for(let x=0;x<base.w;x++){let on=false;for(let z=0;z<base.d&&!on;z++){const a=occ.get(x+','+z)||[];on=a.some(s=>s.y0<h*3&&s.y1>(h-1)*3)}f+=on?'#':'.'}
+    for(let z=0;z<base.d;z++){let on=false;for(let x=0;x<base.w&&!on;x++){const a=occ.get(x+','+z)||[];on=a.some(s=>s.y0<h*3&&s.y1>(h-1)*3)}sd+=on?'#':'.'}
+    front.push(f);side.push(sd);
+  }
+  return {front_view_x_by_height:front.join('\n'),side_view_z_by_height:side.join('\n')};
+}
+
+// ---------- Design families: each set of parameters gives a differently shaped model ----------
+function genHelpers(g){
+  g.box=(x,z,w,d,h,colors,o)=>{o=o||{};const y=o.y!=null?o.y:g.top(x,z,w,d);for(let i=0;i<h;i++)g.fill(x,z,w,d,{colors,orient:(i+(o.flip?1:0))%2?'x':'z',y:y+3*i,kind:o.kind})};
+  // 1-stud walls with interlocking corners; door on the front wall; windows on the side walls
+  g.ring=(x,z,w,d,h,colors,o)=>{
+    o=o||{};const y0=o.y!=null?o.y:0;const door=o.door,win=o.win;
+    for(let L=0;L<h;L++){
+      const y=y0+3*L,even=L%2===0;
+      const fx0=even?x:x+1,fx1=even?x+w-1:x+w-2,sz0=even?z+1:z,sz1=even?z+d-2:z+d-1;
+      // front wall (z) with a door gap
+      if(door&&L<door.h){const a=x+door.x,b=a+door.w-1;if(a>fx0)g.fill(fx0,z,a-fx0,1,{colors,orient:'x',y});if(fx1>b)g.fill(b+1,z,fx1-b,1,{colors,orient:'x',y})}
+      else g.fill(fx0,z,fx1-fx0+1,1,{colors,orient:'x',y});
+      g.fill(fx0,z+d-1,fx1-fx0+1,1,{colors,orient:'x',y});
+      for(const sx of [x,x+w-1]){
+        const winRow=win&&(L%3===1)&&d>=6;
+        if(winRow){const wz=z+Math.floor(d/2)-1;g.fill(sx,sz0,1,wz-sz0,{colors,y});g.fill(sx,wz,1,2,{colors:win,y});g.fill(sx,wz+2,1,sz1-wz-1,{colors,y})}
+        else g.fill(sx,sz0,1,sz1-sz0+1,{colors,y});
+      }
+    }
+  };
+  // pitched roof for a hollow box: slope rows step inward from front and back, ridge on top
+  g.roof=(x,z,w,d,colors)=>{
+    let k=0;while(2*k+3<d){g.slopeRow(x,z+k,w,0,colors);g.slopeRow(x,z+d-2-k,w,2,colors);k++}
+    g.fill(x,z+k,w,d-2*k,{colors,orient:'x',lock:true});
+  };
+  // flat picture from a bitmap: layer 1 in rows, layer 2 in columns so the two layers lock together
+  g.pix=(rows,x0,z0,scale,cmap,layers)=>{
+    const H=rows.length,W=rows[0].length;
+    const cell=(i,j)=>rows[j][i];
+    const X=i=>x0+(W-1-i)*scale,Z=j=>z0+(H-1-j)*scale; // reads left-to-right from the front
+    for(let L=0;L<(layers||2);L++){
+      const y=L*3;
+      if(L%2===0){for(let j=0;j<H;j++){let i=0;while(i<W){const ch=cell(i,j);if(ch==='0'||ch==='.'){i++;continue}let e=i;while(e+1<W&&cell(e+1,j)===ch)e++;
+        g.fill(X(e),Z(j),(e-i+1)*scale,scale,{colors:cmap[ch],orient:'x',y});i=e+1}}}
+      else{for(let i=0;i<W;i++){let j=0;while(j<H){const ch=cell(i,j);if(ch==='0'||ch==='.'){j++;continue}let e=j;while(e+1<H&&cell(i,e+1)===ch)e++;
+        g.fill(X(i),Z(e),scale,(e-j+1)*scale,{colors:cmap[ch],orient:'z',y});j=e+1}}}
+    }
+  };
+  return g;
+}
+const C={
+  bright:['red','blue','yellow','orange','white','lime'],
+  body:['white','blue','red','lgray','yellow','orange'],
+  accent:['red','yellow','blue','orange','black','magenta'],
+  dark:['black','dgray','blue'],
+  glass:['sky','aqua','black','dgray','blue'],
+  wall:['white','tan','red','yellow','lgray','blue','orange'],
+  roof:['magenta','blue','black','red','orange','tan'],
+  stone:['lgray','dgray','tan','white','black'],
+  wood:['brown','tan','orange','black'],
+  leaf:['green','lime'],
+  fur:['tan','brown','white','orange','black','lgray','yellow'],
+  pinkish:['pink','magenta','red','orange']
+};
+const FONT5={A:'01110,10001,10001,11111,10001,10001,10001',B:'11110,10001,10001,11110,10001,10001,11110',C:'01110,10001,10000,10000,10000,10001,01110',D:'11110,10001,10001,10001,10001,10001,11110',E:'11111,10000,10000,11110,10000,10000,11111',F:'11111,10000,10000,11110,10000,10000,10000',G:'01110,10001,10000,10111,10001,10001,01111',H:'10001,10001,10001,11111,10001,10001,10001',I:'01110,00100,00100,00100,00100,00100,01110',J:'00111,00010,00010,00010,00010,10010,01100',K:'10001,10010,10100,11000,10100,10010,10001',L:'10000,10000,10000,10000,10000,10000,11111',M:'10001,11011,10101,10101,10001,10001,10001',N:'10001,10001,11001,10101,10011,10001,10001',O:'01110,10001,10001,10001,10001,10001,01110',P:'11110,10001,10001,11110,10000,10000,10000',Q:'01110,10001,10001,10001,10101,10010,01101',R:'11110,10001,10001,11110,10100,10010,10001',S:'01111,10000,10000,01110,00001,00001,11110',T:'11111,00100,00100,00100,00100,00100,00100',U:'10001,10001,10001,10001,10001,10001,01110',V:'10001,10001,10001,10001,10001,01010,00100',W:'10001,10001,10001,10101,10101,10101,01010',X:'10001,10001,01010,00100,01010,10001,10001',Y:'10001,10001,01010,00100,00100,00100,00100',Z:'11111,00001,00010,00100,01000,10000,11111',
+  '0':'01110,10001,10011,10101,11001,10001,01110','1':'00100,01100,00100,00100,00100,00100,01110','2':'01110,10001,00001,00010,00100,01000,11111','3':'11111,00010,00100,00010,00001,10001,01110','4':'00010,00110,01010,10010,11111,00010,00010','5':'11111,10000,11110,00001,00001,10001,01110','6':'00110,01000,10000,11110,10001,10001,01110','7':'11111,00001,00010,00100,01000,01000,01000','8':'01110,10001,10001,01110,10001,10001,01110','9':'01110,10001,10001,01111,00001,00010,01100'};
+const FONT3={A:'010,101,111,101,101',B:'110,101,110,101,110',C:'011,100,100,100,011',D:'110,101,101,101,110',E:'111,100,110,100,111',F:'111,100,110,100,100',G:'011,100,101,101,011',H:'101,101,111,101,101',I:'111,010,010,010,111',J:'001,001,001,101,010',K:'101,101,110,101,101',L:'100,100,100,100,111',M:'101,111,111,101,101',N:'110,101,101,101,101',O:'010,101,101,101,010',P:'110,101,110,100,100',Q:'010,101,101,110,011',R:'110,101,110,101,101',S:'011,100,010,001,110',T:'111,010,010,010,010',U:'101,101,101,101,111',V:'101,101,101,101,010',W:'101,101,111,111,101',X:'101,101,010,101,101',Y:'101,101,010,010,010',Z:'111,001,010,100,111'};
+const WORDS=['CAT','DOG','SUN','MOM','DAD','BUS','CAR','BED','BOX','CUP','HAT','PIG','COW','HEN','FOX','OWL','BEE','ANT','BAT','EGG','JAM','TOY','ZOO','SKY','RED','BIG','FUN','YES','HUG','RUN','HOP','ZIP','ICE','MAP','PEN','NET','BAG','LEG','ARM','EYE','EAR','SEA','JET','VAN','ART','KID','POP','WOW','YAK','GUM',
+  'BALL','BOOK','FISH','FROG','LION','BEAR','DUCK','CAKE','STAR','MOON','TREE','BIRD','KITE','SHIP','BOAT','HOME','PLAY','JUMP','SING','LOVE','RAIN','SNOW','FIRE','GOLD','BLUE','PINK','NEST','MILK','SOCK','SHOE','HAND','FOOT','NOSE','DRUM','BELL','WOLF','DEER','SEAL','CRAB','KING'];
+const PIXELS={
+  Heart:['01100110','11111111','11111111','11111111','01111110','00111100','00011000'],
+  Star:['00011000','00011000','11111111','01111110','00111100','01100110','11000011'],
+  Smiley:['00111100','01111110','11211211','11111111','12111121','11222211','01111110','00111100'],
+  Sun:['10010010','01011100','00111100','11111111','00111100','01011010','10010001'],
+  Moon:['00111000','01110000','11100000','11100000','11100000','01110000','00111000'],
+  'Little House':['00011000','00111100','01111110','11111111','02200220','02200220','02211220','02211220'],
+  Fish:['00111000','01111101','11211111','11111110','01111101','00111000'],
+  'Cat Face':['10000001','11000011','11111111','12111121','11111111','11122111','01111110'],
+  'Up Arrow':['00011000','00111100','01111110','11111111','00111100','00111100','00111100'],
+  Flower:['01101100','11111110','11122111','01121110','11111110','00010000','00111000','00010000'],
+  Ghost:['00111100','01111110','12211221','11111111','11111111','11111111','10110101'],
+  Mushroom:['00111100','01121110','11111211','12111111','00222200','00222200','00222200'],
+  Apple:['00010000','00100000','01111110','11111111','11111111','11111111','01111110','00111100'],
+  Diamond:['00011000','00111100','01111110','11111111','01111110','00111100','00011000'],
+  Crown:['10010010','11010110','11111111','11211211','11111111'],
+  Key:['01110000','10001111','10001101','01110101'],
+  'Music Note':['00011111','00010001','00010001','00010001','01110001','11110111','01100111'],
+  Rocket:['00011000','00111100','00122100','00111100','00111100','01111110','11011011'],
+  Tree:['00011000','00111100','01111110','11111111','00111100','01111110','11111111','00022000','00022000'],
+  Umbrella:['00111100','01111110','11111111','00010000','00010000','00110000']
+};
+function maze(n,seed){
+  const R=rng(seed),W=2*n+1,g=[...Array(W)].map(()=>Array(W).fill('1'));
+  const st=[[0,0]];g[1][1]='0';const seen=new Set(['0,0']);
+  while(st.length){const [cx,cy]=st[st.length-1];const nb=[[1,0],[-1,0],[0,1],[0,-1]].map(([dx,dy])=>[cx+dx,cy+dy,dx,dy]).filter(([x,y])=>x>=0&&y>=0&&x<n&&y<n&&!seen.has(x+','+y));
+    if(!nb.length){st.pop();continue}const [nx,ny,dx,dy]=nb[Math.floor(R()*nb.length)];g[2*cy+1+dy][2*cx+1+dx]='0';g[2*ny+1][2*nx+1]='0';seen.add(nx+','+ny);st.push([nx,ny])}
+  g[0][1]='0';g[W-1][W-2]='0';
+  return g.map(r=>r.join(''));
+}
+const FAMILIES=[
+  // ===== Vehicles =====
+  {id:'plane',cat:'Vehicles',words:['plane','aeroplane','airplane','aircraft','jet','airbus','boeing','flight','fly','glider'],
+   params:{L:[8,10,12],wing:['short','long','delta'],tail:['fin','twin','t'],cockpit:[1,0]},
+   name:p=>({8:'Little',10:'',12:'Jumbo'}[p.L]+' '+{short:'',long:'Wide-Wing ',delta:'Delta '}[p.wing]+(p.tail==='twin'?'Twin-Tail ':p.tail==='t'?'T-Tail ':'')+(p.cockpit?'Plane':'Cargo Plane')).replace(/\s+/g,' ').trim(),
+   make(g,p){const B=g.pick(C.body,'brick',30),W=g.pick(C.accent.filter(c=>c!==B[0]),'brick',6),z0=Math.floor((16-p.L)/2);
+     g.box(7,z0,2,p.L,2,B,{y:0});g.piece('s2x2',7,z0,0,B,['b2x2'],6);
+     if(p.cockpit)g.fill(7,z0+2,2,2,{colors:g.pick(C.glass,'brick',2),y:6});
+     const zw=z0+Math.floor(p.L*0.4);
+     if(p.wing==='short')g.bar([['b2x6',1,5,zw],['b1x6',1,5,zw],['b2x4',1,6,zw]],W);
+     else if(p.wing==='long'){g.bar([['p4x8',1,4,zw],['b2x8',1,4,zw],['b2x6',1,5,zw]],W);g.bar([['b1x6',1,5,zw+2],['b2x4',1,6,zw+2]],W)}
+     else{g.bar([['p4x4',0,4,zw],['b2x4',1,4,zw]],W);g.bar([['p4x4',0,8,zw],['b2x4',1,8,zw]],W)}
+     const zt=z0+p.L-2;g.fill(7,zt,2,2,{colors:B,y:6});
+     if(p.tail==='fin'){g.bar([['b1x6',1,5,zt],['b1x4',1,6,zt]],W);g.piece('b1x2',8,zt,0,W,['b1x1']);g.piece('s1x2',8,zt,2,W,['b1x2'])}
+     else if(p.tail==='twin'){g.bar([['b1x6',1,5,zt+1],['b1x4',1,6,zt+1]],W);g.piece('b1x2',5,zt,0,W,['b1x1']);g.piece('b1x2',10,zt,0,W,['b1x1'])}
+     else{g.piece('b1x2',7,zt,0,W,[],9);g.piece('b1x2',7,zt,0,W,[],12);g.bar([['b1x6',1,5,zt],['b1x4',1,6,zt]],W)}}},
+  {id:'heli',cat:'Vehicles',words:['helicopter','chopper','heli'],
+   params:{B:[4,6,8],rotor:[6,8,10],tail:[3,4,6],skids:[1,0]},
+   name:p=>({4:'Mini',6:'',8:'Rescue'}[p.B]+' Helicopter').trim()+({6:'',8:' · big rotor',10:' · twin rotor'}[p.rotor])+({3:' · short tail',4:'',6:' · long tail'}[p.tail])+(p.skids?'':' · no skids'),
+   make(g,p){const B=g.pick(['red','yellow','blue','orange','white'],'brick',20),z0=Math.max(1,Math.floor((16-p.B-p.tail)/2));let y=0;
+     if(p.skids){g.bar([['b1x6',0,6,z0],['b1x4',0,6,z0]],C.dark);g.bar([['b1x6',0,9,z0],['b1x4',0,9,z0]],C.dark);y=3}
+     g.box(6,z0,4,p.B,2,B,{y});g.slopeRow(6,z0,4,0,g.pick(C.glass,'slope',2).concat(B));
+     g.fill(6,z0+2,4,p.B-2,{colors:B,lock:true});
+     const zm=z0+Math.floor(p.B/2)-1;g.fill(7,zm,2,2,{colors:C.dark,lock:true});
+     const R=g.pick(C.dark,'brick',4);
+     if(p.rotor===6)g.bar([['b1x6',1,5,zm],['b2x6',1,5,zm]],R);else if(p.rotor===8)g.bar([['b2x8',1,4,zm],['p4x8',1,4,zm-1]],R);else{g.bar([['b2x8',1,4,zm],['b1x6',1,5,zm]],R);g.bar([['b1x6',0,7,zm-2],['b1x4',0,7,zm-1]],R)}
+     const len=p.tail+1,ty=y+3;const t=len>=7?'b2x8':len>=5?'b1x6':'b1x4';
+     g.bar([[t,0,7,z0+p.B-1],['b1x4',0,7,z0+p.B-1]],B);g.piece('b1x2',6,z0+p.B-2+len-1,1,R,['b1x1'])}},
+  {id:'car',cat:'Vehicles',words:['car','racecar','race','jeep','taxi','auto','vehicle','convertible'],
+   params:{L:[6,8,10],cabin:['front','mid','back'],roof:['closed','open'],spoiler:[0,1],lights:[0,1]},
+   name:p=>({6:'Mini',8:'',10:'Long'}[p.L]+' '+(p.roof==='open'?'Convertible':p.spoiler?'Race Car':'Car')+(p.cabin==='back'?' (long bonnet)':p.cabin==='front'?' (big boot)':'')+(p.lights?' with Headlights':'')).trim(),
+   make(g,p){const B=g.pick(C.bright,'brick',24),z0=Math.floor((16-p.L)/2);
+     for(const [x,z] of [[5,z0+1],[10,z0+1],[5,z0+p.L-3],[10,z0+p.L-3]])g.piece('b1x2',x,z,0,['black','dgray'],['b1x1']);
+     g.fill(6,z0,4,p.L,{colors:B,y:0});g.fill(5,z0,6,p.L,{colors:B,orient:'x',y:3});
+     const cz=p.cabin==='front'?z0+1:p.cabin==='mid'?z0+Math.floor((p.L-3)/2):z0+p.L-4;
+     if(cz>z0+1)g.slopeRow(5,z0,6,0,g.pick([B[0],'black','blue','red'],'slope',2).concat(B));
+     if(p.roof==='closed'){g.fill(6,cz,4,3,{colors:g.pick(C.glass,'brick',3),y:6});g.fill(6,cz,4,3,{kind:'plate',colors:B,y:9})}
+     else g.fill(6,cz+2,4,1,{colors:g.pick(['black','tan','brown','red'],'brick',2),y:6});
+     if(p.lights){g.fill(5,z0,1,1,{colors:['yellow','white','orange'],lock:true});g.fill(10,z0,1,1,{colors:['yellow','white','orange'],lock:true})}
+     if(p.spoiler){const zb=z0+p.L-1;g.fill(6,zb,1,1,{colors:C.dark,y:6});g.fill(9,zb,1,1,{colors:C.dark,y:6});g.bar([['b1x6',1,5,zb],['b1x4',1,6,zb]],C.dark)}}},
+  {id:'truck',cat:'Vehicles',words:['truck','lorry','dumper','tipper','fire','firetruck','pickup'],
+   params:{cab:[2,3],cargo:[4,6,8],type:['box','open','dump'],beacon:[0,1]},
+   name:p=>({box:'Delivery Truck',open:'Pickup Truck',dump:'Dump Truck'}[p.type])+({4:'',6:'',8:' XL'}[p.cargo])+(p.cab===3?' (big cab)':'')+(p.beacon?' with Light':''),
+   make(g,p){const L=p.cab+p.cargo,z0=Math.floor((16-L)/2),B=g.pick(['red','yellow','orange','blue','white'],'brick',24),K=g.pick(C.stone.concat(C.bright).filter(c=>c!==B[0]),'brick',16);
+     for(const z of [z0+1,z0+L-3,z0+Math.floor(L/2)])g.piece('b1x2',5,z,0,['black','dgray'],['b1x1']),g.piece('b1x2',10,z,0,['black','dgray'],['b1x1']);
+     g.fill(6,z0,4,L,{colors:C.dark,y:0});g.fill(5,z0,6,L,{colors:B,orient:'x',y:3});
+     g.fill(5,z0,6,1,{colors:g.pick(C.glass,'brick',3),orient:'x',y:6});g.fill(5,z0+1,6,p.cab-1,{colors:B,y:6});g.fill(5,z0,6,p.cab,{colors:B,orient:'x',y:9});
+     if(p.beacon)g.fill(7,z0+1,2,1,{colors:['orange','yellow','red'],y:12});
+     const cz=z0+p.cab;
+     if(p.type==='box')g.box(5,cz,6,p.cargo,2,K,{y:6});
+     else if(p.type==='open')g.ring(5,cz,6,p.cargo,1,K,{y:6});
+     else{g.ring(5,cz,6,p.cargo,1,K,{y:6});g.slopeRow(5,cz+p.cargo-2,6,2,K)}}},
+  {id:'bus',cat:'Vehicles',words:['bus','coach','schoolbus','tram'],
+   params:{L:[8,10,12],decks:[1,2],stripe:[0,1]},
+   name:p=>(p.decks===2?'Double-Decker ':'')+({8:'Mini Bus',10:'Bus',12:'Long Bus'}[p.L])+(p.stripe?' with Stripe':''),
+   make(g,p){const z0=Math.floor((16-p.L)/2),B=g.pick(['yellow','red','blue','white','orange'],'brick',30),S=g.pick(C.accent.filter(c=>c!==B[0]),'brick',8),G=g.pick(C.glass,'brick',6);
+     for(const z of [z0+1,z0+p.L-3])g.piece('b1x2',5,z,0,['black','dgray']),g.piece('b1x2',10,z,0,['black','dgray']);
+     g.fill(6,z0,4,p.L,{colors:C.dark,y:0});g.box(5,z0,6,p.L,1,p.stripe?S:B,{y:3,flip:1});
+     for(let d=0;d<p.decks;d++){g.ring(5,z0,6,p.L,1,G,{y:6+d*6});g.box(5,z0,6,p.L,1,B,{y:9+d*6,flip:1})}}},
+  {id:'train',cat:'Vehicles',words:['train','engine','railway','locomotive','choo'],
+   params:{wagons:[0,1,2],type:['box','open','logs'],stack:['short','tall']},
+   name:p=>(p.stack==='tall'?'Steam Train':'Little Train')+(p.wagons?(' with '+p.wagons+' '+{box:'Box',open:'Open',logs:'Log'}[p.type]+' Wagon'+(p.wagons>1?'s':'')):''),
+   make(g,p){const N=5+p.wagons*5,z0=Math.floor((16-N)/2),E=g.pick(['red','blue','black','green','yellow'],'brick',14),W=g.pick(C.bright.filter(c=>c!==E[0]),'brick',10);
+     g.fill(7,z0,2,5,{colors:C.dark,y:0});g.fill(7,z0,2,5,{colors:E,orient:'x',y:3});g.box(7,z0+3,2,2,2,E,{y:6});g.fill(7,z0+3,2,2,{kind:'plate',colors:C.dark,lock:true});
+     g.fill(7,z0+1,1,1,{colors:C.dark,y:6});if(p.stack==='tall')g.fill(7,z0+1,1,1,{colors:C.dark,y:9});
+     for(let i=0;i<p.wagons;i++){const z=z0+5+i*5+1;g.fill(7,z,2,4,{colors:C.dark,y:0});
+       if(p.type==='box')g.box(7,z,2,4,2,W,{y:3});else if(p.type==='open'){g.fill(7,z,2,4,{colors:W,y:3});g.fill(7,z,1,4,{colors:W,y:6});g.fill(8,z,1,4,{colors:W,y:6})}
+       else{g.fill(7,z,2,4,{colors:W,y:3});g.fill(7,z,2,4,{colors:C.wood,orient:'z',y:6})}}}},
+  {id:'boat',cat:'Vehicles',words:['boat','ship','yacht','sail','sailboat','ferry','pirate','canoe'],
+   params:{L:[7,9,11],cabin:['none','small','big'],mast:[0,1,2]},
+   name:p=>({7:'Little',9:'',11:'Big'}[p.L]+' '+(p.mast?(p.mast===2?'Two-Mast Sailboat':'Sailboat'):p.cabin==='none'?'Rowing Boat':'Motor Boat')+(p.cabin==='big'?' with Cabin':'')).trim(),
+   make(g,p){const z0=Math.floor((16-p.L)/2),H=g.pick(['blue','red','black','white','orange'],'brick',24),K=g.pick(['white','yellow','tan','lgray'].filter(c=>c!==H[0]),'brick',6);
+     g.piece('s2x2',6,z0,0,H,['b2x2'],0);g.piece('s2x2',8,z0,0,H,['b2x2'],0);
+     g.fill(6,z0+2,4,p.L-2,{colors:H,y:0});g.fill(6,z0+1,4,p.L-1,{colors:H,orient:'x',y:3});
+     if(p.cabin!=='none'){const cl=p.cabin==='big'?4:2,cz=z0+p.L-cl-1;g.box(7,cz,2,cl,p.cabin==='big'?2:1,K,{y:6});g.fill(7,cz,2,cl,{kind:'plate',colors:H,lock:true})}
+     for(let m=0;m<p.mast;m++){const mz=z0+2+m*3;for(let i=0;i<4;i++)g.fill(8,mz,1,1,{colors:C.wood,y:6+3*i});g.piece('b1x2',8,mz,1,['red','yellow','orange','white'])}}},
+  {id:'rocket',cat:'Space',words:['rocket','spaceship','space','shuttle','missile','moon','astronaut'],
+   params:{w:[2,4],h:[4,6,8,10],fins:[0,2,4],window:[1,0]},
+   name:p=>(p.w===4?'Big ':'')+({4:'Mini',6:'',8:'Tall',10:'Giant'}[p.h]+' Rocket').trim()+(p.fins?'':' (no fins)')+(p.window?'':' (no window)'),
+   make(g,p){const B=g.pick(['white','lgray','yellow','blue'],'brick',16),S=g.pick(['red','blue','orange','black'].filter(c=>c!==B[0]),'brick',6),x=8-p.w/2,z=8-p.w/2;
+     if(p.fins>=2){g.piece('b1x2',x-1,z+p.w/2-1,0,S);g.piece('b1x2',x+p.w,z+p.w/2-1,0,S)}
+     if(p.fins===4){g.piece('b1x2',x+p.w/2-1,z-1,1,S);g.piece('b1x2',x+p.w/2-1,z+p.w,1,S)}
+     for(let i=0;i<p.h;i++){const col=i===Math.floor(p.h*0.6)&&p.window?g.pick(C.glass,'brick',1):(i%3===2?S:B);g.fill(x,z,p.w,p.w,{colors:col.concat(B),orient:i%2?'x':'z',y:i*3})}
+     if(p.w===2)g.piece('s2x2',x,z,0,g.pick(['red','magenta','orange','blue'],'slope',2),['b2x2']);
+     else{g.slopeRow(x,z,4,0,S);g.slopeRow(x,z+2,4,2,S)}}},
+  {id:'spaceship',cat:'Space',words:['spaceship','starship','ufo','alien','starfighter','saucer'],
+   params:{L:[6,8,10],wings:['straight','swept','x'],engines:[1,2]},
+   name:p=>({straight:'Star Cruiser',swept:'Swept-Wing Fighter',x:'X-Wing Fighter'}[p.wings])+({6:' Mini',8:'',10:' XL'}[p.L])+(p.engines===2?' (twin engines)':''),
+   make(g,p){const B=g.pick(['lgray','white','blue','dgray','black'],'brick',16),A=g.pick(['red','orange','yellow','lime','sky'],'brick',6),z0=Math.floor((16-p.L)/2);
+     g.box(7,z0,2,p.L,2,B,{y:0});g.piece('s2x2',7,z0,0,A,['b2x2'],6);g.fill(7,z0+2,2,2,{colors:g.pick(C.glass,'brick',2),y:6});
+     const zw=z0+p.L-4;
+     if(p.wings==='straight')g.bar([['b2x8',1,4,zw],['b2x6',1,5,zw],['p4x8',1,4,zw-1]],A);
+     else if(p.wings==='swept'){g.bar([['b2x6',1,5,zw],['b1x6',1,5,zw]],A);g.bar([['b2x8',1,4,zw+2],['b1x6',1,5,zw+2]],A)}
+     else{g.bar([['b1x6',1,5,zw],['b1x4',1,6,zw]],A);g.bar([['b1x6',1,5,zw+3],['b1x4',1,6,zw+3]],A);g.piece('b1x2',5,zw,0,A,['b1x1']);g.piece('b1x2',10,zw+2,0,A,['b1x1'])}
+     for(let e=0;e<p.engines;e++)g.fill(p.engines===1?7:6+e*3,z0+p.L-1,p.engines===1?2:1,1,{colors:['orange','yellow','red'],lock:true})}},
+  {id:'ufo',cat:'Space',words:['ufo','saucer','alien','flying'],params:{size:[4,6,8],dome:['round','tall']},
+   name:p=>({4:'Tiny',6:'',8:'Mega'}[p.size]+' Flying Saucer'+(p.dome==='tall'?' (tall dome)':'')).trim(),
+   make(g,p){const s=p.size,x=8-s/2,z=8-s/2,B=g.pick(['lgray','dgray','white','blue'],'brick',16);
+     g.fill(7,7,2,2,{colors:C.dark,y:0});g.fill(x,z,s,s,{kind:'plate',colors:B,lock:true});g.fill(x,z,s,s,{colors:B,orient:'x',lock:true});
+     g.box(7,7,2,2,p.dome==='tall'?2:1,g.pick(C.glass,'brick',2),{});g.piece('s2x2',7,7,0,['lime','green','sky'],['b2x2'])}},
+  {id:'tractor',cat:'Vehicles',words:['tractor','farm','digger','bulldozer','excavator'],params:{kind:['tractor','digger'],size:[1,2],trailer:[0,1]},
+   name:p=>(p.size===2?'Big ':'')+(p.kind==='tractor'?'Tractor':'Digger')+(p.trailer?' with Trailer':''),
+   make(g,p){const B=g.pick(p.kind==='tractor'?['green','red','blue']:['yellow','orange'],'brick',16),L=6+p.size,z0=p.trailer?2:Math.floor((16-L)/2);
+     g.piece('b2x2',4,z0+L-3,0,['black','dgray'],['b1x2']);g.piece('b2x2',10,z0+L-3,0,['black','dgray'],['b1x2']);g.piece('b1x2',5,z0,0,['black','dgray']);g.piece('b1x2',10,z0,0,['black','dgray']);
+     g.fill(6,z0,4,L,{colors:B,y:0});g.fill(6,z0,4,L,{colors:B,orient:'x',y:3});g.ring(6,z0+L-3,4,3,1,g.pick(C.glass,'brick',3),{y:6});g.fill(6,z0+L-3,4,3,{colors:B,orient:'x',lock:true});
+     g.fill(7,z0+1,1,1,{colors:C.dark,y:6});
+     if(p.kind==='digger'){g.piece('s2x4',6,z0-1,0,B,['b2x4'],3)}
+     if(p.trailer){const tz=z0+L+1;g.fill(6,tz,4,4,{colors:C.dark,y:0});g.ring(6,tz,4,4,1,g.pick(C.wood,'brick',4),{y:3})}}},
+
+  // ===== Buildings =====
+  {id:'house',cat:'Buildings',words:['house','home','hut','cottage','villa','bungalow'],
+   params:{w:[6,8,10],d:[6,8],floors:[1,2],roof:['pitched','flat'],door:['left','middle'],chimney:[0,1]},
+   name:p=>(p.floors===2?'Two-Storey ':'')+({6:'Small',8:'',10:'Big'}[p.w]+' House').trim()+(p.roof==='flat'?' (flat roof)':'')+(p.door==='left'?' (side door)':'')+(p.chimney?' with Chimney':''),
+   make(g,p){const x=8-p.w/2,z=8-p.d/2,W=g.pick(C.wall,'brick',40),R=g.pick(C.roof,'slope',4),h=p.floors*3;
+     g.ring(x,z,p.w,p.d,h,W,{door:{x:p.door==='left'?1:p.w/2-1,w:2,h:2},win:g.pick(C.glass,'brick',2)});
+     if(p.roof==='pitched'){g.roof(x,z,p.w,p.d,R);if(p.chimney){g.fill(x+1,z+p.d-2,1,1,{colors:['red','dgray','black','tan'],lock:true});g.fill(x+1,z+p.d-2,1,1,{colors:['red','dgray','black','tan'],lock:true})}}
+     else if(p.chimney)g.miss+=999;else{g.ring(x,z,p.w,p.d,1,g.pick(C.accent.filter(c=>c!==W[0]),'brick',8),{y:h*3})}}},
+  {id:'tower',cat:'Buildings',words:['tower','skyscraper','tall','building','burj','lighthouse','chimney'],
+   params:{s:[2,4],h:[3,4,5,6,7,8,9,10,11,12],top:['flat','slope','battlement','spire']},
+   name:p=>((p.h<=4?'Short ':p.h>=10?'Sky-High ':p.h>=8?'Tall ':'')+(p.s===4?'Wide ':'')+{flat:'Tower',slope:'Pointy Tower',battlement:'Castle Tower',spire:'Spire Tower'}[p.top]+' · '+p.h+' floors'),
+   make(g,p){const x=8-p.s/2,A=g.pick(['blue','white','lgray','red','yellow','tan'],'brick',24),Bc=g.pick(C.glass.concat(['yellow']).filter(c=>c!==A[0]),'brick',8);
+     for(let i=0;i<p.h;i++)g.fill(x,x,p.s,p.s,{colors:(i%2?Bc:A).concat(A),orient:i%2?'x':'z',y:i*3});
+     const y=p.h*3;
+     if(p.top==='slope'){if(p.s===2)g.piece('s2x2',x,x,0,g.pick(C.roof,'slope',2),['b2x2']);else{g.slopeRow(x,x,4,0,g.pick(C.roof,'slope',4));g.slopeRow(x,x+2,4,2,g.pick(C.roof,'slope',4))}}
+     else if(p.top==='battlement'){for(const [a,b] of p.s===2?[[x,x],[x+1,x+1]]:[[x,x],[x+3,x],[x,x+3],[x+3,x+3]])g.fill(a,b,1,1,{colors:A,y})}
+     else if(p.top==='spire'){g.fill(7,7,1,1,{colors:C.dark,y});g.fill(7,7,1,1,{colors:C.dark,y:y+3});g.fill(7,7,1,1,{colors:['yellow','red'],y:y+6})}}},
+  {id:'castle',cat:'Buildings',words:['castle','fort','palace','king','queen','knight','princess','kingdom'],
+   params:{s:[8,10,12],h:[2,3],towers:[2,4],flags:[0,1]},
+   name:p=>({8:'Little',10:'',12:'Grand'}[p.s]+' Castle').trim()+(p.h===3?' (high walls)':'')+(p.towers===2?' (2 towers)':'')+(p.flags?' with Flags':''),
+   make(g,p){const x=8-p.s/2,S=g.pick(C.stone.concat(['blue']),'brick',40);
+     g.ring(x,x,p.s,p.s,p.h,S,{door:{x:p.s/2-1,w:2,h:2}});
+     const tw=p.towers===4?[[x,x],[x+p.s-2,x],[x,x+p.s-2],[x+p.s-2,x+p.s-2]]:[[x,x],[x+p.s-2,x]];
+     for(const [a,b] of tw){g.fill(a,b,2,2,{colors:S,y:p.h*3});g.fill(a,b,2,2,{colors:S,orient:'x',y:p.h*3+3});if(p.flags)g.fill(a,b,1,1,{colors:['red','yellow','blue'],y:p.h*3+6})}
+     for(let i=x+3;i<x+p.s-3;i+=2){g.fill(i,x,1,1,{colors:S,y:p.h*3});g.fill(i,x+p.s-1,1,1,{colors:S,y:p.h*3})}}},
+  {id:'bridge',cat:'Buildings',words:['bridge','river','road','viaduct'],params:{span:[4,6,8],h:[1,2,3],rails:[0,1]},
+   name:p=>({4:'Little',6:'',8:'Long'}[p.span]+' Bridge'+({1:' (low)',2:'',3:' (high)'}[p.h])+(p.rails?' with Rails':'')).trim(),
+   make(g,p){const x0=8-p.span/2-1,P=g.pick(C.stone.concat(['red']),'brick',12),D=g.pick(['red','yellow','tan','black','blue'],'brick',8);
+     for(let L=0;L<p.h;L++){g.fill(x0,6,2,4,{colors:P,orient:L%2?'x':'z',y:L*3});g.fill(x0+p.span,6,2,4,{colors:P,orient:L%2?'x':'z',y:L*3})}
+     const y=p.h*3,len=p.span+2;g.fill(x0,6,len,4,{kind:'plate',colors:D,orient:'x',y});g.fill(x0,6,len,4,{colors:D,orient:'x',lock:true});
+     if(p.rails){const ty=g.top(x0,6,len,4);g.fill(x0,6,len,1,{colors:D,orient:'x',y:ty});g.fill(x0,9,len,1,{colors:D,orient:'x',y:ty})}}},
+  {id:'pyramid',cat:'Buildings',words:['pyramid','egypt','temple','step','ziggurat'],params:{base:[4,6,8,10],cap:['flat','point']},
+   name:p=>({4:'Tiny',6:'Small',8:'',10:'Great'}[p.base]+' Pyramid').trim()+(p.cap==='point'?'':' (flat top)'),
+   make(g,p){const T=g.pick(['tan','yellow','orange','lgray','white'],'brick',30);let s=p.base,i=0;
+     while(s>=2){const x=8-s/2;g.fill(x,x,s,s,{colors:T,orient:i%2?'x':'z',y:i*3});s-=2;i++}
+     if(p.cap==='point')g.piece('s2x2',7,7,0,g.pick(['yellow','orange','tan'],'slope',2),['b2x2'])}},
+  {id:'wall',cat:'Buildings',words:['wall','fence','gate'],params:{len:[6,8,10,12],h:[1,2,3],top:['plain','crenels']},
+   name:p=>({6:'Short',8:'',10:'Long',12:'Great'}[p.len]+' '+(p.top==='crenels'?'Castle Wall':'Wall')).trim()+({1:' (low)',2:'',3:' (high)'}[p.h]),
+   make(g,p){const x=8-p.len/2,S=g.pick(C.stone.concat(['red']),'brick',12);for(let L=0;L<p.h;L++)g.fill(x+(L%2),7,p.len-(L%2)*2||1,2,{colors:S,orient:'x',y:L*3});
+     if(p.top==='crenels')for(let i=x;i<x+p.len-1;i+=2)g.fill(i,7,1,2,{colors:S,lock:true})}},
+  {id:'stairs',cat:'Buildings',words:['stairs','steps','staircase','ladder'],params:{steps:[3,4,5,6],w:[2,4],way:['up','up-and-down']},
+   name:p=>p.steps+'-Step '+(p.way==='up'?'Staircase':'Hill Steps')+(p.w===4?' (wide)':''),
+   make(g,p){const S=g.pick(['tan','lgray','red','blue','white'],'brick',16),x=8-p.w/2,n=p.steps,L=p.way==='up'?n*2:n*4-2,z0=Math.floor((16-L)/2);
+     for(let i=0;i<n;i++){const z=p.way==='up'?z0+i*2:z0+i*2,len=p.way==='up'?L-i*2:L-i*4;g.fill(x,z,p.w,len,{colors:S,orient:i%2?'x':'z',y:i*3})}}},
+  {id:'arch',cat:'Buildings',words:['arch','gate','door','doorway','portal'],params:{w:[4,6,8],h:[2,3,4]},
+   name:p=>({4:'Narrow',6:'',8:'Wide'}[p.w]+' Archway'+({2:' (low)',3:'',4:' (tall)'}[p.h])).trim(),
+   make(g,p){const S=g.pick(C.stone.concat(['red','white']),'brick',12),x=8-p.w/2;for(let L=0;L<p.h;L++){g.fill(x,7,1,2,{colors:S,y:L*3});g.fill(x+p.w-1,7,1,2,{colors:S,y:L*3})}
+     g.fill(x,7,p.w,2,{colors:S,orient:'x',lock:true});g.fill(x+1,7,p.w-2,2,{colors:S,orient:'x',lock:true})}},
+  {id:'garage',cat:'Buildings',words:['garage','shop','store','shed','barn','stable'],params:{w:[6,8],d:[4,6],door:[2,4],kind:['garage','shop']},
+   name:p=>({6:'Small',8:'Big'}[p.w]+' '+(p.kind==='shop'?'Shop':'Garage')+(p.door===4?' (wide door)':'')),
+   make(g,p){const x=8-p.w/2,z=8-p.d/2,W=g.pick(C.wall,'brick',20),dw=Math.min(p.door,p.w-2);g.ring(x,z,p.w,p.d,3,W,{door:{x:(p.w-dw)/2,w:dw,h:2}});
+     g.slopeRow(x,z,p.w,0,g.pick(p.kind==='shop'?['red','blue','orange']:C.roof,'slope',2));if(p.kind==='shop')g.fill(x+1,z,p.w-2,1,{colors:['yellow','white','orange'],orient:'x',lock:true})}},
+  {id:'temple',cat:'Buildings',words:['temple','columns','pillars','museum','greek'],params:{cols:[2,3,4],h:[2,3,4]},
+   name:p=>p.cols+'-Column Temple'+({2:' (low)',3:'',4:' (tall)'}[p.h]),
+   make(g,p){const S=g.pick(['white','lgray','tan','yellow'],'brick',20),W=p.cols*2+(p.cols-1),x=8-Math.ceil(W/2);g.fill(x,6,W,4,{colors:S,orient:'x',y:0});
+     for(let c=0;c<p.cols;c++)for(let L=0;L<p.h;L++){g.fill(x+c*3,6,2,1,{colors:S,orient:'x',y:3+L*3});g.fill(x+c*3,9,2,1,{colors:S,orient:'x',y:3+L*3})}
+     const y=3+p.h*3;g.fill(x,6,W,4,{colors:S,orient:'x',y});g.slopeRow(x,6,W,0,g.pick(C.roof,'slope',2));g.slopeRow(x,8,W,2,g.pick(C.roof,'slope',2))}},
+  {id:'fence',cat:'Buildings',words:['farm','pen','fence','yard','garden','zoo'],params:{s:[6,8,10,12],gate:[0,1],posts:[0,1]},
+   name:p=>({6:'Small',8:'',10:'Big',12:'Giant'}[p.s]+' Farm Fence').trim()+(p.gate?' with Gate':'')+(p.posts?' and Posts':''),
+   make(g,p){const x=8-p.s/2,F=g.pick(C.wood.concat(['white']),'brick',10);g.ring(x,x,p.s,p.s,1,F,{door:p.gate?{x:p.s/2-1,w:2,h:1}:null});
+     if(p.posts)for(const [a,b] of [[x,x],[x+p.s-1,x],[x,x+p.s-1],[x+p.s-1,x+p.s-1]])g.fill(a,b,1,1,{colors:F,lock:true})}},
+
+  // ===== Animals =====
+  {id:'dog',cat:'Animals',words:['dog','puppy','pet','doggy','puppies'],params:{size:[1,2],tail:['up','none'],ears:[1,0],legs:['short','long']},
+   name:p=>(p.size===2?'Big Dog':'Puppy')+(p.legs==='long'?' (long legs)':'')+(p.tail==='none'?' (no tail)':'')+(p.ears?'':' (no ears)'),
+   make(g,p){const F=g.pick(C.fur,'brick',20),w=p.size===2?4:3,L=p.size===2?7:5,x=8-Math.ceil(w/2),z=8-Math.floor(L/2),lh=p.legs==='long'?2:1;
+     for(const [a,b] of [[x,z],[x+w-1,z],[x,z+L-2],[x+w-1,z+L-2]])for(let i=0;i<lh;i++)g.piece('b1x2',a,b,0,F,['b1x1'],i*3);
+     g.fill(x,z,w,L,{colors:F,orient:'x',y:lh*3});g.fill(x,z,w,L,{colors:F,orient:'z',lock:true});
+     const hy=g.top(x,z,w,L);g.fill(x,z-2,w,3,{colors:F,orient:'z',y:hy});g.fill(x,z-2,w,3,{colors:F,orient:'x',lock:true});
+     if(p.ears){const ey=g.top(x,z-2,w,3);g.fill(x,z,1,1,{colors:C.dark.concat(['brown']),y:ey});g.fill(x+w-1,z,1,1,{colors:C.dark.concat(['brown']),y:ey})}
+     if(p.tail==='up')g.piece('b1x2',x+Math.floor(w/2),z+L-2,0,F,['b1x1'],hy)}},
+  {id:'cat',cat:'Animals',words:['cat','kitten','kitty','tiger','lion'],params:{size:[1,2],tail:['up','long']},
+   name:p=>(p.size===2?'Big Cat':'Kitten')+(p.tail==='long'?' (long tail)':''),
+   make(g,p){const F=g.pick(['orange','black','white','lgray','tan','yellow'],'brick',16),w=p.size===2?4:2,L=p.size===2?6:4,x=8-w/2,z=8-L/2;
+     for(const [a,b] of [[x,z],[x+w-1,z],[x,z+L-2],[x+w-1,z+L-2]])g.piece('b1x2',a,b,0,F,['b1x1'],0);
+     g.fill(x,z,w,L,{colors:F,orient:'x',y:3});g.fill(x,z-1,w,3,{colors:F,orient:'z',y:6});
+     g.piece('s1x2',x,z-1,0,F,['b1x1']);g.piece('s1x2',x+w-1,z-1,0,F,['b1x1']);
+     if(p.tail==='up'){g.fill(x+w/2-1,z+L-1,1,1,{colors:F,y:6});g.fill(x+w/2-1,z+L-1,1,1,{colors:F,y:9})}else g.bar([['b1x4',0,x+w/2-1,z+L-1],['b1x3',0,x+w/2-1,z+L-1]],F)}},
+  {id:'giraffe',cat:'Animals',words:['giraffe','tall','neck'],params:{neck:[3,4,5,6],legs:[2,3],spots:[1,0]},
+   name:p=>'Giraffe'+({3:' (short neck)',4:'',5:' (long neck)',6:' (super-long neck)'}[p.neck])+(p.legs===3?' (tall legs)':'')+(p.spots?'':' (plain)'),
+   make(g,p){const Y=g.pick(['yellow','orange','tan'],'brick',16),S=p.spots?g.pick(['brown','orange','tan','black'].filter(c=>c!==Y[0]),'brick',4):Y;
+     for(const [a,b] of [[6,6],[9,6],[6,9],[9,9]])for(let i=0;i<p.legs;i++)g.fill(a,b,1,1,{colors:Y,y:i*3});
+     g.fill(6,6,4,4,{colors:Y,orient:'x',y:p.legs*3});g.fill(6,6,4,4,{colors:S.concat(Y),orient:'z',lock:true});
+     for(let i=0;i<p.neck;i++)g.fill(7,6,2,2,{colors:(i%2&&p.spots?S:Y).concat(Y),orient:i%2?'x':'z',lock:true});
+     g.bar([['b2x3',0,7,4],['b2x4',0,7,4]],Y);g.fill(7,5,1,1,{colors:C.dark,lock:true});g.fill(8,5,1,1,{colors:C.dark,lock:true})}},
+  {id:'elephant',cat:'Animals',words:['elephant','mammoth','trunk'],params:{size:[1,2],ears:['small','big'],tusks:[0,1]},
+   name:p=>(p.size===2?'Big Elephant':'Baby Elephant')+(p.ears==='big'?' (big ears)':'')+(p.tusks?' with Tusks':''),
+   make(g,p){const E=g.pick(['lgray','dgray','blue','pink'],'brick',20),w=p.size===2?6:4,L=p.size===2?6:4,x=8-w/2,z=8-L/2,cx=x+w/2-1;
+     for(const [a,b] of [[x,z],[x+w-2,z],[x,z+L-2],[x+w-2,z+L-2]])g.fill(a,b,2,2,{colors:E,y:0});
+     g.box(x,z,w,L,2,E,{y:3});for(let i=0;i<3;i++)g.fill(cx,z-2,2,1,{colors:E,orient:'x',y:i*3});
+     if(p.tusks){g.fill(cx-1,z-2,1,1,{colors:['white','tan'],y:0});g.fill(cx+2,z-2,1,1,{colors:['white','tan'],y:0})}
+     g.fill(cx,z-2,2,3,{colors:E,orient:'z',y:9});
+     if(p.ears==='small'){g.piece('b1x2',cx-1,z-1,1,E,['b1x1'],12);g.piece('b1x2',cx+1,z-1,1,E,['b1x1'],12)}else g.bar([['b1x6',1,cx-2,z-1],['b1x4',1,cx-1,z-1]],E)}},
+  {id:'snake',cat:'Animals',words:['snake','worm','python','cobra','caterpillar'],params:{len:[6,8,10,12,14],shape:['straight','zigzag','s','u']},
+   name:p=>({6:'Little',8:'',10:'Long',12:'Very Long',14:'Giant'}[p.len]+' '+{straight:'Snake',zigzag:'Zigzag Snake',s:'Wiggly Snake',u:'Curled Snake'}[p.shape]).trim(),
+   make(g,p){const S=g.pick(['green','lime','red','yellow','orange','blue'],'brick',12),B=g.pick(['yellow','lime','orange','black'].filter(c=>c!==S[0]),'brick',4);
+     const pts=[];const n=p.len;
+     if(p.shape==='straight')for(let i=0;i<n;i++)pts.push([7,1+i]);
+     else if(p.shape==='zigzag')for(let i=0;i<n;i++)pts.push([7+(Math.floor(i/3)%2?2:0),1+i]);
+     else if(p.shape==='s')for(let i=0;i<n;i++)pts.push([Math.round(7+3*Math.sin(i/2)),1+i]);
+     else{const h=Math.ceil(n/2);for(let i=0;i<h;i++)pts.push([5,2+i]);for(let i=0;i<n-h;i++)pts.push([9,2+h-1-i])}
+     const seen=new Set();for(const [a,b] of pts){if(seen.has(a+','+b))continue;seen.add(a+','+b);g.fill(a,b,2,1,{colors:S,orient:'x',y:0})}
+     if(p.shape==='u')g.fill(5,1,6,1,{colors:S,orient:'x',y:0});
+     for(let i=0;i<pts.length;i+=2){const [a,b]=pts[i];g.fill(a,b,2,2>pts.length-i?1:2,{colors:i%4?S:B,orient:'z',lock:true})}
+     const [hx,hz]=pts[0];g.fill(hx,hz,1,1,{colors:C.dark,lock:true})}},
+  {id:'duck',cat:'Animals',words:['duck','duckling','goose','chicken','hen','bird','chick'],params:{size:[1,2],kind:['duck','hen'],tail:[0,1]},
+   name:p=>(p.size===2?'Big ':'')+(p.kind==='duck'?'Duck':'Hen')+(p.tail?' with Tail':''),
+   make(g,p){const Y=g.pick(p.kind==='duck'?['yellow','white']:['white','red','orange','brown'],'brick',8),w=p.size===2?4:2,x=8-w/2;
+     g.box(x,5,w,5,p.size,Y,{y:0});const top=p.size*3;g.box(7,6,2,2,2,Y,{y:top});
+     g.piece('b1x2',7,5,1,['orange','red','yellow'],['b1x1'],top);
+     if(p.kind==='hen')g.fill(7,6,2,1,{colors:['red'],lock:true});
+     if(p.tail)g.piece('b1x2',7,8,0,Y,['b1x1'],top)}},
+  {id:'turtle',cat:'Animals',words:['turtle','tortoise'],params:{shell:[4,6],h:[1,2]},
+   name:p=>(p.shell===6?'Big ':'')+'Turtle'+(p.h===2?' (tall shell)':''),
+   make(g,p){const s=p.shell,x=8-s/2,G=g.pick(['green','lime','tan'],'brick',8),SH=g.pick(['brown','orange','green','dgray'],'brick',12);
+     for(const [a,b] of [[x-1,x],[x+s,x],[x-1,x+s-2],[x+s,x+s-2]])g.piece('b1x2',a,b,0,G,['b1x1'],0);g.fill(7,x-2,2,2,{colors:G,y:0});
+     g.fill(x,x,s,s,{colors:SH,orient:'x',y:0});for(let i=1;i<=p.h;i++)g.fill(x+1,x+1,s-2,s-2,{colors:SH,orient:i%2?'z':'x',lock:true});g.fill(7,x-2,2,2,{colors:G,lock:true})}},
+  {id:'croc',cat:'Animals',words:['crocodile','alligator','croc','lizard'],params:{len:[6,8,10,12],jaws:['closed','open']},
+   name:p=>({6:'Baby',8:'',10:'Big',12:'Giant'}[p.len]+' Crocodile').trim()+(p.jaws==='open'?' (open jaws)':''),
+   make(g,p){const G=g.pick(['green','dgray','lime'],'brick',16),z0=Math.floor((16-p.len-2)/2);
+     for(const z of [z0+2,z0+p.len-2]){g.piece('b1x2',5,z,0,G,['b1x1'],0);g.piece('b1x2',10,z,0,G,['b1x1'],0)}
+     g.fill(6,z0+1,4,p.len,{colors:G,orient:'x',y:0});g.fill(6,z0+1,4,p.len-2,{colors:G,orient:'z',lock:true});
+     g.bar([['b2x6',0,7,z0+p.len],['b1x4',0,7,z0+p.len]],G);
+     g.fill(7,z0-1,2,2,{colors:G,y:0});if(p.jaws==='open')g.piece('b2x3',7,z0-1,0,G,['b2x2'],3);g.fill(6,z0+1,1,1,{colors:['white','yellow'],lock:true});g.fill(9,z0+1,1,1,{colors:['white','yellow'],lock:true})}},
+  {id:'fish',cat:'Animals',words:['fish','shark','whale','dolphin','goldfish'],params:{size:[1,2,3],tail:['fan','fork']},
+   name:p=>({1:'Little Fish',2:'Fish',3:'Big Fish'}[p.size])+(p.tail==='fork'?' (fork tail)':''),
+   make(g,p){const F=g.pick(['orange','blue','yellow','red','sky','lgray'],'brick',8),A=g.pick(C.accent.filter(c=>c!==F[0]),'brick',2),L=3+p.size*2,z0=Math.floor((16-L-2)/2);
+     g.box(7,z0,2,L,p.size,F,{y:0});g.fill(7,z0,1,1,{colors:C.dark,lock:true});
+     if(p.tail==='fan')g.bar([['b1x4',1,6,z0+L],['b1x3',1,6,z0+L]],A);else{g.piece('b1x2',6,z0+L,0,A,['b1x1'],0);g.piece('b1x2',9,z0+L,0,A,['b1x1'],0);g.bar([['b1x4',1,6,z0+L-1]],A)}}},
+  {id:'dino',cat:'Animals',words:['dinosaur','dino','brontosaurus','diplodocus','longneck','trex','rex'],params:{neck:[2,3,4],tail:[3,5,7],legs:[1,2]},
+   name:p=>'Long-Neck Dinosaur'+({2:' (short neck)',3:'',4:' (tall neck)'}[p.neck])+({3:' (short tail)',5:'',7:' (long tail)'}[p.tail])+(p.legs===2?' (tall legs)':''),
+   make(g,p){const D=g.pick(['green','lime','blue','orange','magenta'],'brick',20),x=6,z=Math.max(2,7-Math.floor(p.tail/2));
+     for(const [a,b] of [[x,z],[x+3,z],[x,z+3],[x+3,z+3]])for(let i=0;i<p.legs;i++)g.fill(a,b,1,1,{colors:D,y:i*3});
+     g.box(x,z,4,4,2,D,{y:p.legs*3});for(let i=0;i<p.neck;i++)g.fill(7,z-1+(i===0?1:0),2,2,{colors:D,orient:i%2?'x':'z',lock:true});
+     g.bar([['b2x3',0,7,z-3],['b2x4',0,7,z-3],['b2x2',0,7,z-2]],D);const ty=p.legs*3;
+     const t=p.tail>=7?'b2x8':p.tail>=5?'b2x6':'b2x4';g.bar([[t,0,7,z+3],['b1x6',0,7,z+3],['b1x4',0,7,z+3]],D);void ty}},
+  {id:'pig',cat:'Animals',words:['pig','piglet','cow','sheep','horse','pony','lamb'],params:{kind:['pig','cow','horse','sheep']},
+   name:p=>({pig:'Piggy',cow:'Cow',horse:'Pony',sheep:'Sheep'}[p.kind]),
+   make(g,p){const F=g.pick({pig:['pink','magenta','orange'],cow:['white','black','tan'],horse:['brown','tan','black','white'],sheep:['white','lgray']}[p.kind],'brick',12),L=p.kind==='horse'?6:5,x=6,z=8-Math.floor(L/2),lh=p.kind==='horse'?2:1;
+     for(const [a,b] of [[x,z],[x+3,z],[x,z+L-1],[x+3,z+L-1]])for(let i=0;i<lh;i++)g.fill(a,b,1,1,{colors:p.kind==='sheep'?C.dark:F,y:i*3});
+     g.box(x,z,4,L,p.kind==='sheep'?2:1,F,{y:lh*3});const hy=g.top(x,z,4,L);
+     if(p.kind==='horse'){g.fill(7,z-1,2,2,{colors:F,y:hy});g.fill(7,z-2,2,3,{colors:F,orient:'z',lock:true})}else g.fill(7,z-2,2,3,{colors:F,orient:'z',lock:true});
+     if(p.kind==='pig')g.fill(7,z-2,2,1,{colors:['pink','magenta'],lock:true})}},
+
+  // ===== Nature =====
+  {id:'tree',cat:'Nature',words:['tree','forest','palm','pine','christmas','apple','jungle','plant'],params:{trunk:[1,2,3,4],crown:['ball','big','pine','palm'],fruit:[0,1]},
+   name:p=>({ball:'Round Tree',big:'Big Leafy Tree',pine:'Pine Tree',palm:'Palm Tree'}[p.crown])+({1:' (short)',2:'',3:' (tall)',4:' (very tall)'}[p.trunk])+(p.fruit?' with Fruit':''),
+   make(g,p){const T=g.pick(C.wood,'brick',4),L=g.pick(C.leaf.concat(['blue']),'brick',8);for(let i=0;i<p.trunk;i++)g.fill(7,7,2,2,{colors:T,orient:i%2?'x':'z',y:i*3});
+     if(p.crown==='ball'){g.bar([['p4x4',0,6,6],['b2x4',1,6,7]],L);g.fill(6,6,4,4,{colors:L,lock:true});g.fill(7,7,2,2,{colors:L,lock:true})}
+     else if(p.crown==='big'){g.bar([['p4x8',1,4,6],['p4x4',0,6,6],['b2x8',1,4,7]],L);g.fill(4,6,8,4,{colors:L,orient:'x',lock:true});g.fill(6,6,4,4,{colors:L,lock:true});g.fill(7,7,2,2,{colors:L,lock:true})}
+     else if(p.crown==='pine'){g.bar([['p4x4',0,6,6],['b2x4',1,6,7]],L);g.fill(6,6,4,4,{colors:L,lock:true});g.fill(7,7,2,2,{colors:L,lock:true});g.fill(7,7,2,2,{colors:L,orient:'x',lock:true});g.piece('s2x2',7,7,0,L,['b2x2'])}
+     else{g.bar([['b1x6',1,5,7],['b1x4',1,6,7]],L);g.bar([['b1x6',0,7,5],['b1x4',0,7,6]],L)}
+     if(p.fruit){const y=g.top(6,6,4,4);for(const [a,b] of [[6,6],[9,9],[9,6],[6,9]])g.fill(a,b,1,1,{colors:['red','orange','yellow'],y:y-3})}}},
+  {id:'flower',cat:'Nature',words:['flower','flowers','rose','tulip','garden','bouquet','sunflower'],params:{count:[1,2,3],h:[1,2,3]},
+   name:p=>(p.count===1?'Flower':p.count===2?'Two Flowers':'Flower Bunch')+({1:' (short)',2:'',3:' (tall)'}[p.h]),
+   make(g,p){const P=['red','yellow','pink','magenta','orange','white','blue'];const xs=p.count===1?[7]:p.count===2?[5,9]:[4,7,10];
+     xs.forEach((x,i)=>{const hh=p.h+(i%2);for(let k=0;k<hh;k++)g.fill(x,7,1,1,{colors:C.leaf,y:k*3});
+       const pc=g.pick([P[(i*2+p.h)%P.length]].concat(P),'brick',2);g.piece('b1x3',x-1,7,1,pc,['b1x2']);g.piece('b1x3',x,6,0,pc,['b1x2']);g.fill(x,7,1,1,{colors:['yellow','orange'],lock:true})})}},
+  {id:'mushroom',cat:'Nature',words:['mushroom','toadstool','fungi'],params:{stem:[1,2,3],cap:[4,6]},
+   name:p=>(p.cap===6?'Big ':'')+'Mushroom'+({1:' (short)',2:'',3:' (tall)'}[p.stem]),
+   make(g,p){const R=g.pick(['red','orange','blue','magenta'],'brick',10);for(let i=0;i<p.stem;i++)g.fill(7,7,2,2,{colors:['white','tan','lgray'],orient:i%2?'x':'z',y:i*3});
+     const x=8-p.cap/2;g.fill(x,x,p.cap,p.cap,{kind:'plate',colors:R,lock:true});g.fill(x,x,p.cap,p.cap,{colors:R,orient:'x',lock:true});g.fill(x+1,x+1,p.cap-2,p.cap-2,{colors:R,lock:true});
+     g.fill(x+1,x+1,1,1,{colors:['white'],lock:true})}},
+  {id:'snowman',cat:'Nature',words:['snowman','snow','winter','christmas','frosty'],params:{size:[1,2],hat:['none','top','bobble'],arms:[0,1]},
+   name:p=>(p.size===2?'Big ':'')+'Snowman'+({none:'',top:' with Top Hat',bobble:' with Bobble Hat'}[p.hat])+(p.arms?'':' (no arms)'),
+   make(g,p){const W=g.pick(['white','lgray','tan'],'brick',16),b=p.size===2?6:4,x=8-b/2;
+     g.box(x,x,b,b,2,W,{y:0});g.box(x+1,x+1,b-2,b-2,2,W,{});g.box(7,7,2,2,1,W,{});
+     if(p.arms){g.piece('b1x2',x,8,1,C.wood,[],6);g.piece('b1x2',x+b-2,7,1,C.wood,[],6)}
+     if(p.hat==='top'){g.fill(7,7,2,2,{colors:['black','dgray'],lock:true});g.fill(7,7,2,2,{colors:['black','dgray'],lock:true})}
+     else if(p.hat==='bobble'){g.fill(7,7,2,2,{colors:['red','blue','lime'],lock:true});g.fill(7,7,1,1,{colors:['white','yellow'],lock:true})}}},
+  {id:'robot',cat:'Robots & Fun',words:['robot','robots','bot','android','mech','transformer'],params:{body:[2,3,4],arms:['down','out','up'],head:['box','tall','antenna'],legs:['short','long']},
+   name:p=>({2:'Little',3:'',4:'Big'}[p.body]+' Robot').trim()+({down:' (short arms)',out:' (arms out)',up:' (arms up)'}[p.arms])+({box:'',tall:' (tall head)',antenna:' with Antenna'}[p.head])+(p.legs==='long'?' (long legs)':''),
+   make(g,p){const B=g.pick(['red','blue','lgray','white','yellow','orange'],'brick',16),L=g.pick(['blue','dgray','black','lgray'].filter(c=>c!==B[0]),'brick',6),H=g.pick(['yellow','white','lgray','lime'].filter(c=>c!==B[0]),'brick',4);
+     g.fill(6,6,2,3,{colors:C.dark,y:0});g.fill(8,6,2,3,{colors:C.dark,y:0});const lh=p.legs==='long'?2:1;
+     for(let i=0;i<lh;i++){g.fill(6,7,2,2,{colors:L,y:3+i*3});g.fill(8,7,2,2,{colors:L,y:3+i*3})}
+     const by=3+lh*3;for(let i=0;i<p.body;i++)g.fill(6,7,4,2,{colors:B,orient:i%2?'z':'x',y:by+i*3});
+     const sy=by+(p.body-1)*3;
+     if(p.arms==='down'){g.piece('b1x2',5,7,1,H,['b1x1']);g.piece('b1x2',9,7,1,H,['b1x1'])}
+     else if(p.arms==='out'){g.bar([['b1x6',1,5,7],['b1x4',1,6,7]],B);g.fill(5,7,1,1,{colors:H,lock:true});g.fill(10,7,1,1,{colors:H,lock:true})}
+     else{g.bar([['b1x6',1,5,7],['b1x4',1,6,7]],B);g.fill(5,7,1,1,{colors:H,lock:true});g.fill(10,7,1,1,{colors:H,lock:true});g.fill(5,7,1,1,{colors:H,lock:true});g.fill(10,7,1,1,{colors:H,lock:true})}
+     const hy=g.top(7,7,2,2);g.fill(7,7,2,2,{colors:H,y:hy});if(p.head==='tall')g.fill(7,7,2,2,{colors:H,orient:'x',lock:true});
+     if(p.head==='antenna')g.fill(7,7,1,1,{colors:['red','black','yellow'],lock:true})}},
+  {id:'table',cat:'Robots & Fun',words:['table','desk','furniture','bench'],params:{w:[2,4,6],d:[2,4],h:[1,2]},
+   name:p=>({2:'Small',4:'',6:'Long'}[p.w]+' Table').trim()+(p.d===4?' (wide)':'')+(p.h===2?' (tall)':''),
+   make(g,p){const T=g.pick(C.wood.concat(['white','red']),'brick',8),x=8-Math.ceil((p.w+2)/2),z=8-p.d/2;
+     for(const [a,b] of [[x,z],[x+p.w+1,z],[x,z+p.d-1],[x+p.w+1,z+p.d-1]])for(let i=0;i<p.h;i++)g.fill(a,b,1,1,{colors:T,y:i*3});
+     g.fill(x,z,p.w+2,p.d,{kind:'plate',colors:T,orient:'x',lock:true});g.fill(x,z,p.w+2,p.d,{colors:T,orient:'x',lock:true})}},
+  {id:'chair',cat:'Robots & Fun',words:['chair','sofa','couch','seat','throne','bed'],params:{kind:['chair','sofa','bed','throne']},
+   name:p=>({chair:'Chair',sofa:'Sofa',bed:'Bed',throne:'King’s Throne'}[p.kind]),
+   make(g,p){const T=g.pick(p.kind==='throne'?['yellow','red','magenta']:C.wall,'brick',8),w={chair:2,sofa:6,bed:4,throne:4}[p.kind],d={chair:2,sofa:3,bed:6,throne:3}[p.kind],x=8-w/2,z=8-Math.floor(d/2);
+     g.fill(x,z,w,d,{colors:T,orient:'x',y:0});g.fill(x,z+d-1,w,1,{colors:T,orient:'x',lock:true});if(p.kind!=='chair')g.fill(x,z+d-1,w,1,{colors:T,orient:'x',lock:true});
+     if(p.kind==='sofa'){g.fill(x,z,1,d-1,{colors:T,y:3});g.fill(x+w-1,z,1,d-1,{colors:T,y:3})}
+     if(p.kind==='bed')g.fill(x,z,w,2,{kind:'plate',colors:['white','sky','pink'],y:3});
+     if(p.kind==='throne'){g.fill(x,z+d-1,w,1,{colors:T,orient:'x',lock:true});g.fill(x+1,z+d-1,2,1,{colors:['yellow','red'],orient:'x',lock:true})}}},
+  // ===== Letters, words, pictures, mazes =====
+  {id:'letter',cat:'Letters & Words',words:['letter','alphabet','abc','number','numbers','digit','counting'],params:{ch:Object.keys(FONT5),scale:[2,1]},
+   name:p=>(/[0-9]/.test(p.ch)?'Number ':'Letter ')+p.ch+(p.scale===1?' (small)':''),
+   make(g,p){const rows=FONT5[p.ch].split(',');const W=g.pick(C.bright.concat(['magenta','green','pink']),'brick',20);g.pix(rows,Math.floor((16-5*p.scale)/2),Math.floor((16-7*p.scale)/2),p.scale,{1:W},2)}},
+  {id:'word',cat:'Letters & Words',words:['word','words','spell','spelling','name','read','reading'],params:{w:WORDS},
+   name:p=>'Word: '+p.w,
+   make(g,p){const n=p.w.length,Wd=n*3+(n-1);const rows=[];for(let r=0;r<5;r++){let s='';for(let i=0;i<n;i++){s+=FONT3[p.w[i]].split(',')[r];if(i<n-1)s+='0'}rows.push(s)}
+     const col=g.pick(C.bright.concat(['magenta','green','blue']),'brick',12);g.pix(rows,Math.floor((16-Wd)/2),5,1,{1:col},2)}},
+  {id:'pixel',cat:'Pictures',words:['picture','mosaic','pixel','art','heart','star','smiley','emoji','sun','moon','icon'],params:{pic:Object.keys(PIXELS),scale:[1,2]},
+   name:p=>p.pic+(p.scale===2?' (big)':''),
+   make(g,p){const rows=PIXELS[p.pic],H=rows.length,W=rows[0].length;if(W*p.scale>16||H*p.scale>16){g.miss+=999;return}
+     const main={Heart:['red','pink','magenta'],Star:['yellow','orange'],Smiley:['yellow','orange'],Sun:['yellow','orange'],Moon:['yellow','white','lgray'],'Little House':['red','white','tan'],Fish:['orange','blue'],'Cat Face':['orange','lgray','black'],'Up Arrow':['blue','red','green'],Flower:['pink','red','magenta'],Ghost:['white','lgray'],Mushroom:['red','orange'],Apple:['red','lime','green'],Diamond:['sky','blue','aqua'],Crown:['yellow','orange'],Key:['yellow','orange','tan'],'Music Note':['black','blue'],Rocket:['white','lgray','red'],Tree:['green','lime'],Umbrella:['blue','red','magenta']}[p.pic];
+     const sec={Smiley:['black'],Sun:['orange'],'Little House':['brown','blue','black'],Fish:['black','white'],'Cat Face':['black','green'],Flower:['yellow'],Ghost:['black','blue'],Mushroom:['white','tan'],Crown:['red','blue'],Rocket:['red','blue','sky'],Tree:['brown','tan']}[p.pic]||['black'];
+     g.pix(rows,Math.floor((16-W*p.scale)/2),Math.floor((16-H*p.scale)/2),p.scale,{1:g.pick(main,'brick',8),2:g.pick(sec,'brick',2)},p.scale===2?1:2)}},
+  {id:'maze',cat:'Puzzles',words:['maze','labyrinth','puzzle','marble'],params:{n:[4,5,6,7],seed:[...Array(40).keys()]},
+   name:p=>({4:'Easy',5:'Tricky',6:'Hard',7:'Expert'}[p.n])+' Maze '+(p.seed+1),
+   make(g,p){const rows=maze(p.n,p.seed*97+p.n*13+1),W=rows.length,o=Math.floor((16-W)/2);const S=g.pick(['blue','red','tan','lgray','white','yellow','green'],'brick',20);
+     const cov=new Set();
+     for(let j=0;j<W;j++){let i=0;while(i<W){if(rows[j][i]!=='1'){i++;continue}let e=i;while(e+1<W&&rows[j][e+1]==='1')e++;
+       if(e>i){g.fill(o+i,o+j,e-i+1,1,{colors:S,orient:'x',y:0});for(let q=i;q<=e;q++)cov.add(q+','+j)}i=e+1}}
+     for(let i=0;i<W;i++){let j=0;while(j<W){if(rows[j][i]!=='1'||cov.has(i+','+j)){j++;continue}let e=j;while(e+1<W&&rows[e+1][i]==='1'&&!cov.has(i+','+(e+1)))e++;
+       g.fill(o+i,o+j,1,e-j+1,{colors:S,orient:'z',y:0});j=e+1}}}}
+];
+const FAM_BY_ID={};FAMILIES.forEach((f,i)=>{f.idx=i;FAM_BY_ID[f.id]=f});
+function combos(f){const keys=Object.keys(f.params);let out=[{}];for(const k of keys){const n=[];for(const o of out)for(const v of f.params[k])n.push({...o,[k]:v});out=n}return out}
+const COMBOS=FAMILIES.map(combos);
+function generateFamily(fi,ci,counts,variant){
+  const f=FAMILIES[fi],p=COMBOS[fi][ci],bs=f.base||'16x16',[bw,bd]=bs.split('x').map(Number);
+  const g=genHelpers(makeGen(counts,{w:bw,d:bd},variant||0));
+  try{f.make(g,p)}catch(e){g.miss+=999}
+  return {name:f.name(p),base:bs,bricks:g.bricks,miss:g.miss,parts:g.parts.length?g.parts.slice():null};
+}
+// the instructions' order must always be buildable: every piece lands exactly where the model has it
+function validateOrder(bricks,base,per){
+  const placed=[];
+  for(const st of buildSteps(bricks,per||3)){const occ=buildOcc(placed);for(const b of st){const p=dropPlacement(occ,b.t,b.r,b.x,b.z,base);if(!p.ok||p.y!==b.y)return false}placed.push(...st)}
+  return true;
+}
+
+
+// ---------- Expert builds: big single models in chapters, and scenes on two plates ----------
+const BASE24={w:24,d:16};
+const sub=(id,p)=>g=>FAM_BY_ID[id].make(g,p);
+const EXPERT=[
+  {id:'megacastle',cat:'Expert',words:['castle','fortress','palace','kingdom','keep','knight','king','queen','princess'],
+   params:{keep:['tower','hall'],walls:[2,3],tops:['battlement','pointy'],gatehouse:[0,1]},
+   name:p=>'Grand Fortress'+(p.keep==='hall'?' with Great Hall':' with Keep Tower')+(p.walls===3?' · high walls':'')+(p.tops==='pointy'?' · pointed towers':'')+(p.gatehouse?' · gatehouse':''),
+   make(g,p){const S=g.pick(C.stone.concat(['blue']),'brick',60),R=g.pick(C.roof,'slope',6),h=p.walls*3;
+     g.at('Outer walls',0,0,()=>g.ring(1,1,14,14,p.walls,S,{door:{x:6,w:2,h:2}}));
+     g.at('Corner towers',0,0,()=>{for(const [a,b] of [[1,1],[13,1],[1,13],[13,13]]){g.fill(a,b,2,2,{colors:S,y:h});g.fill(a,b,2,2,{colors:S,orient:'x',y:h+3});
+       if(p.tops==='pointy')g.piece('s2x2',a,b,b<8?0:2,R,['b2x2']);else{g.fill(a,b,1,1,{colors:S,lock:true});g.fill(a+1,b+1,1,1,{colors:S,lock:true})}}});
+     if(p.gatehouse)g.at('Gatehouse',0,0,()=>{g.fill(5,1,2,1,{colors:S,orient:'x',y:h});g.fill(9,1,2,1,{colors:S,orient:'x',y:h});g.bar([['b1x6',1,5,1],['b1x4',1,6,1]],S);g.fill(7,1,2,1,{colors:['red','yellow','blue'],orient:'x',lock:true})});
+     g.at(p.keep==='tower'?'Keep tower':'Great hall',0,0,()=>{
+       if(p.keep==='tower'){g.box(6,6,4,4,p.walls+2,S,{y:0});if(p.tops==='pointy'){g.roof(6,6,4,4,R)}else for(const [a,b] of [[6,6],[9,6],[6,9],[9,9]])g.fill(a,b,1,1,{colors:S,lock:true})}
+       else{g.ring(5,6,6,6,p.walls+1,S,{door:{x:2,w:2,h:2}});g.roof(5,6,6,6,R)}})}},
+  {id:'skyscraper',cat:'Expert',words:['skyscraper','tower','building','city','office','tall','burj'],
+   params:{s:[4,6],floors:[8,12,16,20],crown:['spire','slope','helipad'],bands:[2,3]},
+   name:p=>p.floors+'-Floor Skyscraper'+(p.s===6?' · wide':'')+' · '+{spire:'spire top',slope:'pointed roof',helipad:'helipad'}[p.crown]+(p.bands===3?' · thin windows':''),
+   make(g,p){const A=g.pick(['white','lgray','blue','tan','dgray','black'],'brick',40),G=g.pick(C.glass,'brick',12),x=8-p.s/2;
+     const floor=i=>{const cols=(i%p.bands===p.bands-1?G:A).concat(A);if(p.s===4)g.fill(x,x,4,4,{colors:cols,orient:i%2?'x':'z',y:i*3});else g.ring(x,x,6,6,1,cols,{y:i*3})};
+     const half=Math.floor(p.floors/2);
+     g.at('Lower floors',0,0,()=>{for(let i=0;i<half;i++)floor(i)});
+     g.at('Upper floors',0,0,()=>{for(let i=half;i<p.floors;i++)floor(i)});
+     g.at('Roof',0,0,()=>{const y=p.floors*3;
+       if(p.s===6)g.fill(x,x,6,6,{kind:'plate',colors:A,y,big:true});
+       if(p.crown==='spire'){g.fill(7,7,2,2,{colors:A,lock:true});g.fill(7,7,1,1,{colors:C.dark,lock:true});g.fill(7,7,1,1,{colors:['red','yellow'],lock:true})}
+       else if(p.crown==='slope'){g.slopeRow(x,x,p.s,0,g.pick(C.roof,'slope',4));g.slopeRow(x,x+p.s-2,p.s,2,g.pick(C.roof,'slope',4))}
+       else{g.fill(x,x,p.s,p.s,{kind:'plate',colors:['dgray','black','lgray'],lock:true});g.fill(7,7,2,2,{kind:'plate',colors:['yellow','white','red'],lock:true})}})}},
+  {id:'galleon',cat:'Expert',words:['pirate','ship','galleon','sail','sailboat','boat','captain'],
+   params:{size:[12,14],masts:[1,2,3],stern:[0,1],cannons:[0,1]},
+   name:p=>({12:'Pirate Ship',14:'Great Galleon'}[p.size])+' · '+p.masts+' mast'+(p.masts>1?'s':'')+(p.stern?' · captain’s deck':'')+(p.cannons?' · cannons':''),
+   make(g,p){const z0=Math.floor((16-p.size)/2),H=g.pick(['brown','black','red','blue','tan'],'brick',40),D=g.pick(['tan','brown','yellow','orange'].filter(c=>c!==H[0]),'brick',10),Sl=g.pick(['white','lgray','tan','yellow'],'brick',10);
+     g.at('Hull',0,0,()=>{g.fill(6,z0+1,4,p.size-2,{colors:H,y:0});g.slopeRow(5,z0,6,0,H.concat(D));g.fill(5,z0+2,6,p.size-2,{colors:H,orient:'x',y:3})});
+     g.at('Deck',0,0,()=>{g.ring(5,z0+2,6,p.size-2,1,D.concat(H),{y:6});
+       if(p.stern){g.fill(5,z0+p.size-4,6,4,{colors:H,orient:'x',lock:true,big:true});g.ring(5,z0+p.size-4,6,4,1,D,{y:g.top(5,z0+p.size-4,6,4)})}
+       if(p.cannons)for(let z=z0+4;z<z0+p.size-(p.stern?5:2);z+=3){g.fill(5,z,1,1,{colors:['black','dgray'],lock:true});g.fill(10,z,1,1,{colors:['black','dgray'],lock:true})}});
+     g.at('Masts and sails',0,0,()=>{const span=p.size-(p.stern?8:5),step=Math.max(2,Math.floor(span/p.masts));
+       for(let m=0;m<p.masts;m++){const mz=z0+4+m*step;for(let i=0;i<2;i++)g.fill(7,mz,1,1,{colors:C.wood,lock:true});
+         for(let k=0;k<2;k++){g.bar([['b1x6',1,5,mz],['b1x4',1,6,mz],['b1x3',1,6,mz]],Sl);g.fill(7,mz,1,1,{colors:C.wood,lock:true})}
+         if(m===0)g.fill(7,mz,1,1,{colors:['red','black'],lock:true})}})}},
+  {id:'airliner',cat:'Expert',words:['plane','aeroplane','airplane','jet','airliner','jumbo','boeing','airbus','aircraft'],
+   params:{L:[12,14],engines:[2,4],wing:['straight','swept'],stripe:[0,1]},
+   name:p=>(p.engines===4?'Four-Engine Jumbo Jet':'Twin-Engine Airliner')+(p.L===14?' · long body':'')+(p.wing==='swept'?' · swept wings':'')+(p.stripe?' · window stripe':''),
+   make(g,p){const B=g.pick(['white','lgray','blue','red'],'brick',40),W=g.pick(['blue','red','lgray','white','yellow'].filter(c=>c!==B[0]),'brick',10),G=g.pick(C.glass,'brick',8),z0=Math.floor((16-p.L)/2);
+     g.at('Body',0,0,()=>{g.fill(6,z0+1,4,p.L-1,{colors:B,y:0});g.fill(6,z0+1,4,p.L-1,{colors:(p.stripe?G:B).concat(B),orient:'x',y:3});g.fill(6,z0+1,4,p.L-1,{colors:B,y:6});
+       g.slopeRow(6,z0,4,0,B);g.slopeRow(6,z0+1,4,0,g.pick(C.glass,'slope',2).concat(B))});
+     g.at('Wings and engines',0,0,()=>{const zw=z0+Math.floor(p.L*0.42);
+       if(p.wing==='straight'){g.bar([['p4x8',1,4,zw],['b2x8',1,4,zw],['b2x6',1,5,zw]],W);g.bar([['b2x8',1,4,zw+1],['b2x6',1,5,zw+2],['b1x6',1,5,zw+2]],W)}
+       else{g.bar([['b2x6',1,5,zw],['b1x6',1,5,zw]],W);g.bar([['p4x8',1,4,zw+1],['b2x8',1,4,zw+2],['b2x6',1,5,zw+2]],W)}
+       const ey=g.top(4,zw,8,4);const xs=p.engines===4?[4,5,10,11]:[4,11];for(const ex of xs)g.piece('b1x2',ex,zw+1,0,['dgray','black','lgray'],['b1x1'],ey)});
+     g.at('Tail',0,0,()=>{const zt=z0+p.L-2;g.fill(6,zt,4,2,{colors:B,orient:'x',lock:true});g.bar([['b1x6',1,5,zt+1],['b1x4',1,6,zt+1]],W);g.piece('b1x2',8,zt,0,W,['b1x1']);g.piece('b1x2',8,zt,0,W,['b1x1']);g.piece('s1x2',8,zt,2,W,['b1x2'])})}},
+  {id:'mech',cat:'Expert',words:['robot','mech','transformer','giant','android','bot','robots'],
+   params:{size:[1,2],arms:['up','out','cannon'],head:['dome','visor'],legs:['short','long']},
+   name:p=>(p.size===2?'Mega Mech':'Battle Mech')+' · '+{up:'arms up',out:'arms out',cannon:'arm cannons'}[p.arms]+(p.head==='visor'?' · visor':'')+(p.legs==='long'?' · long legs':''),
+   make(g,p){const B=g.pick(['lgray','white','red','blue','yellow','dgray'],'brick',40),A=g.pick(['red','blue','orange','yellow','black'].filter(c=>c!==B[0]),'brick',10),K=['black','dgray','blue'],ll=p.legs==='long'?3:2,tw=p.size===2?6:4,tx=8-tw/2,tl=p.size===2?4:3;
+     g.at('Legs',0,0,()=>{g.fill(5,6,2,4,{colors:K,y:0});g.fill(9,6,2,4,{colors:K,y:0});for(let i=0;i<ll;i++){g.fill(5,7,2,2,{colors:B,orient:i%2?'x':'z',y:3+i*3});g.fill(9,7,2,2,{colors:B,orient:i%2?'x':'z',y:3+i*3})}});
+     g.at('Body',0,0,()=>{const y=3+ll*3;g.bar([['b2x6',1,5,7],['b2x8',1,4,7],['b1x6',1,5,7]],A);for(let i=0;i<tl;i++)g.fill(tx,6,tw,4,{colors:i===1?A.concat(B):B,orient:i%2?'z':'x',lock:true,big:true});g.fill(tx,9,tw,1,{colors:K,orient:'x',lock:true});
+       g.fill(7,6,2,1,{colors:['yellow','orange','sky','lime'],lock:true});void y});
+     g.at('Arms',0,0,()=>{g.bar([['b2x8',1,4,7],['b1x6',1,5,7],['b2x6',1,5,7]],A);
+       if(p.arms==='up'){for(const ax of [4,11])for(let i=0;i<2;i++)g.fill(ax,7,1,1,{colors:B,lock:true})}
+       else if(p.arms==='out'){g.fill(4,7,1,2,{colors:B,lock:true});g.fill(11,7,1,2,{colors:B,lock:true})}
+       else{g.piece('b1x4',4,4,0,K,['b1x3','b1x2']);g.piece('b1x4',11,4,0,K,['b1x3','b1x2'])}});
+     g.at('Head',0,0,()=>{g.fill(7,7,2,2,{colors:B,lock:true});if(p.head==='visor')g.fill(7,7,2,1,{colors:C.glass,lock:true});else g.piece('s2x2',7,7,0,A,['b2x2']);g.fill(8,8,1,1,{colors:['red','yellow'],lock:true})})}},
+  {id:'trex',cat:'Animals',words:['dinosaur','dino','trex','rex','tyrannosaurus','raptor'],
+   params:{tail:['short','long'],jaws:['open','closed'],spikes:[0,1],legs:[2,3]},
+   name:p=>'T-Rex'+(p.tail==='long'?' · long tail':'')+(p.jaws==='open'?' · open jaws':'')+(p.spikes?' · back spikes':'')+(p.legs===3?' · tall':''),
+   make(g,p){const D=g.pick(['green','dgray','orange','brown','lime','red'],'brick',30),A=g.pick(['yellow','orange','red','black'].filter(c=>c!==D[0]),'brick',4);
+     g.at('Legs',0,0,()=>{for(let i=0;i<p.legs;i++){g.fill(5,8,2,3,{colors:D,y:i*3});g.fill(9,8,2,3,{colors:D,orient:'x',y:i*3})}});
+     g.at('Body and tail',0,0,()=>{const y=p.legs*3;g.bar([['b2x6',1,5,8],['b1x6',1,5,8]],D);g.bar([['b2x6',1,5,10],['b1x6',1,5,10]],D);
+       g.bar([['b2x6',0,7,5],['b2x4',0,7,6]],D);g.bar([['b2x4',0,7,10],['b2x3',0,7,10]],D);if(p.tail==='long')g.bar([['b1x4',0,7,12],['b1x3',0,7,12],['b1x2',0,7,12]],D);
+       if(p.spikes)for(const z of [8,10])g.fill(7,z,1,1,{colors:A,lock:true});void y});
+     g.at('Head',0,0,()=>{g.bar([['b2x4',0,7,3],['b2x3',0,7,3]],D);g.fill(7,3,2,2,{colors:D,orient:'x',lock:true});if(p.jaws==='open')g.fill(7,3,2,1,{colors:['white','lgray'],lock:true});g.fill(7,5,1,1,{colors:['yellow','black'],lock:true});g.fill(8,5,1,1,{colors:['yellow','black'],lock:true})})}},
+  {id:'treehouse',cat:'Expert',words:['treehouse','tree','house','den','hideout','jungle','fort'],
+   params:{h:[4,5,6],house:['hut','lookout','none'],ladder:[0,1],leaves:[0,1]},
+   name:p=>'Treehouse'+({hut:' with Hut',lookout:' with Lookout',none:' Platform'}[p.house])+' · '+p.h+' high'+(p.ladder?' · ladder':'')+(p.leaves?' · leafy top':''),
+   make(g,p){const T=g.pick(C.wood,'brick',10),P=g.pick(['tan','brown','yellow','orange'],'brick',10),W=g.pick(C.wall,'brick',16),Lf=g.pick(C.leaf,'brick',10);
+     g.at('Tree trunk',0,0,()=>{for(let i=0;i<p.h;i++)g.fill(7,7,2,2,{colors:T,orient:i%2?'x':'z',y:i*3});if(p.ladder)for(let i=0;i<p.h;i++)g.fill(7,9,1,1,{colors:['tan','brown','yellow'],y:i*3})});
+     g.at('Platform',0,0,()=>{g.bar([['p4x8',1,4,6],['b2x8',1,4,7],['b2x6',1,5,7]],P);g.fill(4,6,8,4,{colors:P,orient:'x',lock:true,big:true})});
+     g.at(p.house==='none'?'Railings':'Little house',0,0,()=>{const y=g.top(4,6,8,4);
+       if(p.house==='hut'){g.ring(5,6,6,4,2,W,{y,door:{x:2,w:2,h:1}});g.roof(5,6,6,4,g.pick(C.roof,'slope',4))}
+       else if(p.house==='lookout'){g.ring(5,6,6,4,1,W,{y});g.fill(5,6,1,1,{colors:W,lock:true});g.fill(10,6,1,1,{colors:W,lock:true});g.fill(5,9,1,1,{colors:W,lock:true});g.fill(10,9,1,1,{colors:W,lock:true});g.bar([['b2x6',1,5,6],['b1x6',1,5,6]],g.pick(C.roof,'brick',4));g.bar([['b2x6',1,5,8],['b1x6',1,5,9]],g.pick(C.roof,'brick',4))}
+       else g.ring(4,6,8,4,1,P,{y})});
+     g.at('Roots and bushes',-4,-4,()=>{g.fill(6,6,4,4,{colors:Lf,y:0});g.fill(7,7,2,2,{colors:Lf,lock:true})});
+     if(p.leaves)g.at('Leaves',0,0,()=>{g.fill(5,6,6,4,{colors:Lf,lock:true,big:true});g.fill(6,7,4,2,{colors:Lf,lock:true});g.fill(7,7,2,2,{colors:Lf,lock:true})})}},
+  {id:'steptemple',cat:'Expert',words:['temple','pyramid','aztec','maya','ziggurat','ancient'],
+   params:{base:[10,12,14],shrine:['hut','spire'],stairs:[0,1]},
+   name:p=>({10:'Step Temple',12:'Great Step Temple',14:'Giant Step Temple'}[p.base])+(p.shrine==='hut'?' · shrine':' · tower top')+(p.stairs?' · grand stairs':''),
+   make(g,p){const T=g.pick(['tan','lgray','yellow','white','orange'],'brick',60),St=g.pick(['red','orange','dgray','brown','blue'].filter(c=>c!==T[0]),'brick',10);
+     g.at('Steps',0,0,()=>{let s=p.base,i=0;while(s>=4){const x=8-s/2;if(p.stairs){g.fill(x,x,7-x,s,{colors:T,orient:i%2?'x':'z',y:i*3});g.fill(7,x,2,s,{colors:St,y:i*3});g.fill(9,x,x+s-9,s,{colors:T,orient:i%2?'x':'z',y:i*3})}else g.fill(x,x,s,s,{colors:T,orient:i%2?'x':'z',y:i*3});s-=2;i++}});
+     g.at('Top shrine',0,0,()=>{const y=g.top(7,7,2,2);if(p.shrine==='hut'){g.ring(6,6,4,4,2,St,{y,door:{x:1,w:2,h:1}});g.roof(6,6,4,4,g.pick(C.roof,'slope',2))}else{g.fill(7,7,2,2,{colors:St,y});g.fill(7,7,2,2,{colors:St,orient:'x',lock:true});g.piece('s2x2',7,7,0,g.pick(['yellow','orange','red'],'slope',2),['b2x2'])}})}},
+  // ----- scenes on the big + medium plates side by side (24 x 16) -----
+  {id:'farm',cat:'Expert',base:'24x16',words:['farm','barn','animals','countryside','village','pen'],
+   params:{barn:[6,8],animal:['pig','cow','sheep','horse','duck','dog'],tree:['ball','pine','palm','none'],pen:[10]},
+   name:p=>'Farm with '+({pig:'Pigs',cow:'a Cow',sheep:'a Sheep',horse:'a Pony',duck:'a Duck',dog:'a Dog'}[p.animal])+(p.barn===8?' · big barn':'')+(p.tree==='none'?'':' · '+p.tree+' tree'),
+   make(g,p){g.at('Barn',-2,0,()=>sub('house',{w:p.barn,d:6,floors:1,roof:'pitched',door:'middle',chimney:0})(g));
+     g.at('Fence',10,0,()=>sub('fence',{s:p.pen,gate:1,posts:1})(g));
+     g.at({pig:'Pig',cow:'Cow',sheep:'Sheep',horse:'Pony',duck:'Duck',dog:'Dog'}[p.animal],10,0,()=>{if(p.animal==='duck')sub('duck',{size:1,kind:'duck',tail:0})(g);else if(p.animal==='dog')sub('dog',{size:1,tail:'up',ears:1,legs:'short'})(g);else sub('pig',{kind:p.animal})(g)});
+     if(p.tree!=='none')g.at('Tree',-6,-6,()=>sub('tree',{trunk:2,crown:p.tree,fruit:p.tree==='ball'?1:0})(g))}},
+  {id:'town',cat:'Expert',base:'24x16',words:['town','street','city','houses','neighbourhood','neighborhood','village'],
+   params:{a:['small','tall'],b:['small','tall','shop'],car:['car','race','open'],tree:['ball','pine','none']},
+   name:p=>'Town Street · '+({small:'cottage',tall:'two-storey house'}[p.a])+' and '+({small:'cottage',tall:'two-storey house',shop:'shop'}[p.b])+' · '+({car:'family car',race:'race car',open:'convertible'}[p.car])+(p.tree==='none'?'':' · tree'),
+   make(g,p){g.at('First house',-2,2,()=>sub('house',{w:6,d:6,floors:p.a==='tall'?2:1,roof:'pitched',door:'middle',chimney:0})(g));
+     g.at(p.b==='shop'?'Shop':'Second house',10,2,()=>p.b==='shop'?sub('garage',{w:6,d:6,door:2,kind:'shop'})(g):sub('house',{w:6,d:6,floors:p.b==='tall'?2:1,roof:p.b==='tall'?'flat':'pitched',door:'left',chimney:p.b==='tall'?0:1})(g));
+     g.at('Car',4,-5,()=>sub('car',{L:6,cabin:'mid',roof:p.car==='open'?'open':'closed',spoiler:p.car==='race'?1:0,lights:0})(g));
+     if(p.tree!=='none')g.at('Tree',-6,-6,()=>sub('tree',{trunk:1,crown:p.tree,fruit:0})(g))}},
+  {id:'airport',cat:'Expert',base:'24x16',words:['airport','runway','plane','planes','control','flight'],
+   params:{wing:['short','long','delta'],tail:['fin','twin','t'],tower:[6,8,10],top:['spire','slope']},
+   name:p=>'Airport · '+({short:'',long:'wide-wing ',delta:'delta '}[p.wing])+'plane · '+p.tower+'-floor control tower'+(p.top==='slope'?' · pointed top':''),
+   make(g,p){g.at('Plane',-2,0,()=>sub('plane',{L:12,wing:p.wing,tail:p.tail,cockpit:1})(g));
+     g.at('Control tower',12,2,()=>sub('tower',{s:2,h:p.tower,top:p.top})(g));
+     g.at('Runway lights',10,-6,()=>{for(let z=7;z<20;z+=3)g.fill(4,z,1,1,{colors:['yellow','orange','white'],y:0})})}},
+  {id:'kingdom',cat:'Expert',base:'24x16',words:['kingdom','castle','dragon','knight','princess','king','fairytale'],
+   params:{castle:[8,10],walls:[2,3],flags:[0,1],dragon:[2,3,4],tree:['ball','pine']},
+   name:p=>'Dragon Kingdom · '+(p.castle===10?'big ':'')+'castle'+(p.walls===3?' with high walls':'')+(p.flags?' and flags':'')+' · '+({2:'baby',3:'',4:'tall'}[p.dragon]+' dragon').trim()+' · '+p.tree+' tree',
+   make(g,p){g.at('Castle',-2,0,()=>sub('castle',{s:p.castle,h:p.walls,towers:4,flags:p.flags})(g));
+     g.at('Dragon',10,1,()=>sub('dino',{neck:p.dragon,tail:3,legs:1})(g));
+     g.at('Tree',13,-6,()=>sub('tree',{trunk:2,crown:p.tree,fruit:0})(g))}},
+  {id:'spaceport',cat:'Expert',base:'24x16',words:['space','spaceport','rocket','launch','nasa','astronaut','moon','station'],
+   params:{rocket:[6,8,10],fins:[2,4],tower:[4,6],ship:['straight','swept','x']},
+   name:p=>'Space Base · '+p.rocket+'-stage rocket'+(p.fins===4?' with 4 fins':'')+' · '+p.tower+'-high launch tower · saucer · '+{straight:'cruiser',swept:'fighter',x:'X-wing'}[p.ship],
+   make(g,p){g.at('Rocket',-3,0,()=>sub('rocket',{w:2,h:p.rocket,fins:p.fins,window:1})(g));
+     g.at('Launch tower',-6,0,()=>{for(let i=0;i<Math.min(p.rocket,p.tower);i++)g.fill(8,7,1,2,{colors:['lgray','dgray','white'],y:i*3})});
+     g.at('Flying saucer',10,4,()=>sub('ufo',{size:4,dome:'tall'})(g));
+     g.at('Spaceship',10,-3,()=>sub('spaceship',{L:6,wings:p.ship,engines:1})(g))}},
+  {id:'zoo',cat:'Expert',base:'24x16',words:['zoo','safari','animals','wildlife','jungle'],
+   params:{left:['giraffe-4','giraffe-5','giraffe-6','elephant-small','elephant-big'],right:['turtle','cat','duck','dog']},
+   name:p=>'Zoo · '+({'giraffe-4':'giraffe','giraffe-5':'tall giraffe','giraffe-6':'super-tall giraffe','elephant-small':'baby elephant','elephant-big':'elephant'}[p.left])+' and '+({turtle:'turtle',cat:'lion cub',duck:'duck',dog:'puppy'}[p.right]),
+   make(g,p){g.at('First pen',-2,0,()=>sub('fence',{s:10,gate:1,posts:1})(g));
+     g.at(p.left.startsWith('g')?'Giraffe':'Elephant',-2,0,()=>p.left.startsWith('g')?sub('giraffe',{neck:+p.left.slice(-1),legs:2,spots:1})(g):sub('elephant',{size:p.left.endsWith('big')?2:1,ears:'small',tusks:1})(g));
+     g.at('Second pen',10,0,()=>sub('fence',{s:10,gate:1,posts:0})(g));
+     g.at({turtle:'Turtle',cat:'Lion cub',duck:'Duck',dog:'Puppy'}[p.right],10,0,()=>p.right==='turtle'?sub('turtle',{shell:4,h:1})(g):p.right==='duck'?sub('duck',{size:2,kind:'duck',tail:1})(g):p.right==='dog'?sub('dog',{size:1,tail:'up',ears:1,legs:'long'})(g):sub('cat',{size:2,tail:'up'})(g))}},
+  {id:'harbour',cat:'Expert',base:'24x16',words:['harbour','harbor','port','lighthouse','sea','boats','beach','dock'],
+   params:{light:[8,10,12],boat:['row','sail','motor'],boatL:[7,9]},
+   name:p=>'Harbour · '+p.light+'-floor lighthouse · '+({row:'rowing boat',sail:'sailboat',motor:'motor boat'}[p.boat])+(p.boatL===9?' (big)':''),
+   make(g,p){g.at('Lighthouse',-4,0,()=>sub('tower',{s:2,h:p.light,top:'spire'})(g));
+     g.at('Pier',-2,0,()=>g.fill(9,3,2,10,{colors:['tan','brown','lgray'],orient:'z',y:0}));
+     g.at('Boat',8,0,()=>sub('boat',{L:p.boatL,cabin:p.boat==='motor'?'big':'none',mast:p.boat==='sail'?1:0})(g))}}
+];
+const FIRST_EXPERT=FAMILIES.length;
+for(const f of EXPERT){f.idx=FAMILIES.length;FAMILIES.push(f);FAM_BY_ID[f.id]=f;COMBOS.push(combos(f))}
+
+const CATALOG=[[0,1,10],[0,3,10],[0,5,10],[0,0,11],[0,2,11],[0,4,11],[0,19,12],[0,21,12],[0,23,12],[0,37,12],[0,39,12],[0,41,12],[0,18,13],[0,20,13],[0,22,13],[0,25,13],[0,27,13],[0,29,13],[0,31,13],[0,33,13],[0,35,13],[0,36,13],[0,38,13],[0,40,13],[0,43,13],[0,45,13],[0,47,13],[0,49,13],[0,51,13],[0,53,13],[0,24,14],[0,26,14],[0,28,14],[0,30,14],[0,32,14],[0,34,14],[0,42,14],[0,44,14],[0,46,14],[0,48,14],[0,50,14],[0,52,14],[1,1,13],[1,3,13],[1,5,13],[1,7,13],[1,9,13],[1,11,13],[1,13,14],[1,15,14],[1,17,14],[1,0,15],[1,2,15],[1,4,15],[1,6,15],[1,8,15],[1,10,15],[1,12,16],[1,14,16],[1,16,16],[1,19,16],[1,21,16],[1,23,16],[1,25,16],[1,27,16],[1,29,16],[1,31,17],[1,33,17],[1,35,17],[1,37,17],[1,39,17],[1,41,17],[1,43,17],[1,45,17],[1,47,17],[1,18,18],[1,20,18],[1,22,18],[1,24,18],[1,26,18],[1,28,18],[1,49,18],[1,51,18],[1,53,18],[1,30,19],[1,32,19],[1,34,19],[1,36,19],[1,38,19],[1,40,19],[1,42,19],[1,44,19],[1,46,19],[1,48,20],[1,50,20],[1,52,20],[2,4,13],[2,28,14],[2,5,15],[2,6,16],[2,29,16],[2,30,17],[2,52,17],[2,7,18],[2,0,19],[2,20,19],[2,31,19],[2,53,19],[2,24,20],[2,36,20],[2,44,20],[2,54,20],[2,1,21],[2,2,22],[2,22,22],[2,25,22],[2,55,22],[2,26,23],[2,38,23],[2,46,23],[2,48,23],[2,60,23],[2,68,23],[2,3,24],[2,16,25],[2,27,25],[2,49,25],[2,32,26],[2,40,26],[2,50,26],[2,62,26],[2,70,26],[2,18,28],[2,51,28],[2,34,29],[2,42,29],[2,56,29],[2,64,29],[2,58,32],[2,66,32],[3,8,30],[3,9,31],[3,26,32],[3,27,33],[3,14,34],[3,15,35],[3,20,35],[3,10,36],[3,21,36],[3,11,37],[3,18,37],[3,19,38],[3,28,38],[3,32,38],[3,29,39],[3,33,39],[3,6,40],[3,16,40],[3,7,41],[3,17,41],[3,22,41],[3,23,42],[3,24,42],[3,25,43],[3,34,44],[3,12,45],[3,35,45],[3,13,46],[3,30,49],[3,31,50],[4,1,33],[4,5,38],[4,0,40],[4,9,43],[4,4,46],[4,8,51],[4,3,53],[4,2,55],[4,7,61],[4,6,62],[4,11,72],[4,10,73],[5,0,9],[5,1,10],[5,6,13],[5,7,14],[5,8,14],[5,9,15],[5,12,17],[5,13,18],[5,14,19],[5,16,19],[5,15,20],[5,17,20],[6,0,8],[6,3,10],[6,9,10],[6,6,11],[6,12,12],[6,1,13],[6,15,13],[6,18,13],[6,4,15],[6,10,15],[6,21,15],[6,24,16],[6,13,17],[6,2,18],[6,16,18],[6,19,18],[6,11,20],[6,22,20],[6,25,21],[6,14,22],[6,20,23],[6,23,25],[6,26,26],[10,4,22],[10,0,23],[10,6,23],[10,2,25],[10,5,30],[10,1,31],[10,7,31],[10,3,33],[7,2,7],[7,6,7],[7,4,9],[7,8,9],[7,12,10],[7,10,11],[7,13,11],[7,14,12],[7,15,13],[7,18,13],[7,24,13],[7,16,14],[7,19,14],[7,17,15],[7,20,15],[7,26,15],[7,21,16],[7,22,17],[7,28,17],[7,30,17],[7,23,18],[7,31,18],[7,32,19],[7,33,20],[7,34,21],[7,35,22],[7,36,23],[7,37,25],[7,38,25],[7,39,27],[7,40,27],[7,41,29],[7,42,29],[7,44,31],[7,43,33],[7,46,33],[7,45,35],[7,47,37],[8,0,8],[8,6,8],[8,1,9],[8,2,9],[8,7,9],[8,8,9],[8,3,10],[8,9,10],[8,12,10],[8,4,11],[8,10,11],[8,13,11],[8,14,11],[8,5,12],[8,11,12],[8,15,12],[8,16,13],[8,17,14],[9,0,7],[9,1,8],[9,4,12],[9,5,13],[11,4,28],[11,6,28],[11,0,31],[11,2,31],[11,36,35],[11,38,35],[11,20,37],[11,22,37],[11,32,40],[11,34,40],[11,52,42],[11,54,42],[11,68,42],[11,70,42],[11,84,44],[11,86,44],[11,16,46],[11,18,46],[11,12,52],[11,14,52],[11,64,53],[11,66,53],[11,48,55],[11,50,55],[11,8,57],[11,10,57],[11,44,62],[11,46,62],[11,28,63],[11,30,63],[11,40,67],[11,42,67],[11,60,68],[11,62,68],[11,80,69],[11,82,69],[11,24,71],[11,26,71],[11,76,71],[11,78,71],[11,92,77],[11,94,77],[11,56,83],[11,58,83],[11,72,83],[11,74,83],[11,88,103],[11,90,103],[12,3,6],[12,6,6],[12,9,6],[12,40,6],[12,7,7],[12,10,7],[12,12,7],[12,11,8],[12,13,8],[12,16,8],[12,41,8],[12,14,9],[12,17,9],[12,43,9],[12,15,10],[12,18,10],[12,20,10],[12,42,10],[12,19,11],[12,21,11],[12,24,11],[12,22,12],[12,25,12],[12,44,12],[12,23,13],[12,26,13],[12,28,13],[12,27,14],[12,29,14],[12,32,14],[12,45,14],[12,48,14],[12,30,15],[12,33,15],[12,47,15],[12,31,16],[12,34,16],[12,36,16],[12,46,16],[12,49,16],[12,35,17],[12,37,17],[12,51,17],[12,38,18],[12,50,18],[12,39,19],[12,52,20],[12,53,22],[12,56,22],[12,55,23],[12,54,24],[12,57,24],[12,59,25],[12,58,26],[12,60,26],[12,61,28],[12,63,29],[12,64,29],[12,62,30],[12,65,31],[12,67,32],[12,66,33],[12,68,33],[12,69,35],[12,71,36],[12,72,36],[12,70,37],[12,73,38],[12,75,39],[12,74,40],[12,76,40],[12,77,42],[12,79,43],[12,78,44],[13,0,26],[13,1,28],[13,2,32],[13,8,32],[13,9,34],[13,3,36],[13,10,36],[13,4,38],[13,5,40],[13,11,40],[13,16,41],[13,6,42],[13,17,43],[13,18,45],[13,7,46],[13,12,48],[13,19,49],[13,13,50],[13,14,52],[13,15,56],[13,20,61],[13,21,63],[13,22,65],[13,23,69],[14,12,9],[14,0,10],[14,14,11],[14,1,12],[14,2,12],[14,3,14],[14,13,15],[14,16,15],[14,4,16],[14,15,17],[14,5,18],[14,17,21],[15,2,15],[15,3,16],[15,4,25],[15,5,26],[15,6,53],[15,7,54],[16,3,6],[16,7,6],[16,10,7],[16,20,7],[16,5,8],[16,9,8],[16,13,8],[16,19,9],[16,15,10],[16,11,11],[16,16,12],[16,21,13],[16,22,16],[16,17,17],[16,23,22],[17,0,6],[17,1,9],[17,4,10],[17,2,12],[17,5,16],[17,8,16],[17,3,17],[17,6,18],[17,12,19],[17,10,30],[17,7,31],[17,14,36],[18,0,6],[18,3,6],[18,6,6],[18,1,8],[18,4,8],[18,7,8],[18,2,10],[18,5,10],[18,8,10],[19,2,18],[19,0,20],[19,6,22],[19,10,22],[19,4,23],[19,8,24],[19,14,27],[19,12,29],[20,0,18],[20,1,22],[20,3,25],[20,2,26],[20,4,31],[20,5,37],[20,6,38],[20,7,46],[20,8,54],[21,0,7],[21,2,7],[21,4,10],[21,1,11],[21,3,11],[21,6,11],[21,10,11],[21,8,12],[21,5,14],[21,7,15],[21,11,15],[21,12,15],[21,14,15],[21,9,16],[21,13,19],[21,15,19],[22,6,15],[22,2,16],[22,4,17],[22,14,17],[22,0,18],[22,10,18],[22,7,19],[22,12,19],[22,3,20],[22,8,20],[22,5,21],[22,15,21],[22,1,22],[22,11,22],[22,13,23],[22,9,24],[23,1,9],[23,0,10],[23,3,14],[23,2,15],[24,0,18],[24,4,19],[24,8,20],[24,12,21],[24,2,22],[24,6,23],[24,10,24],[24,14,25],[25,2,15],[25,0,16],[25,3,17],[25,1,18],[26,0,10],[26,1,10],[26,2,10],[26,3,13],[26,4,13],[26,5,13],[26,6,13],[26,7,16],[26,8,16],[26,9,16],[26,10,16],[26,11,17],[26,12,19],[26,13,19],[26,14,19],[26,15,20],[26,16,22],[26,17,22],[26,18,22],[26,19,23],[27,1,6],[27,2,6],[27,3,7],[27,4,9],[27,5,10],[27,6,10],[27,7,11],[28,0,11],[28,1,12],[28,2,18],[28,3,20],[29,0,12],[29,1,13],[29,2,13],[29,3,14],[29,4,15],[29,5,16],[29,6,17],[29,7,18],[30,1,6],[30,2,6],[30,3,8],[30,4,14],[30,5,16],[31,0,14],[31,2,14],[31,4,14],[31,6,15],[31,8,15],[31,10,15],[31,12,16],[31,14,16],[31,16,16],[31,1,18],[31,3,18],[31,5,18],[31,7,19],[31,9,19],[31,11,19],[31,13,20],[31,15,20],[31,17,20],[32,1,8],[32,0,10],[32,3,11],[33,8,6],[33,22,6],[33,4,7],[33,2,8],[33,12,8],[33,16,8],[33,30,8],[33,1,9],[33,10,9],[33,9,10],[33,20,10],[33,24,10],[33,18,11],[33,3,12],[33,17,12],[33,28,12],[33,11,13],[33,26,13],[33,25,14],[33,19,15],[33,27,17],[34,2,6],[34,3,9],[34,4,11],[34,5,13],[34,6,13],[34,7,16],[34,8,19],[35,0,6],[35,2,7],[35,4,8],[36,0,7],[36,2,9],[36,4,9],[36,6,20],[36,8,22],[36,10,22],[37,0,9],[37,2,10],[37,4,10],[37,6,10],[37,18,10],[37,1,11],[37,8,11],[37,10,11],[37,20,11],[37,22,11],[37,24,11],[37,36,11],[37,3,12],[37,5,12],[37,7,12],[37,12,12],[37,19,12],[37,26,12],[37,28,12],[37,38,12],[37,40,12],[37,42,12],[37,9,13],[37,11,13],[37,14,13],[37,16,13],[37,21,13],[37,23,13],[37,25,13],[37,30,13],[37,37,13],[37,44,13],[37,46,13],[37,13,14],[37,27,14],[37,29,14],[37,32,14],[37,34,14],[37,39,14],[37,41,14],[37,43,14],[37,48,14],[37,15,15],[37,17,15],[37,31,15],[37,45,15],[37,47,15],[37,50,15],[37,52,15],[37,33,16],[37,35,16],[37,49,16],[37,51,17],[37,53,17],[38,0,6],[38,2,7],[38,4,7],[38,8,7],[38,6,8],[38,10,8],[38,1,10],[38,3,11],[38,5,11],[38,9,11],[38,7,12],[38,11,12],[39,2,6],[39,3,6],[39,1,7],[40,3,13],[40,37,15],[40,39,15],[40,43,15],[40,59,15],[40,69,16],[40,2,18],[40,15,18],[40,9,19],[40,31,19],[40,61,19],[40,68,19],[40,36,20],[40,38,20],[40,42,20],[40,51,20],[40,58,20],[40,14,21],[40,25,22],[40,35,22],[40,41,22],[40,47,22],[40,63,22],[40,67,22],[40,5,23],[40,7,23],[40,13,23],[40,19,23],[40,21,23],[40,45,23],[40,57,23],[40,65,23],[40,8,24],[40,30,24],[40,71,24],[40,27,25],[40,29,25],[40,50,25],[40,55,25],[40,49,26],[40,11,27],[40,17,27],[40,23,27],[40,12,28],[40,18,28],[40,24,28],[40,33,28],[40,53,28],[40,56,28],[40,60,28],[40,62,28],[40,4,29],[40,6,29],[40,66,29],[40,1,30],[40,40,30],[40,70,30],[40,34,32],[40,46,32],[40,48,32],[40,10,33],[40,20,33],[40,26,33],[40,28,33],[40,44,33],[40,54,33],[40,64,33],[40,16,34],[40,32,34],[40,22,35],[40,52,35],[40,0,37],[41,42,35],[41,0,36],[41,21,36],[41,27,37],[41,46,37],[41,9,38],[41,22,38],[41,23,38],[41,31,38],[41,6,39],[41,11,39],[41,17,39],[41,18,39],[41,32,39],[41,34,39],[41,35,39],[41,37,39],[41,44,39],[41,2,40],[41,5,40],[41,14,40],[41,15,40],[41,20,40],[41,30,40],[41,33,40],[41,39,40],[41,41,40],[41,48,40],[41,1,41],[41,8,41],[41,10,41],[41,12,41],[41,26,41],[41,43,41],[41,4,42],[41,7,42],[41,13,42],[41,16,42],[41,25,42],[41,28,42],[41,29,42],[41,36,42],[41,40,42],[41,45,42],[41,19,43],[41,24,43],[41,49,43],[41,66,43],[41,3,44],[41,38,44],[41,47,44],[42,39,14],[42,31,15],[42,9,18],[42,23,21],[42,38,21],[42,17,22],[42,33,22],[42,27,23],[42,30,23],[42,35,23],[42,2,24],[42,8,24],[42,11,24],[42,16,24],[42,3,25],[42,26,28],[42,29,28],[42,34,28],[42,7,29],[42,19,29],[42,0,30],[42,1,30],[42,28,30],[42,25,31],[42,10,32],[42,12,33],[42,6,34],[42,32,34],[42,18,37],[42,24,37],[42,22,38],[42,36,38],[42,13,40],[42,21,40],[42,4,47],[42,20,47],[42,14,48],[42,15,49],[42,5,51],[43,13,19],[43,28,20],[43,0,21],[43,3,21],[43,11,21],[43,16,21],[43,24,21],[43,30,21],[43,35,21],[43,36,21],[43,4,22],[43,5,22],[43,6,22],[43,7,22],[43,10,22],[43,12,22],[43,15,22],[43,17,22],[43,19,22],[43,22,22],[43,25,22],[43,26,22],[43,27,22],[43,29,22],[43,31,22],[43,33,22],[43,37,22],[43,1,23],[43,9,23],[43,18,23],[43,20,23],[43,23,23],[43,32,23],[43,38,23],[43,39,23],[43,2,24],[43,8,24],[43,14,24],[43,21,26],[43,77,26],[43,75,27],[43,79,27],[43,47,28],[43,73,28],[43,42,29],[43,43,29],[43,48,29],[43,49,29],[43,51,29],[43,61,29],[43,63,29],[43,69,29],[43,71,29],[43,46,30],[43,50,30],[43,52,30],[43,53,30],[43,56,30],[43,57,30],[43,60,30],[43,64,30],[43,65,30],[43,40,31],[43,41,31],[43,44,31],[43,59,31],[43,66,31],[43,70,31],[43,76,31],[43,78,31],[43,54,32],[43,72,32],[43,74,32],[43,58,33],[43,62,33],[43,67,33],[43,45,34],[43,68,34],[43,55,35],[43,94,37],[43,100,37],[43,105,37],[43,85,38],[43,90,38],[43,96,38],[43,99,38],[43,93,39],[43,103,39],[43,113,39],[43,116,39],[43,119,39],[43,80,40],[43,86,40],[43,95,40],[43,102,40],[43,108,40],[43,109,40],[43,111,40],[43,114,40],[43,115,40],[43,82,41],[43,97,41],[43,98,41],[43,112,41],[43,117,41],[43,81,42],[43,87,42],[43,92,42],[43,104,42],[43,106,42],[43,107,42],[43,110,42],[43,89,43],[43,101,43],[43,118,43],[43,83,44],[43,84,44],[43,91,44],[43,88,45],[43,125,50],[43,135,51],[43,136,51],[43,140,51],[43,151,51],[43,138,52],[43,121,53],[43,145,53],[43,157,53],[43,124,54],[43,127,54],[43,128,54],[43,132,54],[43,137,54],[43,142,54],[43,148,54],[43,158,54],[43,120,55],[43,122,55],[43,123,55],[43,126,55],[43,134,55],[43,139,55],[43,147,55],[43,150,55],[43,152,55],[43,156,55],[43,131,56],[43,133,56],[43,143,56],[43,149,56],[43,153,56],[43,154,56],[43,129,57],[43,144,57],[43,146,57],[43,155,57],[43,159,57],[43,130,60],[43,141,62],[44,2,60],[44,3,64],[44,0,65],[44,1,69],[44,10,80],[44,6,82],[44,8,84],[44,11,85],[44,7,86],[44,4,87],[44,9,89],[44,5,91],[44,14,109],[44,12,113],[44,15,115],[44,13,119],[45,8,42],[45,10,42],[45,6,43],[45,9,47],[45,11,47],[45,7,48],[45,14,59],[45,15,59],[45,16,59],[45,17,59],[45,12,60],[45,13,60],[45,24,65],[45,26,66],[45,28,67],[45,20,68],[45,22,68],[45,25,68],[45,18,69],[45,27,69],[45,29,70],[45,21,74],[45,23,74],[45,19,75],[45,30,97],[45,31,97],[45,32,98],[45,33,98],[45,34,99],[45,35,99],[45,36,128],[45,37,128],[45,38,129],[45,39,129],[45,40,130],[45,41,130],[46,0,37],[46,1,41],[46,12,42],[46,4,43],[46,2,46],[46,5,47],[46,3,48],[46,13,48],[46,16,48],[46,8,49],[46,14,51],[46,6,52],[46,9,53],[46,7,54],[46,17,54],[46,20,54],[46,15,55],[46,18,57],[46,10,58],[46,11,60],[46,21,60],[46,19,61],[46,22,63],[46,23,67],[47,1,43],[47,3,43],[47,0,45],[47,2,45],[47,5,45],[47,7,45],[47,4,47],[47,6,47],[47,8,48],[47,10,48],[47,12,50],[47,14,50],[47,9,51],[47,11,51],[47,13,53],[47,15,53],[48,12,30],[48,14,30],[48,17,32],[48,19,32],[48,21,32],[48,23,32],[48,13,34],[48,15,34],[49,4,16],[49,0,17],[49,12,17],[49,5,18],[49,6,18],[49,8,18],[49,1,19],[49,2,19],[49,13,19],[49,14,19],[49,7,20],[49,9,20],[49,10,20],[49,3,21],[49,15,21],[49,11,22],[50,5,30],[50,23,30],[50,12,31],[50,17,32],[50,18,32],[50,1,33],[50,2,33],[50,24,33],[50,35,33],[50,7,34],[50,29,34],[50,13,35],[50,30,35],[50,14,36],[50,3,37],[50,19,37],[50,25,37],[50,26,39],[50,15,40],[50,31,40],[50,27,43],[51,3,46],[51,2,47],[51,1,57],[51,0,58],[51,7,75],[51,5,86],[51,6,86],[51,4,97],[51,10,130],[51,11,131],[51,8,138],[51,9,139],[52,19,53],[52,7,57],[52,18,57],[52,3,58],[52,11,59],[52,6,61],[52,17,61],[52,2,62],[52,43,62],[52,10,63],[52,16,63],[52,5,65],[52,1,66],[52,31,66],[52,42,66],[52,4,67],[52,9,67],[52,23,67],[52,27,67],[52,0,68],[52,35,68],[52,8,69],[52,30,70],[52,41,70],[52,22,71],[52,26,71],[52,34,72],[52,40,72],[52,29,74],[52,21,75],[52,25,75],[52,47,75],[52,28,76],[52,33,76],[52,20,77],[52,24,77],[52,32,78],[52,46,79],[52,45,83],[52,44,85],[53,26,72],[53,24,77],[53,20,78],[53,25,79],[53,8,80],[53,23,81],[53,18,83],[53,6,85],[53,19,85],[53,2,86],[53,21,86],[53,7,87],[53,22,88],[53,5,89],[53,0,91],[53,1,93],[53,53,93],[53,3,94],[53,17,95],[53,4,96],[53,51,98],[53,47,99],[53,15,100],[53,52,100],[53,11,101],[53,16,102],[53,50,102],[53,14,104],[53,35,104],[53,45,104],[53,9,106],[53,46,106],[53,48,107],[53,10,108],[53,12,109],[53,33,109],[53,49,109],[53,29,110],[53,13,111],[53,34,111],[53,32,113],[53,27,115],[53,28,117],[53,30,118],[53,31,120],[53,44,121],[53,42,126],[53,38,127],[53,43,128],[53,41,130],[53,36,132],[53,37,134],[53,39,135],[53,40,137],[54,3,30],[54,9,30],[54,15,30],[54,18,30],[54,24,30],[54,30,30],[54,36,30],[54,42,30],[54,48,30],[54,21,31],[54,27,31],[54,33,31],[54,39,31],[54,45,31],[54,51,31],[54,2,32],[54,8,32],[54,14,32],[54,5,33],[54,11,33],[54,17,33],[54,20,33],[54,26,33],[54,32,33],[54,38,33],[54,44,33],[54,50,33],[54,23,34],[54,29,34],[54,35,34],[54,41,34],[54,47,34],[54,53,34],[54,4,35],[54,10,35],[54,16,35],[54,22,36],[54,28,36],[54,34,36],[54,40,36],[54,46,36],[54,52,36],[55,0,52],[55,2,53],[55,1,54],[55,4,54],[55,3,55],[55,5,56],[55,6,56],[55,24,56],[55,8,57],[55,26,57],[55,7,58],[55,10,58],[55,25,58],[55,28,58],[55,9,59],[55,27,59],[55,11,60],[55,29,60],[55,30,60],[55,32,61],[55,12,62],[55,31,62],[55,34,62],[55,14,63],[55,33,63],[55,13,64],[55,16,64],[55,35,64],[55,15,65],[55,17,66],[55,18,66],[55,20,67],[55,19,68],[55,22,68],[55,21,69],[55,23,70],[55,36,72],[55,38,73],[55,37,74],[55,40,74],[55,39,75],[55,41,76],[55,42,76],[55,44,77],[55,43,78],[55,46,78],[55,45,79],[55,47,80],[56,0,31],[56,1,32],[56,3,33],[56,6,33],[56,2,34],[56,4,34],[56,7,34],[56,12,34],[56,9,35],[56,13,35],[56,5,36],[56,8,36],[56,10,36],[56,15,36],[56,18,36],[56,14,37],[56,16,37],[56,19,37],[56,24,37],[56,11,38],[56,21,38],[56,25,38],[56,17,39],[56,20,39],[56,22,39],[56,27,39],[56,30,39],[56,26,40],[56,28,40],[56,31,40],[56,23,41],[56,33,41],[56,29,42],[56,32,42],[56,34,42],[56,35,44],[57,12,55],[57,14,56],[57,0,57],[57,4,58],[57,8,59],[57,13,61],[57,2,62],[57,6,63],[57,1,64],[57,10,64],[57,5,65],[57,9,66],[57,15,69],[57,3,70],[57,7,71],[57,11,72],[58,2,30],[58,5,30],[58,7,30],[58,10,31],[58,12,31],[58,3,32],[58,8,33],[58,11,33],[58,13,33],[58,16,34],[58,9,35],[58,14,36],[58,17,36],[58,15,38]];
+/*END ENGINE*/
+</script>
+
+<script>
+(()=>{
+const $=s=>document.querySelector(s);
+const app=$('#app'),stage=$('#stage'),cv=$('#cv');
+const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const FRONT=Math.PI-0.7; // camera on the front-right (small z is the front)
+
+const S={
+  view:'ideas', tool:'place', kind:'brick', shape:'b2x4', color:'red', rot:0, ownedOnly:false,
+  design:{name:'',base:'16x16',bricks:[]}, designId:null, isStarter:true, undo:[], redo:[],
+  designs:{}, inv:defaultInventory(), invEdited:{}, invVer:0,
+  step:0, steps:[], per:3, backend:null, dirty:false, variant:{}
+};
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
+function baseOf(d){const [w,dd]=(d.base||'16x16').split('x').map(Number);return {w,d:dd}}
+function owned(t,c){return S.inv.counts[t+'|'+c]||0}
+function layersOf(bricks){return new Set(bricks.map(b=>b.y)).size}
+
+// ---------- three.js ----------
+const renderer=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+renderer.outputEncoding=THREE.sRGBEncoding;
+const scene=new THREE.Scene();
+const camera=new THREE.PerspectiveCamera(36,1,0.1,400);
+scene.add(new THREE.HemisphereLight(0xffffff,0xb8c4d0,0.85));
+const sun=new THREE.DirectionalLight(0xffffff,0.85);
+sun.position.set(14,32,-20);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);sun.shadow.radius=4;sun.shadow.bias=-0.0005;
+Object.assign(sun.shadow.camera,{left:-22,right:22,top:22,bottom:-22,near:1,far:100});sun.shadow.camera.updateProjectionMatrix();
+sun.target.position.set(8,0,8);scene.add(sun,sun.target);
+const orbit={theta:FRONT,phi:0.95,radius:32,target:new THREE.Vector3(8,1.5,8)};
+let goal=null;
+function placeCamera(){
+  const {theta,phi,radius,target}=orbit;
+  camera.position.set(target.x+radius*Math.sin(phi)*Math.sin(theta),target.y+radius*Math.cos(phi),target.z+radius*Math.sin(phi)*Math.cos(theta));
+  camera.lookAt(target);
+}
+function resize(){const r=stage.getBoundingClientRect();if(!r.width)return;renderer.setSize(r.width,r.height,false);camera.aspect=r.width/Math.max(1,r.height);camera.updateProjectionMatrix()}
+new ResizeObserver(resize).observe(stage);
+
+const STUD_R=0.3,STUD_H=0.18,UNIT_H=0.4;
+const geoCache={},edgeCache={},matCache={};
+const studGeo=new THREE.CylinderGeometry(STUD_R,STUD_R,STUD_H,20);
+function prep(g){g=g.index?g.toNonIndexed():g;g.clearGroups();return g}
+function shapeGeo(t){
+  if(geoCache[t])return geoCache[t];
+  const s=SHAPES[t],H=s.h*UNIT_H,parts=[];
+  if(s.kind==='slope'){
+    const d=s.d,sh=new THREE.Shape();
+    sh.moveTo(0.02,0);sh.lineTo(d-0.02,0);sh.lineTo(d-0.02,0.16);sh.lineTo(1,H-0.01);sh.lineTo(0.02,H-0.01);sh.lineTo(0.02,0);
+    const g=new THREE.ExtrudeGeometry(sh,{depth:s.w-0.04,bevelEnabled:false});
+    g.rotateY(Math.PI/2);g.translate(-s.w/2+0.02,0,d/2);parts.push(prep(g));
+    for(let i=0;i<s.w;i++){const st=studGeo.clone();st.translate(i-s.w/2+.5,H+STUD_H/2-0.01,(d-1)-d/2+.5);parts.push(prep(st))}
+  }else{
+    const g=new THREE.BoxGeometry(s.w-0.04,H-0.01,s.d-0.04);g.translate(0,(H-0.01)/2,0);parts.push(prep(g));
+    for(let i=0;i<s.w;i++)for(let j=0;j<s.d;j++){const st=studGeo.clone();st.translate(i-s.w/2+.5,H+STUD_H/2-0.01,j-s.d/2+.5);parts.push(prep(st))}
+  }
+  const merged=THREE.BufferGeometryUtils.mergeBufferGeometries(parts,false);
+  geoCache[t]=merged;edgeCache[t]=new THREE.EdgesGeometry(merged,30);
+  return merged;
+}
+function mat(c,mode){
+  const k=c+'|'+(mode||'');if(matCache[k])return matCache[k];
+  const col=new THREE.Color(COLORS[c]?COLORS[c].hex:'#999');col.convertSRGBToLinear();
+  const m=new THREE.MeshStandardMaterial({color:col,roughness:0.32,metalness:0});
+  if(mode==='ghost'){m.transparent=true;m.opacity=0.55;m.depthWrite=false}
+  if(mode==='bad'){m.color.set('#ff3b30').convertSRGBToLinear();m.transparent=true;m.opacity=0.45;m.depthWrite=false}
+  if(mode==='warn'){m.emissive=new THREE.Color('#ff9500');m.emissiveIntensity=0.55}
+  if(mode==='new'){m.emissive=new THREE.Color('#ffffff');m.emissiveIntensity=0.0}
+  return matCache[k]=m;
+}
+const edgeDark=new THREE.LineBasicMaterial({color:0x000000,transparent:true,opacity:0.22});
+const edgeLight=new THREE.LineBasicMaterial({color:0xffffff,transparent:true,opacity:0.3});
+const DARKS=new Set(['black','dgray','brown','magenta','blue','green']);
+function brickMesh(t,c,mode){
+  const m=new THREE.Mesh(shapeGeo(t),mode==='new'?mat(c).clone():mat(c,mode));
+  if(mode!=='ghost'&&mode!=='bad'){m.castShadow=true;m.receiveShadow=true;m.add(new THREE.LineSegments(edgeCache[t],DARKS.has(c)?edgeLight:edgeDark))}
+  return m;
+}
+function positionMesh(m,b){const {fw,fd}=footprint(b.t,b.r);m.position.set(b.x+fw/2,b.y*UNIT_H,b.z+fd/2);m.rotation.y=-b.r*Math.PI/2}
+
+const plateMat=new THREE.MeshStandardMaterial({color:new THREE.Color('#2f8f46').convertSRGBToLinear(),roughness:0.45});
+function makeBase(base){
+  const grp=new THREE.Group();
+  const g=new THREE.BoxGeometry(base.w,0.32,base.d);g.translate(base.w/2,-0.16,base.d/2);
+  const mesh=new THREE.Mesh(g,plateMat);mesh.receiveShadow=true;grp.add(mesh);
+  const inst=new THREE.InstancedMesh(studGeo,plateMat,base.w*base.d);const m4=new THREE.Matrix4();let n=0;
+  for(let x=0;x<base.w;x++)for(let z=0;z<base.d;z++){m4.makeTranslation(x+.5,STUD_H/2,z+.5);inst.setMatrixAt(n++,m4)}
+  inst.receiveShadow=true;grp.add(inst);grp.userData.mesh=mesh;return grp;
+}
+let baseGroup=null,baseMesh=null;
+function buildBase(base){
+  if(baseGroup)scene.remove(baseGroup);
+  baseGroup=makeBase(base);baseMesh=baseGroup.userData.mesh;scene.add(baseGroup);
+  orbit.target.set(base.w/2,1.5,base.d/2);orbit.radius=Math.max(base.w,base.d)*2;orbit.theta=FRONT;orbit.phi=0.95;
+}
+const brickGroup=new THREE.Group();scene.add(brickGroup);
+let meshById=new Map();
+function rebuildBricks(){
+  brickGroup.clear();meshById=new Map();
+  for(const b of S.design.bricks){const m=brickMesh(b.t,b.c);positionMesh(m,b);m.userData.id=b.id;brickGroup.add(m);meshById.set(b.id,m)}
+}
+
+// ---------- thumbnails ----------
+function mkThumbRenderer(w,h){const r=new THREE.WebGLRenderer({antialias:true,alpha:true,preserveDrawingBuffer:true});r.setPixelRatio(2);r.setSize(w,h);r.outputEncoding=THREE.sRGBEncoding;return r}
+const pieceR=mkThumbRenderer(160,120),modelR=mkThumbRenderer(480,360);
+const thumbScene=new THREE.Scene();
+thumbScene.add(new THREE.HemisphereLight(0xffffff,0xb8c4d0,0.9));
+const tl=new THREE.DirectionalLight(0xffffff,0.75);tl.position.set(4,8,-6);thumbScene.add(tl);
+const thumbCam=new THREE.PerspectiveCamera(28,4/3,0.1,300);
+const pieceCache={};
+function thumb(t,c){
+  const k=t+'|'+c;if(pieceCache[k])return pieceCache[k];
+  const m=brickMesh(t,c);thumbScene.add(m);
+  const s=SHAPES[t],size=Math.max(s.w,s.d,s.h*UNIT_H*1.6),cy=s.h*UNIT_H/2;
+  thumbCam.position.set(size*1.55,cy+size*1.25,-size*2.05);thumbCam.lookAt(0,cy,0);
+  pieceR.render(thumbScene,thumbCam);const url=pieceR.domElement.toDataURL('image/png');thumbScene.remove(m);
+  return pieceCache[k]=url;
+}
+function modelThumb(d){
+  const grp=new THREE.Group();const base=baseOf(d);grp.add(makeBase(base));
+  const bg=new THREE.Group();for(const b of d.bricks){const m=brickMesh(b.t,b.c);positionMesh(m,b);bg.add(m)}grp.add(bg);
+  thumbScene.add(grp);
+  const box=new THREE.Box3().setFromObject(d.bricks.length?bg:grp);const c=box.getCenter(new THREE.Vector3()),sz=box.getSize(new THREE.Vector3());
+  const r=Math.max(sz.x,sz.y*1.2,sz.z)*1.9+3;
+  const dir=new THREE.Vector3(Math.sin(FRONT)*0.8,0.62,Math.cos(FRONT)*0.8).normalize();
+  thumbCam.position.copy(c).addScaledVector(dir,r);thumbCam.lookAt(c);
+  modelR.render(thumbScene,thumbCam);const url=modelR.domElement.toDataURL('image/png');thumbScene.remove(grp);
+  return url;
+}
+
+// ---------- storage ----------
+const LS_D='bb.designs',LS_I='bb.inv';
+const local={kind:'local',
+  async load(){let d={},i=null;try{d=JSON.parse(localStorage.getItem(LS_D)||'{}')}catch(e){}try{i=JSON.parse(localStorage.getItem(LS_I)||'null')}catch(e){}return {designs:d,inv:i}},
+  async saveDesign(id,doc){try{const d=JSON.parse(localStorage.getItem(LS_D)||'{}');d[id]=doc;localStorage.setItem(LS_D,JSON.stringify(d))}catch(e){}},
+  async deleteDesign(id){try{const d=JSON.parse(localStorage.getItem(LS_D)||'{}');delete d[id];localStorage.setItem(LS_D,JSON.stringify(d))}catch(e){}},
+  async saveInv(doc){try{localStorage.setItem(LS_I,JSON.stringify(doc))}catch(e){}}};
+function dbBackend(db){return {kind:'db',
+  async load(){const [snap,inv]=await Promise.all([db.collection('designs').get(),db.doc('config/inventory').get()]);const designs={};snap.docs.forEach(d=>designs[d.id]=d.data());return {designs,inv:inv.exists?inv.data():null}},
+  async saveDesign(id,doc){await db.collection('designs').doc(id).set(doc)},
+  async deleteDesign(id){await db.collection('designs').doc(id).delete()},
+  async saveInv(doc){await db.doc('config/inventory').set(doc)},
+  watch(fn){return db.collection('designs').onSnapshot(s=>{const m={};s.docs.forEach(d=>m[d.id]=d.data());fn(m)},()=>{})}}}
+const pack=bs=>bs.map(b=>b.p?[b.t,b.c,b.x,b.z,b.y,b.r,b.p]:[b.t,b.c,b.x,b.z,b.y,b.r]);
+const unpack=a=>(a||[]).map((v,i)=>({id:'b'+i+'_'+uid(),t:v[0],c:v[1],x:v[2],z:v[3],y:v[4],r:v[5],p:v[6]||0})).filter(b=>SHAPES[b.t]&&COLORS[b.c]);
+let saveTimer=null,saving=false,pendingSave=false;
+function setStatus(t){$('#status').textContent=t}
+function markDirty(){if(S.isStarter)return;S.dirty=true;setStatus('Saving…');clearTimeout(saveTimer);saveTimer=setTimeout(flushSave,1000)}
+async function flushSave(){
+  if(!S.backend||S.isStarter||!S.dirty)return;
+  if(saving){pendingSave=true;return}
+  saving=true;S.dirty=false;
+  const doc={name:S.design.name,base:S.design.base,bricks:pack(S.design.bricks),updatedAt:Date.now()};if(S.design.parts)doc.parts=S.design.parts;
+  S.designs[S.designId]=doc;
+  try{await S.backend.saveDesign(S.designId,doc);setStatus(S.backend.kind==='db'?'Saved':'Saved on this computer')}
+  catch(e){setStatus('Couldn’t save. Check your connection.');S.dirty=true}
+  saving=false;if(pendingSave){pendingSave=false;flushSave()}
+}
+let invTimer=null;
+function saveInv(){S.invVer++;clearTimeout(invTimer);invTimer=setTimeout(async()=>{if(!S.backend)return;try{await S.backend.saveInv({counts:S.inv.counts,edited:S.invEdited,updatedAt:Date.now()})}catch(e){toast('Couldn’t save your brick box')}},800)}
+
+// ---------- loading models ----------
+function load(design,id,isStarter){
+  S.design={name:design.name,base:design.base||'16x16',parts:design.parts&&design.parts.length>1?design.parts.slice():null,bricks:design.bricks.map(b=>({...b,id:'b'+uid()+Math.random().toString(36).slice(2,5)}))};
+  S.designId=id;S.isStarter=isStarter;S.undo=[];S.redo=[];S.step=0;
+  buildBase(baseOf(S.design));rebuildBricks();
+  $('#modelName').value=S.design.name;
+  document.querySelectorAll('[data-base]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.base===S.design.base));
+  renderStudio();updateTabs();placeCamera();
+}
+function ideaDesign(key,variant){return generateIdea(key,S.inv.counts,variant||0)}
+function loadIdea(key){const d=ideaDesign(key,S.variant[key]||0);load(d,'idea-'+key,true);return d}
+function loadStarter(key){load(STARTERS[key],key,true)}
+function loadMine(id){const d=S.designs[id];if(!d)return;load({name:d.name||'Untitled',base:d.base,parts:d.parts,bricks:unpack(d.bricks)},id,false)}
+function newDesign(name,base,bricks,parts){load({name,base,parts,bricks:bricks||[]},'d'+uid(),false);S.dirty=true;flushSave()}
+function forkIfStarter(){
+  if(!S.isStarter)return;
+  S.designId='d'+uid();S.isStarter=false;S.design.name='My '+S.design.name;$('#modelName').value=S.design.name;
+  toast('Saved as your own copy');
+}
+
+// ---------- views ----------
+function setView(v){
+  if(v==='build'&&!S.design.bricks.length){toast('Add some pieces first');return}
+  S.view=v;app.dataset.view=v;updateTabs();
+  hideGhost();highlight(null);clearWarn();goal=null;
+  if(v==='ideas'){renderGallery();clearArrows()}
+  if(v==='studio'){clearArrows();anim=[];for(const b of S.design.bricks){const m=meshById.get(b.id);if(m){m.visible=true;positionMesh(m,b)}}$('#done').hidden=true;renderStudio()}
+  if(v==='build'){S.step=0;enterBuild()}
+  requestAnimationFrame(()=>{resize();placeCamera()});
+  window.scrollTo(0,0);
+}
+function updateTabs(){document.querySelectorAll('.seg [data-view]').forEach(b=>{b.setAttribute('aria-selected',b.dataset.view===S.view);if(b.dataset.view==='build')b.disabled=!S.design.bricks.length})}
+document.querySelectorAll('.seg [data-view]').forEach(b=>b.onclick=()=>setView(b.dataset.view));
+
+// ---------- library of designs ----------
+const thumbStore=new Map();
+function cardEl(name,meta,key,onOpen,onEdit,srcKey){
+  const c=document.createElement('div');c.className='card';
+  const b=document.createElement('button');b.className='cardbtn';b.setAttribute('aria-label','Build '+name);
+  const pic=document.createElement('div');pic.className='pic';
+  if(thumbStore.has(key)){const i=new Image();i.alt='';i.src=thumbStore.get(key);pic.append(i)}
+  else{const ph=document.createElement('div');ph.className='ph';pic.append(ph);pic.dataset.key=key;if(srcKey){pic.dataset.src=srcKey;thumbIO.observe(pic)}}
+  const m=document.createElement('div');m.className='meta';const h=document.createElement('h3');h.textContent=name;const s=document.createElement('span');s.textContent=meta;m.append(h,s);
+  b.append(pic,m);b.onclick=onOpen;c.append(b);
+  if(onEdit){const e=document.createElement('button');e.className='edit';e.textContent='Edit';e.onclick=ev=>{ev.stopPropagation();onEdit()};c.append(e)}
+  return c;
+}
+let thumbQueue=[],thumbBusy=false;
+function queueThumb(key,fn){thumbQueue.push([key,fn]);if(!thumbBusy){thumbBusy=true;setTimeout(drainThumbs,30)}}
+function drainThumbs(){
+  const job=thumbQueue.shift();if(!job){thumbBusy=false;return}
+  const [key,fn]=job;
+  if(!thumbStore.has(key)){try{thumbStore.set(key,modelThumb(fn()))}catch(e){}}
+  for(const pic of document.querySelectorAll('.pic[data-key="'+CSS.escape(key)+'"]')){if(thumbStore.has(key)){pic.textContent='';const i=new Image();i.alt='';i.src=thumbStore.get(key);pic.append(i);delete pic.dataset.key}}
+  setTimeout(drainThumbs,12);
+}
+const thumbIO=new IntersectionObserver(es=>{for(const e of es){if(!e.isIntersecting)continue;const el=e.target;thumbIO.unobserve(el);const k=el.dataset.key,src=el.dataset.src;if(k&&src&&!thumbStore.has(k))queueThumb(k,()=>designFor(src))}},{rootMargin:'400px'});
+function plural(n,w){return n+' '+w+(n===1?'':'s')}
+function fmt(n){return n.toLocaleString('en-IN')}
+
+const LIB=CATALOG.map(([fi,ci,n],i)=>{const f=FAMILIES[fi];return {key:'f-'+fi+'-'+ci,fi,ci,n,no:1001+i,cat:f.cat,name:f.name(COMBOS[fi][ci]),words:(f.words.join(' ')+' '+f.id+' '+f.cat).toLowerCase()}});
+const FAVS=[...Object.entries(STARTERS).map(([k,s])=>({key:k,n:s.bricks.length,cat:'Favourites',name:s.name,words:'favourite robot tower'})),
+  ...Object.entries(IDEAS).map(([k,v])=>({key:'idea-'+k,n:generateIdea(k,defaultInventory().counts,0).bricks.length,cat:'Favourites',name:v.name,words:(v.words.join(' ')+' favourite').toLowerCase()}))];
+const ALL_ITEMS=FAVS.concat(LIB);
+const ITEM=new Map(ALL_ITEMS.map(i=>[i.key,i]));
+const CATS=['Favourites','Expert','All','Vehicles','Space','Buildings','Animals','Nature','Robots & Fun','Letters & Words','Pictures','Puzzles'];
+const SIZES=[['any','Any size'],['quick','Quick · up to 15'],['medium','Medium · 16–35'],['big','Big · 36–79'],['huge','Huge · 80+']];
+const L={cat:'Favourites',size:'any',q:'',shown:48};
+
+function designFor(key){
+  const v=S.variant[key]||0;
+  if(STARTERS[key])return STARTERS[key];
+  if(key.startsWith('idea-'))return generateIdea(key.slice(5),S.inv.counts,v);
+  if(key.startsWith('f-')){const [,fi,ci]=key.split('-').map(Number);return generateFamily(fi,ci,S.inv.counts,v)}
+  return null;
+}
+function thumbKey(key){return key+'|'+(S.variant[key]||0)+'|'+S.invVer}
+function loadKey(key){const d=designFor(key);load(d,key,true);return d}
+function itemMeta(it){return (it.no?'No. '+it.no+' · ':'')+plural(it.n,'piece')+(it.cat==='Expert'?' · build together':'')}
+function tokens(q){const out=[];for(const w of q.toLowerCase().split(/[^a-z0-9]+/).filter(Boolean)){out.push([w,w.replace(/ies$/,'y').replace(/(es|s)$/,'')])}return out}
+function libMatches(){
+  const toks=tokens(L.q);
+  let items=toks.length||L.cat==='All'?ALL_ITEMS:L.cat==='Favourites'?FAVS:LIB.filter(i=>i.cat===L.cat);
+  if(toks.length&&L.cat!=='All'&&L.cat!=='Favourites')items=items.filter(i=>i.cat===L.cat);
+  if(L.size!=='any')items=items.filter(i=>L.size==='quick'?i.n<=15:L.size==='medium'?i.n>15&&i.n<=35:L.size==='big'?i.n>35&&i.n<80:i.n>=80);
+  if(toks.length)items=items.filter(i=>{const hay=i.name.toLowerCase()+' '+i.words;return toks.every(([a,b])=>hay.includes(a)||hay.includes(b))});
+  return items;
+}
+function renderFilters(){
+  const cb=$('#catChips');cb.textContent='';
+  for(const c of CATS){const b=document.createElement('button');b.type='button';b.textContent=c;b.setAttribute('aria-pressed',L.cat===c);b.onclick=()=>{L.cat=c;L.shown=48;renderFilters();renderLibrary()};cb.append(b)}
+  const sb=$('#sizeSeg');sb.textContent='';
+  for(const [k,t] of SIZES){const b=document.createElement('button');b.type='button';b.textContent=t;b.setAttribute('aria-pressed',L.size===k);b.onclick=()=>{L.size=k;L.shown=48;renderFilters();renderLibrary()};sb.append(b)}
+}
+function renderLibrary(){
+  const items=libMatches(),grid=$('#ideaGrid');grid.textContent='';
+  $('#libCount').textContent=L.q.trim()?(fmt(items.length)+' designs match “'+L.q.trim()+'”'):(L.cat==='Favourites'?'Hand-picked to start with':fmt(items.length)+' designs');
+  for(const it of items.slice(0,L.shown)){
+    const tk=thumbKey(it.key);
+    grid.append(cardEl(it.name,itemMeta(it),tk,()=>{loadKey(it.key);setView('build')},()=>{loadKey(it.key);setView('studio')},it.key));
+  }
+  if(!items.length){const e=document.createElement('p');e.className='empty';e.style.gridColumn='1/-1';e.textContent=sampleFn?'No designs match. Press “Make it” and Claude will design one for your box.':'No designs match. Try another word.';grid.append(e)}
+  if(L.cat==='Favourites'&&!L.q.trim()){
+    const sp=document.createElement('button');sp.className='card surprise';
+    sp.innerHTML='<div class="pic"><b>?</b></div><div class="meta"><h3>Surprise me</h3><span>Any of '+fmt(ALL_ITEMS.length)+' designs</span></div>';
+    sp.onclick=()=>{lastAsk='';const it=ALL_ITEMS[Math.floor(Math.random()*ALL_ITEMS.length)];S.variant[it.key]=(S.variant[it.key]||0)+Math.floor(Math.random()*4);showKeyResult(it.key);document.querySelector('.hero').scrollIntoView({behavior:reduceMotion?'auto':'smooth'})};
+    grid.append(sp);
+  }
+  $('#showMore').hidden=items.length<=L.shown;
+  $('#showMore').textContent='Show more · '+fmt(items.length-L.shown)+' left';
+}
+function renderGallery(){
+  const mine=$('#mineGrid');mine.textContent='';
+  const entries=Object.entries(S.designs).sort((a,b)=>(b[1].updatedAt||0)-(a[1].updatedAt||0));
+  for(const [id,d] of entries){
+    const key='mine-'+id+'-'+(d.updatedAt||0);const n=(d.bricks||[]).length;
+    mine.append(cardEl(d.name||'Untitled',plural(n,'piece'),key,()=>{loadMine(id);setView('build')},()=>{loadMine(id);setView('studio')}));
+    if(!thumbStore.has(key))queueThumb(key,()=>({base:d.base,bricks:unpack(d.bricks)}));
+  }
+  const nb=document.createElement('button');nb.className='card new';
+  nb.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg><span>New design</span>';
+  nb.onclick=()=>{newDesign('My model','16x16',[]);setView('studio')};mine.append(nb);
+  renderFilters();renderLibrary();
+}
+$('#showMore').onclick=()=>{L.shown+=48;renderLibrary()};
+$('#heroCount').textContent=fmt(ALL_ITEMS.length)+' designs. Every one uses only the bricks in your box.';
+$('#askInput').placeholder='Search '+fmt(ALL_ITEMS.length)+' designs, or ask for anything';
+let qTimer=null;
+$('#askInput').addEventListener('input',e=>{clearTimeout(qTimer);qTimer=setTimeout(()=>{L.q=e.target.value;L.shown=48;renderLibrary()},180)});
+
+// ---------- ask: library first, Claude for anything new ----------
+let sampleFn=null,askCtl=null,lastKey=null,lastAsk='',resultKind=null,lastFamily=null;
+(async()=>{try{sampleFn=window.claude&&window.claude.use?await window.claude.use('sample'):null}catch(e){sampleFn=null}})();
+function showResult(o){
+  const r=$('#result');r.hidden=false;r.classList.toggle('err',!!o.err);
+  $('#resWait').hidden=!o.wait;$('#resWaitText').textContent=o.wait||'';
+  $('#resName').textContent=o.name||'';$('#resName').hidden=!o.name;
+  $('#resMeta').textContent=o.meta||'';
+  const img=$('#resImg');img.hidden=!o.img;if(o.img)img.src=o.img;r.classList.toggle('noimg',!o.img);
+  $('#resBuild').hidden=!o.ready;$('#resEdit').hidden=!o.ready;
+  $('#resColours').hidden=!(o.ready&&resultKind==='lib');
+  $('#resAnother').hidden=!(o.ready&&resultKind==='lib'&&lastFamily!=null);
+  $('#resClaude').hidden=!(sampleFn&&!o.wait&&lastAsk);
+  $('#resStop').hidden=!o.wait;
+}
+function showKeyResult(key,more){
+  lastKey=key;resultKind='lib';const it=ITEM.get(key);lastFamily=it&&it.fi!=null?it.fi:null;
+  const d=loadKey(key);const ok=d.bricks.length>=6;
+  const extra=more>1?(' '+fmt(more-1)+' more like it below.'):'';
+  showResult({img:modelThumb(S.design),name:d.name,meta:ok?((it&&it.no?'No. '+it.no+' · ':'')+plural(d.bricks.length,'piece')+', '+plural(buildSteps(d.bricks,S.per).length+1,'step')+', all from your box.'+extra):'Your box is too low on pieces for this one. Check My brick box.',ready:ok,err:!ok});
+}
+function matchFamily(text){
+  for(const [a,b] of tokens(text))for(const f of FAMILIES)if(f.id===a||f.words.includes(a)||f.words.includes(b))return f.idx;
+  return null;
+}
+$('#askForm').onsubmit=e=>{e.preventDefault();ask($('#askInput').value)};
+$('#resColours').onclick=()=>{if(!lastKey)return;S.variant[lastKey]=(S.variant[lastKey]||0)+1;showKeyResult(lastKey)};
+$('#resAnother').onclick=()=>{if(lastFamily==null)return;const its=LIB.filter(i=>i.fi===lastFamily&&i.key!==lastKey);if(its.length)showKeyResult(its[Math.floor(Math.random()*its.length)].key)};
+$('#resBuild').onclick=()=>setView('build');
+$('#resEdit').onclick=()=>setView('studio');
+$('#resClaude').onclick=()=>askClaude(lastAsk);
+$('#resStop').onclick=()=>{if(askCtl)askCtl.abort()};
+function ask(text){
+  text=String(text||'').trim();if(!text){$('#askInput').focus();return}
+  lastAsk=text;L.q=text;L.shown=48;renderLibrary();
+  const fi=matchFamily(text);
+  if(fi!=null){const its=LIB.filter(i=>i.fi===fi);if(its.length){showKeyResult(its[Math.floor(Math.random()*its.length)].key,its.length);return}}
+  const k=matchIdea(text);if(k){showKeyResult('idea-'+k);return}
+  const hits=libMatches();if(hits.length){showKeyResult(hits[0].key,hits.length);return}
+  if(!sampleFn){resultKind=null;showResult({err:true,name:'Nothing called “'+text+'” yet',meta:'Try another word, or design it yourself in Studio.'});return}
+  askClaude(text);
+}
+function boxText(){return Object.entries(S.inv.counts).filter(([,n])=>n>0).sort().map(([k,n])=>{const [t,c]=k.split('|');return t+' '+c+': '+n}).join('\n')}
+function claudePrompt(req,withTools){
+  return `You are a LEGO set designer. Design a small model that a 6-year-old will build step by step from the pieces in their box.
+Request: "${req}".
+
+THINK FIRST about the 3 or 4 features that make a ${req} recognisable (for an aeroplane: long body, wide wings, tail fin, pointed nose). Plan its size (usually 6 to 12 studs long, 3 to 8 bricks tall), then build those features. Recognisable silhouette matters more than detail. Use colour on purpose: one main colour, one accent, black or blue for windows and eyes.
+
+GRID: one green baseplate, 16 x 16 studs; cells x = 0..15 and z = 0..15. Smaller z is the FRONT, facing the child: noses, faces and doors point toward small z. Keep the model near the middle.
+
+SHAPES (width along x by depth along z, at rot 0):
+b1x1 1x1, b1x2 1x2, b1x3 1x3, b1x4 1x4, b1x6 1x6, b2x2 2x2, b2x3 2x3, b2x4 2x4, b2x6 2x6, b2x8 2x8 — bricks, 1 brick tall
+p1x2, p1x3, p1x4, p2x2, p2x3, p2x4, p4x4, p4x8 — plates, same footprints, 1/3 brick tall
+s1x2 (1x2), s2x2 (2x2), s2x4 (4 wide by 2 deep) — 45° slopes, 1 brick tall; the back row has studs, the front row is the slope.
+rot is 0,1,2,3; rot 1 and 3 swap width and depth. A piece at (x,z) covers x..x+width-1 and z..z+depth-1 after rotation.
+Slope facing: rot 0 slopes down toward smaller z, rot 1 toward larger x, rot 2 toward larger z, rot 3 toward smaller x.
+
+STACKING: you never give a height. Each piece drops straight down onto the highest thing under its footprint (baseplate = 0). List pieces bottom-up. A piece stays high only if something under part of it is already high, so to lift a wing, first build the body it rests on. Overhangs are fine. Nothing rests on the sloped row of a slope. Pieces can't slide under an overhang later.
+STRENGTH: every piece must be held by at least 2 studs. Overlap the joints below like a brick wall; alternate brick directions between layers.
+
+THE BOX (exact counts; never use a shape+colour more often than listed):
+${boxText()}
+
+Use 15 to 80 pieces.
+${withTools?'Then call check_design with your full list. It returns problems, where each piece landed, a top-down height map, and front and side silhouettes. Look at the silhouettes and ask: does this read as a '+req+'? Fix problems, wobbly pieces and the silhouette, then check again. Two or three checks is normal.\n':''}OUTPUT: only JSON like {"name":"Speedy Plane","pieces":[["b2x4","white",7,2,0],["s2x2","red",7,0,0]]}. Each piece is [shape, colour, x, z, rot].`;
+}
+async function askClaude(req){
+  req=String(req||'').trim();if(!req||!sampleFn)return;
+  if(askCtl)askCtl.abort();const ctl=askCtl=new AbortController();
+  resultKind='claude';let rounds=0;
+  showResult({wait:'Claude is designing a '+req+' from your box…',meta:'This usually takes one to two minutes.'});
+  try{
+    const lim=await sampleFn.limits().catch(()=>null);const withTools=!!(lim&&lim.tools);
+    const opts={signal:ctl.signal,modelTier:'complex',cache:false,onText:()=>showResult({wait:'Writing the instructions…',meta:'Almost there.'})};
+    if(withTools)opts.tools=[{name:'check_design',
+      description:'Builds your piece list on the 16x16 plate with the real stacking rules and the real box. Returns problems by index, where each piece landed (height in bricks), wobbly pieces held by one stud, a top-down height map (rows z=0.., digits = height in bricks) and front/side silhouettes (# = filled, top row is highest).',
+      inputSchema:{type:'object',properties:{pieces:{type:'array',description:'[shape, colour, x, z, rot] arrays, bottom-up',items:{type:'array'}}},required:['pieces']},
+      execute(input){rounds++;showResult({wait:'Claude is checking the model (check '+rounds+')…',meta:'Making sure every piece fits your box and holds together.'});
+        const r=placeList(Array.isArray(input.pieces)?input.pieces:[],S.inv.counts,BASE16);
+        const idx=new Map();r.report.forEach(x=>{if(x.y!=null)idx.set(x.i,x)});
+        const w=new Set(wobbly(r.bricks));const wob=[];let bi=0;r.report.forEach(x=>{if(x.y!=null){if(w.has(r.bricks[bi].id))wob.push(x.i);bi++}});
+        return {placed:r.bricks.length,problems:r.report.filter(x=>x.status!=='ok').slice(0,80),wobbly_piece_indexes:wob,landed_at:r.report.filter(x=>x.y!=null).map(x=>[x.i,x.y]),height_map:heightMap(r.bricks,BASE16),...silhouettes(r.bricks,BASE16)}}}];
+    const out=await sampleFn.json(claudePrompt(req,withTools),opts);
+    if(ctl.signal.aborted)return;
+    const r=placeList(out&&Array.isArray(out.pieces)?out.pieces:[],S.inv.counts,BASE16);
+    if(r.bricks.length<6){showResult({err:true,name:'That one didn’t fit your box',meta:'Ask again, or pick an idea below.'});return}
+    const name=String(out.name||req).slice(0,40);
+    newDesign(name,'16x16',r.bricks);
+    const skipped=r.report.filter(x=>x.status.startsWith('skipped')).length;
+    showResult({img:modelThumb(S.design),name,meta:plural(r.bricks.length,'piece')+', '+plural(buildSteps(r.bricks,S.per).length+1,'step')+'. Saved in Your designs.'+(skipped?' '+plural(skipped,'piece')+' left out to fit your box.':''),ready:true});
+    renderGallery();
+  }catch(e){
+    const code=e&&e.code;
+    if(code==='cancelled'){showResult({name:'Stopped',meta:'Ask again whenever you like.'});return}
+    if(['not_granted','sampling_disabled','capability_disabled','capability_removed','not_declared'].includes(code)){sampleFn=null;showResult({err:true,name:'Claude isn’t available here',meta:'Pick an idea below, or design it in Studio.'});return}
+    const msg={rate_limited:'Claude is busy or your usage limit is reached. Try again later.',invalid_json:'The design came back garbled. Ask again.',empty_completion:'The design came back empty. Ask again.',session_expired:'Sign in to Claude again, then retry.'}[code]||'Couldn’t reach Claude. Try again.';
+    showResult({err:true,name:'Something went wrong',meta:msg});
+  }finally{if(askCtl===ctl)askCtl=null}
+}
+
+// ---------- Studio ----------
+function snapshot(){return JSON.stringify(S.design.bricks)}
+function commit(before){S.undo.push(before);if(S.undo.length>200)S.undo.shift();S.redo=[];forkIfStarter();rebuildBricks();renderStudio();markDirty()}
+function doUndo(){if(!S.undo.length)return;S.redo.push(snapshot());S.design.bricks=JSON.parse(S.undo.pop());rebuildBricks();renderStudio();markDirty()}
+function doRedo(){if(!S.redo.length)return;S.undo.push(snapshot());S.design.bricks=JSON.parse(S.redo.pop());rebuildBricks();renderStudio();markDirty()}
+const ray=new THREE.Raycaster(),ndc=new THREE.Vector2();
+function pick(x,y){const r=cv.getBoundingClientRect();ndc.set(((x-r.left)/r.width)*2-1,-((y-r.top)/r.height)*2+1);ray.setFromCamera(ndc,camera);return ray.intersectObjects([baseMesh,...brickGroup.children],false)[0]||null}
+function targetFrom(hit){if(!hit)return null;const n=hit.face.normal.clone().transformDirection(hit.object.matrixWorld);const p=hit.point.clone();if(hit.object===baseMesh||n.y>0.5)p.addScaledVector(n,-0.02);else p.addScaledVector(n,0.5);return {cx:Math.floor(p.x),cz:Math.floor(p.z)}}
+let ghost=null,ghostKey='',hover=null,hiId=null;
+function setGhost(t,c,bad){const k=t+c+bad;if(k!==ghostKey){if(ghost)scene.remove(ghost);ghost=brickMesh(t,c,bad?'bad':'ghost');scene.add(ghost);ghostKey=k}return ghost}
+function hideGhost(){if(ghost)ghost.visible=false}
+function findBrick(id){return S.design.bricks.find(b=>b.id===id)}
+function highlight(id){
+  if(hiId){const m=meshById.get(hiId),b=findBrick(hiId);if(m&&b)m.material=mat(b.c)}
+  hiId=null;
+  if(id&&meshById.get(id)){const b=findBrick(id);meshById.get(id).material=mat(S.tool==='paint'?S.color:b.c,S.tool==='erase'?'bad':'ghost');hiId=id}
+}
+function updateHover(x,y){
+  if(S.view!=='studio'){hideGhost();return}
+  const hit=pick(x,y);highlight(null);
+  if(S.tool!=='place'){hideGhost();const id=hit&&hit.object!==baseMesh?hit.object.userData.id:null;highlight(id);
+    $('#hoverInfo').textContent=id?(S.tool==='paint'?'Click to paint it '+COLORS[S.color].name.toLowerCase():'Click to remove'):(S.tool==='paint'?'Click a piece to paint it':'Click a piece to remove it');$('#layerInfo').hidden=true;return}
+  const tg=targetFrom(hit);if(!tg){hideGhost();hover=null;return}
+  const {fw,fd}=footprint(S.shape,S.rot),base=baseOf(S.design);
+  let bx=tg.cx-Math.floor((fw-1)/2),bz=tg.cz-Math.floor((fd-1)/2);
+  bx=Math.max(0,Math.min(base.w-fw,bx));bz=Math.max(0,Math.min(base.d-fd,bz));
+  const p=dropPlacement(buildOcc(S.design.bricks),S.shape,S.rot,bx,bz,base);
+  hover={x:bx,z:bz,y:p.y,ok:p.ok,why:p.why};
+  const g=setGhost(S.shape,S.color,!p.ok);g.visible=true;positionMesh(g,{t:S.shape,r:S.rot,x:bx,z:bz,y:p.y});
+  const used=partsCount(S.design.bricks)[S.shape+'|'+S.color]||0,have=owned(S.shape,S.color);
+  $('#hoverInfo').textContent=p.ok?(COLORS[S.color].name+' '+shapeLabel(S.shape)+(used>=have?' · none left in your box':'')):p.why;
+  $('#layerInfo').hidden=!p.ok;$('#layerInfo').textContent='Layer '+(Math.round(p.y/3*10)/10+1);
+}
+function act(x,y){
+  const hit=pick(x,y);
+  if(S.tool==='place'){updateHover(x,y);if(!hover)return;if(!hover.ok){toast(hover.why);return}
+    const before=snapshot();const used=partsCount(S.design.bricks)[S.shape+'|'+S.color]||0,have=owned(S.shape,S.color);
+    let pi=0;if(S.design.parts){let k=S.design.parts.indexOf('Your additions');if(k<0){S.design.parts.push('Your additions');k=S.design.parts.length-1}pi=k}
+    S.design.bricks.push({id:'b'+uid(),t:S.shape,c:S.color,x:hover.x,z:hover.z,y:hover.y,r:S.rot,p:pi});commit(before);
+    if(used>=have)toast('Your box has '+have+' of these');updateHover(x,y);return}
+  if(!hit||hit.object===baseMesh)return;
+  const id=hit.object.userData.id,b=findBrick(id);if(!b)return;
+  if(S.tool==='erase'){if(blockersAbove(buildOcc(S.design.bricks),b).size){toast('Take off the pieces on top first');return}
+    const before=snapshot();S.design.bricks=S.design.bricks.filter(q=>q.id!==id);hiId=null;commit(before)}
+  else if(S.tool==='paint'&&b.c!==S.color){const before=snapshot();b.c=S.color;hiId=null;commit(before)}
+}
+function rotate(){S.rot=(S.rot+1)%4;if(lastMouse)updateHover(lastMouse.x,lastMouse.y)}
+function renderShapes(){
+  const box=$('#shapes');box.textContent='';
+  for(const [t,s] of Object.entries(SHAPES)){if(s.kind!==S.kind)continue;
+    const b=document.createElement('button');b.className='shape';b.setAttribute('aria-pressed',t===S.shape);b.setAttribute('aria-label',shapeLabel(t));
+    const img=new Image();img.alt='';img.src=thumb(t,S.color);const l=document.createElement('span');l.textContent=shapeLabel(t).split(' ')[0];
+    const o=document.createElement('small');o.textContent=owned(t,S.color)+' in box';b.append(img,l,o);
+    b.onclick=()=>{S.shape=t;S.tool='place';renderStudio()};box.append(b)}
+}
+function renderColors(){
+  const box=$('#colors');box.textContent='';
+  for(const [c,v] of Object.entries(COLORS)){const n=owned(S.shape,c);if(S.ownedOnly&&!n&&c!==S.color)continue;
+    const b=document.createElement('button');b.className='sw'+(n?'':' zero');b.style.background=v.hex;b.setAttribute('aria-pressed',c===S.color);b.setAttribute('aria-label',v.name+', '+n+' in box');b.title=v.name;
+    const s=document.createElement('span');s.className='n';s.textContent=n;b.append(s);b.onclick=()=>{S.color=c;renderStudio()};box.append(b)}
+  $('#colorName').textContent=COLORS[S.color].name+' · '+owned(S.shape,S.color)+' '+shapeLabel(S.shape)+' in your box';
+}
+let warnIds=[];
+function clearWarn(){for(const id of warnIds){const m=meshById.get(id),b=findBrick(id);if(m&&b)m.material=mat(b.c)}warnIds=[]}
+function renderChecks(){
+  const box=$('#checks');box.textContent='';const bricks=S.design.bricks;if(!bricks.length)return;
+  const cnt=partsCount(bricks);let short=0;for(const [k,n] of Object.entries(cnt))short+=Math.max(0,n-owned(...k.split('|')));
+  const wob=wobbly(bricks);
+  const mk=(cls,text,btn,fn)=>{const d=document.createElement('div');d.className='notice '+cls;const s=document.createElement('span');s.textContent=text;d.append(s);if(btn){const b=document.createElement('button');b.className='link';b.textContent=btn;b.onclick=fn;d.append(b)}box.append(d)};
+  if(short)mk('bad',plural(short,'piece')+' not in your box','Fix with my colours',()=>{const before=snapshot();const r=fixMissing(S.design.bricks,S.inv.counts);if(r.changed){commit(before);toast('Swapped '+plural(r.changed,'piece')+' to colours you have'+(r.left?(', '+r.left+' still missing'):''))}else toast('No spare colours for those shapes')});
+  if(wob.length)mk('warn',plural(wob.length,'piece')+' held by one stud','Show',()=>{clearWarn();for(const id of wob){const m=meshById.get(id),b=findBrick(id);if(m&&b)m.material=mat(b.c,'warn')}warnIds=wob;setTimeout(clearWarn,2500)});
+  if(!short&&!wob.length)mk('ok','Fits your box and holds together');
+}
+function renderParts(){
+  const cnt=partsCount(S.design.bricks);
+  const rows=Object.entries(cnt).map(([k,n])=>{const [t,c]=k.split('|');return {t,c,n,have:owned(t,c)}}).sort((a,b)=>((b.n>b.have)-(a.n>a.have))||b.n-a.n);
+  const ul=$('#parts');ul.textContent='';
+  if(!rows.length){const li=document.createElement('li');li.className='empty';li.style.display='block';li.textContent='No pieces yet. Pick a brick and click the green plate.';ul.append(li)}
+  for(const r of rows){const li=document.createElement('li');const miss=r.n-r.have;if(miss>0)li.className='short';
+    const img=new Image();img.alt='';img.src=thumb(r.t,r.c);
+    const nm=document.createElement('div');nm.className='nm';nm.textContent=COLORS[r.c].name+' '+shapeLabel(r.t);
+    const sm=document.createElement('small');const est=S.inv.est[r.t+'|'+r.c]&&!S.invEdited[r.t+'|'+r.c];sm.textContent=miss>0?('box has '+(est?'≈':'')+r.have+' · need '+miss+' more'):('box has '+(est?'≈':'')+r.have);nm.append(sm);
+    const q=document.createElement('div');q.className='q';q.textContent='×'+r.n;li.append(img,nm,q);ul.append(li)}
+  $('#sumPieces').textContent=S.design.bricks.length;
+  $('#sumSteps').textContent=S.design.bricks.length?buildSteps(S.design.bricks,S.per).length+1:0;
+  $('#sumLayers').textContent=layersOf(S.design.bricks);
+  $('#toBuild').disabled=!S.design.bricks.length;$('#delBtn').disabled=S.isStarter;
+}
+function renderStudio(){
+  renderShapes();renderColors();renderParts();renderChecks();updateTabs();
+  $('#undoBtn').disabled=!S.undo.length;$('#redoBtn').disabled=!S.redo.length;
+  document.querySelectorAll('[data-tool]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.tool===S.tool));
+  document.querySelectorAll('[data-kind]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.kind===S.kind));
+}
+document.querySelectorAll('[data-tool]').forEach(b=>b.onclick=()=>{S.tool=b.dataset.tool;hideGhost();renderStudio()});
+document.querySelectorAll('[data-kind]').forEach(b=>b.onclick=()=>{S.kind=b.dataset.kind;
+  if(SHAPES[S.shape].kind!==S.kind)S.shape=Object.keys(SHAPES).find(t=>SHAPES[t].kind===S.kind&&owned(t,S.color)>0)||Object.keys(SHAPES).find(t=>SHAPES[t].kind===S.kind);
+  S.tool='place';renderStudio()});
+$('#ownedOnly').onchange=e=>{S.ownedOnly=e.target.checked;renderColors()};
+$('#rotBtn').onclick=rotate;$('#undoBtn').onclick=doUndo;$('#redoBtn').onclick=doRedo;
+document.querySelectorAll('[data-base]').forEach(btn=>btn.onclick=()=>{
+  const nb=btn.dataset.base,[w,d]=nb.split('x').map(Number);if(nb===S.design.base)return;
+  if(!S.design.bricks.every(b=>cellsOf(b.t,b.r,b.x,b.z).every(c=>c.x<w&&c.z<d))){toast('Some pieces sit outside that plate');return}
+  const before=snapshot();S.design.base=nb;buildBase({w,d});S.undo.push(before);forkIfStarter();
+  document.querySelectorAll('[data-base]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.base===nb));renderStudio();markDirty();placeCamera()});
+$('#modelName').oninput=e=>{S.design.name=e.target.value.trim()||'Untitled';if(S.isStarter){const n=S.design.name;forkIfStarter();S.design.name=n;$('#modelName').value=n}markDirty()};
+$('#newBtn').onclick=()=>{flushSave();newDesign('My model','16x16',[])};
+$('#dupBtn').onclick=()=>{flushSave();newDesign('Copy of '+S.design.name,S.design.base,S.design.bricks,S.design.parts);toast('Made a copy')};
+$('#delBtn').onclick=()=>{if(S.isStarter)return;$('#confirmText').textContent='“'+S.design.name+'” will be gone for good.';const dlg=$('#confirmDlg');dlg.returnValue='';dlg.showModal();
+  dlg.onclose=async()=>{if(dlg.returnValue!=='yes')return;const id=S.designId;delete S.designs[id];clearTimeout(saveTimer);S.dirty=false;try{if(S.backend)await S.backend.deleteDesign(id)}catch(e){}loadStarter('starter-robot');setView('ideas')}};
+$('#toBuild').onclick=()=>setView('build');
+
+// pointer + orbit
+const ptrs=new Map();let downAt=null,dragging=false,pinch0=null,lastMouse=null;
+const clampR=r=>Math.max(5,Math.min(80,r));
+cv.addEventListener('pointerdown',e=>{cv.setPointerCapture(e.pointerId);ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});goal=null;
+  if(ptrs.size===1){downAt={x:e.clientX,y:e.clientY};dragging=false}
+  if(ptrs.size===2){const [a,b]=[...ptrs.values()];pinch0={d:Math.hypot(a.x-b.x,a.y-b.y),r:orbit.radius};dragging=true}});
+cv.addEventListener('pointermove',e=>{
+  if(e.pointerType==='mouse')lastMouse={x:e.clientX,y:e.clientY};
+  const p=ptrs.get(e.pointerId);if(!p){if(e.pointerType==='mouse')updateHover(e.clientX,e.clientY);return}
+  const dx=e.clientX-p.x,dy=e.clientY-p.y;p.x=e.clientX;p.y=e.clientY;
+  if(ptrs.size===2&&pinch0){const [a,b]=[...ptrs.values()];orbit.radius=clampR(pinch0.r*pinch0.d/Math.max(1,Math.hypot(a.x-b.x,a.y-b.y)));placeCamera();return}
+  if(!dragging&&downAt&&Math.hypot(e.clientX-downAt.x,e.clientY-downAt.y)>6){dragging=true;hideGhost()}
+  if(dragging){orbit.theta-=dx*0.008;orbit.phi=Math.max(0.12,Math.min(1.45,orbit.phi-dy*0.006));placeCamera()}});
+function endPtr(e){const was=ptrs.has(e.pointerId);ptrs.delete(e.pointerId);if(ptrs.size<2)pinch0=null;
+  if(was&&!ptrs.size){if(!dragging&&S.view==='studio'&&e.type==='pointerup')act(e.clientX,e.clientY);dragging=false;downAt=null}}
+cv.addEventListener('pointerup',endPtr);cv.addEventListener('pointercancel',endPtr);
+cv.addEventListener('pointerleave',e=>{if(e.pointerType==='mouse'&&!ptrs.size){hideGhost();highlight(null)}});
+cv.addEventListener('wheel',e=>{e.preventDefault();goal=null;orbit.radius=clampR(orbit.radius*(1+e.deltaY*0.0012));placeCamera()},{passive:false});
+cv.addEventListener('contextmenu',e=>e.preventDefault());
+addEventListener('keydown',e=>{
+  if(e.target.closest&&e.target.closest('input,select,textarea,dialog'))return;
+  if(S.view==='build'){if((e.key==='Enter'||e.key===' ')&&e.target.closest&&e.target.closest('button'))return;if(e.key==='ArrowRight'||e.key===' '||e.key==='Enter'){e.preventDefault();goStep(1)}if(e.key==='ArrowLeft')goStep(-1);return}
+  if(S.view!=='studio')return;
+  if(e.key==='r'||e.key==='R')rotate();
+  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'){e.preventDefault();e.shiftKey?doRedo():doUndo()}
+});
+
+// ---------- inventory ----------
+let invColor='red';
+function renderInv(){
+  const cb=$('#invColors');cb.textContent='';
+  for(const [c,v] of Object.entries(COLORS)){const b=document.createElement('button');b.type='button';b.className='sw';b.style.background=v.hex;b.title=v.name;b.setAttribute('aria-label',v.name);b.setAttribute('aria-pressed',c===invColor);b.onclick=()=>{invColor=c;renderInv()};cb.append(b)}
+  const g=$('#invGrid');g.textContent='';
+  for(const t of Object.keys(SHAPES)){const k=t+'|'+invColor;const d=document.createElement('div');d.className='inv-item';
+    const img=new Image();img.alt='';img.src=thumb(t,invColor);const w=document.createElement('div');
+    const l=document.createElement('label');l.htmlFor='inv-'+t;l.textContent=shapeLabel(t);
+    if(S.inv.est[k]&&!S.invEdited[k]){const e=document.createElement('span');e.className='est';e.textContent=' ≈';e.title='Estimate. Please count.';l.append(e)}
+    const inp=document.createElement('input');inp.type='number';inp.min=0;inp.max=999;inp.id='inv-'+t;inp.value=S.inv.counts[k]||0;
+    inp.oninput=()=>{S.inv.counts[k]=Math.max(0,parseInt(inp.value,10)||0);S.invEdited[k]=true;saveInv();if(S.view==='studio')renderStudio()};
+    w.append(l,inp);d.append(img,w);g.append(d)}
+}
+function openInv(){invColor=S.color;renderInv();$('#invDlg').showModal()}
+$('#invBtn').onclick=openInv;$('#boxBtn').onclick=openInv;
+$('#invDlg').addEventListener('close',()=>{if(S.view==='ideas')renderGallery()});
+$('#invReset').onclick=()=>{S.inv=defaultInventory();S.invEdited={};saveInv();renderInv()};
+
+// ---------- Build ----------
+let anim=[],arrows=[];
+const arrowGeo=(()=>{const c=new THREE.ConeGeometry(0.42,0.85,24);c.rotateX(Math.PI);c.translate(0,0.42,0);const s=new THREE.CylinderGeometry(0.15,0.15,0.9,16);s.translate(0,1.3,0);return THREE.BufferGeometryUtils.mergeBufferGeometries([prep(c),prep(s)])})();
+const arrowMat=new THREE.MeshStandardMaterial({color:new THREE.Color('#0071e3').convertSRGBToLinear(),emissive:new THREE.Color('#003f80'),roughness:.35});
+function clearArrows(){for(const a of arrows)scene.remove(a);arrows=[]}
+function enterBuild(){
+  S.steps=buildSteps(S.design.bricks,S.per);if(S.step>S.steps.length)S.step=0;
+  $('#done').hidden=true;$('#confetti').hidden=true;
+  document.querySelectorAll('[data-per]').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.per===S.per));
+  showStep(false);
+}
+function bboxOf(bs){let x0=1e9,z0=1e9,x1=-1e9,z1=-1e9,y1=0;for(const b of bs){const {fw,fd}=footprint(b.t,b.r);x0=Math.min(x0,b.x);z0=Math.min(z0,b.z);x1=Math.max(x1,b.x+fw);z1=Math.max(z1,b.z+fd);y1=Math.max(y1,(b.y+SHAPES[b.t].h)*UNIT_H)}return {x0,z0,x1,z1,y1,cx:(x0+x1)/2,cz:(z0+z1)/2}}
+// Point the camera at the new pieces, from the side they are on, keeping the whole model in view.
+function frameStep(shown,cur){
+  const base=baseOf(S.design);
+  if(!shown.length){goal={theta:FRONT,phi:0.9,radius:Math.max(base.w,base.d)*1.9,target:new THREE.Vector3(base.w/2,0.5,base.d/2)};return}
+  const all=bboxOf(shown),nw=bboxOf(cur.length?cur:shown);
+  const span=Math.max(all.x1-all.x0,all.z1-all.z0,all.y1*1.3,6);
+  let theta=orbit.theta;const dx=nw.cx-all.cx,dz=nw.cz-all.cz;
+  if(Math.hypot(dx,dz)>1.2){theta=Math.atan2(dx,dz);let d=((theta-FRONT+Math.PI*3)%(Math.PI*2))-Math.PI;d=Math.max(-1.25,Math.min(1.25,d));theta=FRONT+d}
+  else theta=FRONT+(((orbit.theta-FRONT+Math.PI*3)%(Math.PI*2))-Math.PI)*0.3;
+  const phi=cur.length&&cur[0].y>0?0.8:0.95;
+  const tx=all.cx*0.55+nw.cx*0.45,tz=all.cz*0.55+nw.cz*0.45,ty=Math.max(0.5,(cur.length?cur[0].y*UNIT_H:0)*0.7+all.y1*0.15);
+  goal={theta,phi,radius:Math.max(11,span*2.1),target:new THREE.Vector3(tx,ty,tz)};
+  if(reduceMotion){Object.assign(orbit,{theta:goal.theta,phi:goal.phi,radius:goal.radius});orbit.target.copy(goal.target);goal=null;placeCamera()}
+}
+function showStep(animate){
+  const k=S.step,total=S.steps.length+1;
+  const shown=[];for(let i=0;i<k-1;i++)shown.push(...S.steps[i]);
+  const cur=k>0?S.steps[k-1]:[];const curIds=new Set(cur.map(b=>b.id)),shownIds=new Set(shown.map(b=>b.id));
+  clearArrows();anim=[];
+  for(const b of S.design.bricks){const m=meshById.get(b.id);if(!m)continue;m.visible=shownIds.has(b.id)||curIds.has(b.id);positionMesh(m,b);m.material=mat(b.c);
+    if(curIds.has(b.id)){
+      m.material=mat(b.c).clone();m.material.emissive=new THREE.Color('#ffffff');m.userData.pulse=true;
+      if(animate&&!reduceMotion){anim.push({m,y:m.position.y,t0:performance.now()+cur.indexOf(b)*160});m.position.y+=5}
+      const {fw,fd}=footprint(b.t,b.r);const a=new THREE.Mesh(arrowGeo,arrowMat);
+      a.position.set(b.x+fw/2,(b.y+SHAPES[b.t].h)*UNIT_H+0.55,b.z+fd/2);a.userData.base=a.position.y;scene.add(a);arrows.push(a)
+    }else m.userData.pulse=false}
+  frameStep(shown.concat(cur),cur);
+  $('#stepNo').textContent=k+1;$('#stepOf').textContent='/ '+total;
+  const layers=[...new Set(S.design.bricks.map(b=>b.y))].sort((a,b)=>a-b);
+  const parts=S.design.parts;
+  if(k===0)$('#layerChip').textContent='Start';
+  else if(parts){const pi=cur[0].p||0,pl=[...new Set(S.design.bricks.filter(b=>(b.p||0)===pi).map(b=>b.y))].sort((a,b)=>a-b);$('#layerChip').textContent='Part '+(pi+1)+' of '+parts.length+' · '+parts[pi]+' · layer '+(pl.indexOf(cur[0].y)+1)}
+  else $('#layerChip').textContent='Layer '+(layers.indexOf(cur[0].y)+1)+' of '+layers.length;
+  const find=$('#find');find.textContent='';
+  if(k===0){$('#findLabel').textContent=S.design.base==='24x16'?'Put the big and middle green plates side by side':'Find the green plate';find.append(fig(baseThumbURL(),1,'Green plate'))}
+  else{const prev=k>1?S.steps[k-2]:null;const newPart=parts&&(!prev||(prev[0].p||0)!==(cur[0].p||0));$('#findLabel').textContent=newPart?'New part: '+parts[cur[0].p||0]+' · find':'Find';const g={};for(const b of cur){const key=b.t+'|'+b.c;g[key]=(g[key]||0)+1}
+    for(const [key,n] of Object.entries(g)){const [t,c]=key.split('|');find.append(fig(thumb(t,c),n,COLORS[c].name+' '+shapeLabel(t)))}}
+  $('#prog').style.width=(100*(k+1)/total)+'%';$('#backBtn').disabled=k===0;
+  $('#nextBtn').setAttribute('aria-label',k===total-1?'Finish':'Next step');
+}
+const baseThumbCache={};
+function baseThumbURL(){const k=S.design.base;if(baseThumbCache[k])return baseThumbCache[k];return baseThumbCache[k]=modelThumb({base:k,bricks:[]})}
+function fig(src,n,cap){const f=document.createElement('figure');const i=new Image();i.src=src;i.alt=cap;const x=document.createElement('span');x.className='x';x.textContent=n+'×';const fc=document.createElement('figcaption');fc.textContent=n+' '+cap;f.append(x,i,fc);return f}
+function stepSpeech(){
+  const k=S.step;if(k===0)return S.design.base==='24x16'?'Step 1. Put the big green plate and the middle green plate side by side.':'Step 1. Find the green plate.';
+  const g={};for(const b of S.steps[k-1]){const key=b.t+'|'+b.c;g[key]=(g[key]||0)+1}
+  const bits=Object.entries(g).map(([key,n])=>{const [t,c]=key.split('|');return (n===1?'one':n)+' '+COLORS[c].name.toLowerCase()+' '+shapeSpeech(t)+(n>1?'s':'')});
+  return 'Step '+(k+1)+'. Find '+bits.join(' and ')+'. Put '+(S.steps[k-1].length>1?'them':'it')+' where the blue arrow points.';
+}
+let speakOn=false;
+function say(t){if(!speakOn)return;try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t||stepSpeech());u.rate=0.9;speechSynthesis.speak(u)}catch(e){}}
+$('#sayBtn').onclick=()=>{speakOn=!speakOn;$('#sayBtn').setAttribute('aria-pressed',speakOn);if(speakOn)say();else try{speechSynthesis.cancel()}catch(e){}};
+$('#viewBtn').onclick=()=>{const vis=S.design.bricks.filter(b=>meshById.get(b.id)&&meshById.get(b.id).visible);frameStep(vis.length?vis:S.design.bricks,[]);if(goal){goal.radius*=1.15;goal.theta=FRONT}};
+function goStep(d){
+  if(S.view!=='build')return;const total=S.steps.length+1;
+  if(d>0&&S.step===total-1){finish();return}
+  const n=Math.max(0,Math.min(total-1,S.step+d));if(n===S.step)return;
+  S.step=n;$('#done').hidden=true;showStep(d>0);say();
+}
+$('#nextBtn').onclick=()=>goStep(1);$('#backBtn').onclick=()=>goStep(-1);
+document.querySelectorAll('[data-per]').forEach(b=>b.onclick=()=>{S.per=+b.dataset.per;S.step=0;enterBuild()});
+$('#againBtn').onclick=()=>{S.step=0;$('#done').hidden=true;showStep(false)};
+$('#moreBtn').onclick=()=>setView('ideas');
+function finish(){
+  clearArrows();for(const b of S.design.bricks){const m=meshById.get(b.id);if(m){m.visible=true;m.material=mat(b.c);m.userData.pulse=false}}
+  frameStep(S.design.bricks,[]);if(goal)goal.theta=FRONT;
+  $('#doneSub').textContent=S.design.name+' · '+plural(S.design.bricks.length,'piece');$('#done').hidden=false;confetti();say('You built it! Well done!');
+}
+function confetti(){
+  if(reduceMotion)return;const c=$('#confetti');c.hidden=false;const r=stage.getBoundingClientRect();c.width=r.width;c.height=r.height;const x=c.getContext('2d');
+  const cols=['#ff3b30','#ff9500','#ffcc00','#34c759','#007aff','#af52de'];
+  const ps=Array.from({length:120},()=>({x:Math.random()*r.width,y:-20-Math.random()*r.height*.4,vx:(Math.random()-.5)*2,vy:2+Math.random()*3,w:7+Math.random()*7,h:5+Math.random()*3,a:Math.random()*6,c:cols[(Math.random()*cols.length)|0]}));
+  const t0=performance.now();(function f(t){x.clearRect(0,0,c.width,c.height);for(const p of ps){p.x+=p.vx;p.y+=p.vy;p.a+=.05;x.save();x.translate(p.x,p.y);x.rotate(p.a);x.fillStyle=p.c;x.fillRect(-p.w/2,-p.h/2,p.w,p.h);x.restore()}
+    if(t-t0<3200&&!c.hidden)requestAnimationFrame(f);else{x.clearRect(0,0,c.width,c.height);c.hidden=true}})(t0);
+}
+
+let toastT=null;function toast(t){const el=$('#toast');el.textContent=t;el.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove('show'),2400)}
+
+// ---------- loop ----------
+function loop(t){
+  if(goal&&!ptrs.size){
+    let d=((goal.theta-orbit.theta+Math.PI*3)%(Math.PI*2))-Math.PI;
+    orbit.theta+=d*0.07;orbit.phi+=(goal.phi-orbit.phi)*0.07;orbit.radius+=(goal.radius-orbit.radius)*0.07;orbit.target.lerp(goal.target,0.07);
+    if(Math.abs(d)<0.002&&Math.abs(goal.radius-orbit.radius)<0.02)goal=null;placeCamera();
+  }
+  for(const a of anim){const k=Math.min(1,Math.max(0,(t-a.t0)/520)),e=1-Math.pow(1-k,3);a.m.position.y=a.y+5*(1-e)}
+  anim=anim.filter(a=>t-a.t0<560);
+  const pulse=reduceMotion?0.12:0.08+0.1*(0.5+0.5*Math.sin(t/240));
+  if(S.view==='build')for(const m of meshById.values())if(m.userData.pulse)m.material.emissiveIntensity=pulse;
+  for(const a of arrows)a.position.y=a.userData.base+(reduceMotion?0:Math.sin(t/260)*0.22);
+  if(S.view==='build'&&!$('#done').hidden&&!ptrs.size&&!reduceMotion&&!goal){orbit.theta+=0.004;placeCamera()}
+  if(S.view!=='ideas')renderer.render(scene,camera);
+  requestAnimationFrame(loop);
+}
+
+// ---------- boot ----------
+loadStarter('starter-robot');
+renderGallery();resize();placeCamera();requestAnimationFrame(loop);
+(async()=>{
+  let db=null;try{db=window.claude&&window.claude.use?await window.claude.use('db'):null}catch(e){}
+  let be=db?dbBackend(db):local,data;
+  try{data=await be.load()}catch(e){be=local;data=await local.load()}
+  S.backend=be;S.designs=data.designs||{};
+  if(data.inv&&data.inv.counts){const def=defaultInventory();S.inv={counts:{...def.counts,...data.inv.counts},est:def.est};S.invEdited=data.inv.edited||{};S.invVer++}
+  setStatus(be.kind==='db'?'Synced':'Saved on this computer only');
+  if(be.watch)be.watch(m=>{
+    for(const [id,d] of Object.entries(m)){if(id===S.designId&&(S.dirty||saving))continue;S.designs[id]=d}
+    for(const id of Object.keys(S.designs))if(!m[id]&&id!==S.designId)delete S.designs[id];
+    if(S.view==='ideas')renderGallery();
+  });
+  if(S.view==='ideas')renderGallery();
+})();
+})();
+</script>
+
+</body>
+</html>
